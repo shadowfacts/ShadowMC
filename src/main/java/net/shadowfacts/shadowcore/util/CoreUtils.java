@@ -1,19 +1,19 @@
 package net.shadowfacts.shadowcore.util;
 
-import net.shadowfacts.enfusion.EnFusion;
+import net.shadowfacts.shadowcore.ShadowCore;
 
 public class CoreUtils {
 	
 	public static boolean isOpOrServer(String senderName) {
-		return EnFusion.proxy.isOp(senderName) || senderName.equals("Server");
+		return ShadowCore.proxy.isOp(senderName) || senderName.equals("Server");
 	}
 	
 	public static boolean isClient() {
-		return EnFusion.proxy.isClient();
+		return ShadowCore.proxy.isClient();
 	}
 	
 	public static boolean isServer() {
-		return EnFusion.proxy.isServer();
+		return ShadowCore.proxy.isServer();
 	}
 	
 }
