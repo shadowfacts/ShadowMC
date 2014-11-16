@@ -2,7 +2,6 @@ package net.shadowfacts.shadowcore.command;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
-import net.shadowfacts.enfusion.EnFusion;
 import net.shadowfacts.shadowcore.ShadowCore;
 import net.shadowfacts.shadowcore.util.StringHelper;
 
@@ -21,7 +20,7 @@ public class CommandVersion implements ISubCommand {
 	@Override
 	public void handleCommand(ICommandSender sender, String[] args) {
 		sender.addChatMessage(new ChatComponentText(StringHelper.BRIGHT_GREEN + "ShadowCore:" + StringHelper.WHITE + " v" + ShadowCore.version));
-		sender.addChatMessage(new ChatComponentText(StringHelper.BRIGHT_GREEN + "EnFusion:" + StringHelper.WHITE + " v" + EnFusion.version));
+//		sender.addChatMessage(new ChatComponentText(StringHelper.BRIGHT_GREEN + "EnFusion:" + StringHelper.WHITE + " v" + EnFusion.version));
 	}
 
 	@Override
