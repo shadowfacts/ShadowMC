@@ -9,8 +9,10 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.server.MinecraftServer;
+
 import net.shadowfacts.shadowcore.command.CommandHandler;
 import net.shadowfacts.shadowcore.debug.ItemDebugger;
 import net.shadowfacts.shadowcore.proxy.CommonProxy;

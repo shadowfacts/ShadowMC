@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
+
 import net.shadowfacts.shadowcore.util.StringHelper;
 
 public class CommandHelp implements ISubCommand {

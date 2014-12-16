@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowcore.proxy;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+
 import net.minecraft.server.MinecraftServer;
 
 public class CommonProxy {

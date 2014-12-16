@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowcore;
 
 import net.minecraft.world.ChunkCoordIntPair;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**

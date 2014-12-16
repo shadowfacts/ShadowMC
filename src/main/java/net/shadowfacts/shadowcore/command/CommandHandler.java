@@ -1,15 +1,15 @@
 package net.shadowfacts.shadowcore.command;
 
+import java.util.List;
+import java.util.Set;
+
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import gnu.trove.map.TMap;
 import gnu.trove.map.hash.THashMap;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.shadowfacts.shadowcore.ShadowCore;
-
-import java.util.List;
-import java.util.Set;
 
 public class CommandHandler extends CommandBase {
 	

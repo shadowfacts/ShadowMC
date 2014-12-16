@@ -1,11 +1,12 @@
 package net.shadowfacts.shadowcore.command;
 
+import java.util.List;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
+
 import net.shadowfacts.shadowcore.ShadowCore;
 import net.shadowfacts.shadowcore.util.StringHelper;
-
-import java.util.List;
 
 public class CommandVersion implements ISubCommand {
 

@@ -1,9 +1,9 @@
 package net.shadowfacts.shadowcore.command;
 
+import java.util.List;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
-
-import java.util.List;
 
 public class CommandKillAll implements ISubCommand {
 

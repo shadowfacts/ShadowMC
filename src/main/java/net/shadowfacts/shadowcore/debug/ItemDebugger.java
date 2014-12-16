@@ -1,12 +1,12 @@
 package net.shadowfacts.shadowcore.debug;
 
 import net.minecraft.block.BlockLever;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-import net.shadowfacts.shadowcore.ShadowCore;
+
 import net.shadowfacts.shadowcore.util.StringHelper;
 
 /**
