@@ -28,9 +28,4 @@ public class BaseBlock extends Block {
 		return String.format("tile.%s.%s", modId, blockName);
 	}
 
-	@Override
-	protected String getTextureName() {
-		return blockName;
-	}
-
 }
