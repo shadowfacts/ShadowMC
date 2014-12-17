@@ -9,23 +9,16 @@ import net.minecraft.block.material.Material;
  */
 public class BaseBlock extends Block {
 
-	private final String modId;
 	private final String blockName;
 
 
-	public BaseBlock(String modId, String blockName) {
-		this(modId, blockName, Material.rock);
+	public BaseBlock(String blockName) {
+		this(blockName, Material.rock);
 	}
 
-	public BaseBlock(String modId, String blockName, Material material) {
+	public BaseBlock(String blockName, Material material) {
 		super(material);
-		this.modId = modId;
 		this.blockName = blockName;
-	}
-
-	@Override
-	public String getUnlocalizedName() {
-		return String.format("tile.%s.%s", modId, blockName);
 	}
 
 }

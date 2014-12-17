@@ -10,12 +10,12 @@ import net.minecraft.world.World;
  */
 public abstract class BaseTileEntityBlock extends BaseBlock implements ITileEntityProvider {
 
-	public BaseTileEntityBlock(String modId, String blockName) {
-		this(modId, blockName, Material.rock);
+	public BaseTileEntityBlock(String blockName) {
+		this(blockName, Material.rock);
 	}
 
-	public BaseTileEntityBlock(String modId, String blockName, Material material) {
-		super(modId, blockName, material);
+	public BaseTileEntityBlock(String blockName, Material material) {
+		super(blockName, material);
 	}
 
 	@Override
