@@ -28,7 +28,7 @@ group= "net.shadowfacts.shadowcore" // http://maven.apache.org/guides/mini/guide
 archivesBaseName = "ShadowCore"
 
 // Get the environment
-ext.env = System.getEnv()
+ext.env = System.getenv()
 
 if (env.DRONE_BUILD_NUMBER != null) {
 	version += "-snapshot-" + env.DRONE_BUILD_NUMBER
