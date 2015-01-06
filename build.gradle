@@ -27,6 +27,13 @@ version = mc_ver + "-" + mod_ver
 group= "net.shadowfacts.shadowcore" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ShadowCore"
 
+// Get the environment
+ext.env = System.getEnv()
+
+if (env.DRONE_BUILD_NUMBER != null) {
+	version += "-snapshot-" + env.DRONE_BUILD_NUMBER
+}
+
 minecraft {
     version = mc_ver + "-" + forge_ver
     runDir = "eclipse"
