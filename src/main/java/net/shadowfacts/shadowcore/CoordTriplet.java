@@ -1,6 +1,11 @@
 package net.shadowfacts.shadowcore;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.world.World;
 
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -16,6 +21,22 @@ public class CoordTriplet implements Comparable {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+
+	public CoordTriplet(Entity e) {
+		this(MathHelper.floor_double(e.posX), MathHelper.floor_double(e.posY), MathHelper.floor_double(e.posZ));
+	}
+
+	public CoordTriplet(TileEntity te) {
+		this(te.xCoord, te.yCoord, te.zCoord);
+	}
+
+	public Block getBlock(World world) {
+		return world.getBlock(this.x, this.y, this.z)
+	}
+
+	public TileEntity getTileEntity(World world) {
+		return world.getTileEntity(this.x, this.y, this.z);
 	}
 
 	public int getChunkX() {
