@@ -1,5 +1,7 @@
 package net.shadowfacts.shadowcore.util;
 
+import net.minecraft.util.StatCollector;
+
 /**
  * Some utilities for working with strings
  * @author shadowfacts
@@ -23,5 +25,9 @@ public class StringHelper {
 	public static final String PINK = (char) 167 + "d";
 	public static final String YELLOW = (char) 167 + "e";
 	public static final String WHITE = (char) 167 + "f";
+
+	public static String localize(String unlocalized) {
+		return StatCollector.translateToLocal(unlocalized);
+	}
 
 }
