@@ -32,7 +32,7 @@ public class CoordTriplet implements Comparable {
 	}
 
 	public Block getBlock(World world) {
-		return world.getBlock(this.x, this.y, this.z)
+		return world.getBlock(this.x, this.y, this.z);
 	}
 
 	public TileEntity getTileEntity(World world) {
