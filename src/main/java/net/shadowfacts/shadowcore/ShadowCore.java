@@ -9,11 +9,10 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.server.MinecraftServer;
-
 import net.shadowfacts.shadowcore.command.CommandHandler;
+import net.shadowfacts.shadowcore.config.Configurator;
 import net.shadowfacts.shadowcore.debug.ItemDebugger;
 import net.shadowfacts.shadowcore.proxy.CommonProxy;
 
@@ -41,11 +40,15 @@ public class ShadowCore {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		debugger = new ItemDebugger();
-		debugger.setUnlocalizedName("shadowDebugger").setCreativeTab(CreativeTabs.tabMisc)
-				.setTextureName(modId + ":shadowDebugger");
+		Configurator.loadConfig(event);
 
-		GameRegistry.registerItem(debugger, "shadowDebugger");
+		if (Configurator.debuggerEnabled) {
+			debugger = new ItemDebugger();
+			debugger.setUnlocalizedName("shadowDebugger").setCreativeTab(CreativeTabs.tabMisc)
+					.setTextureName(modId + ":shadowDebugger");
+
+			GameRegistry.registerItem(debugger, "shadowDebugger");
+		}
 	}
 	
 	@EventHandler
