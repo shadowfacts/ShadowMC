@@ -12,7 +12,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.server.MinecraftServer;
 import net.shadowfacts.shadowcore.command.CommandHandler;
-import net.shadowfacts.shadowcore.config.Configurator;
+import net.shadowfacts.shadowcore.config.ConfigManager;
+import net.shadowfacts.shadowcore.config.Configuration;
 import net.shadowfacts.shadowcore.debug.ItemDebugger;
 import net.shadowfacts.shadowcore.proxy.CommonProxy;
 
@@ -40,9 +41,15 @@ public class ShadowCore {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		Configurator.loadConfig(event);
 
-		if (Configurator.debuggerEnabled) {
+		ConfigManager.instance.configDirPath = event.getModConfigurationDirectory().getAbsolutePath();
+
+		ConfigManager.instance.register("test", Configuration.class);
+
+		ConfigManager.instance.loadAll();
+
+
+		if (Configuration.debugItemEnabled) {
 			debugger = new ItemDebugger();
 			debugger.setUnlocalizedName("shadowDebugger").setCreativeTab(CreativeTabs.tabMisc)
 					.setTextureName(modId + ":shadowDebugger");
