@@ -22,7 +22,7 @@ public class ShadowCore {
 
 	public static final String modId = "shadowcore";
 	public static final String displayName = "ShadowCore";
-	public static final String version = "1.0.0";
+	public static final String version = "1.0.1";
 	public static final String serverProxy = "net.shadowfacts.shadowcore.proxy.CommonProxy";
 	public static final String clientProxy = "net.shadowfacts.shadowcore.proxy.ClientProxy";
 	
