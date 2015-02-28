@@ -54,7 +54,14 @@ public class ConfigManager {
 
 				String configName = configClassAnnotation.name();
 
-				Configuration config = new Configuration(new File(this.configDirPath + "/" + configClassAnnotation.name() + ".cfg"));
+				String path;
+				if (configClassAnnotation.useSubFolder()) {
+					path = this.configDirPath + "/" + configClassAnnotation.folder() + "/" + configClassAnnotation.name() + ".cfg";
+				} else {
+					path = this.configDirPath + "/" + configClassAnnotation.name() + ".cfg";
+				}
+
+				Configuration config = new Configuration(new File(path));
 
 				config.load();
 
@@ -64,11 +71,8 @@ public class ConfigManager {
 
 						ConfigProperty prop = (ConfigProperty)f.getAnnotation(ConfigProperty.class);
 
-//						String propertyName = prop.name() == "" ? f.getName() : prop.name();
 						String propertyName = f.getName();
 
-//						ShadowCore.log.info(propertyName);
-//						ShadowCore.log.info(f.getName());
 
 						try {
 

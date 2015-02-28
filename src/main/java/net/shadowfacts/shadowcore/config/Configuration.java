@@ -4,7 +4,7 @@ package net.shadowfacts.shadowcore.config;
  * Main config file for ShadowCore.
  * @author shadowfacts
  */
-@Config(name = "ShadowCore")
+@Config(name = "Core")
 public class Configuration {
 
 	@ConfigProperty(category = "misc", comment = "Enable the debugger item.")
