@@ -1,7 +1,7 @@
 // Mod info
-ext.mod_ver = "1.0.1"
-ext.mc_ver = "1.7.10"
-ext.forge_ver = "10.13.2.1307-1.7.10"
+// ext.mod_ver = "1.0.1"
+// ext.mc_ver = "1.7.10"
+// ext.forge_ver = "10.13.2.1307-1.7.10"
 
 
 buildscript {
@@ -23,9 +23,9 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = mc_ver + "-" + mod_ver
-group= "net.shadowfacts.shadowcore" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "ShadowCore"
+version = "$minecraft_version-$mod_version"
+// group= "net.shadowfacts.shadowcore" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+// archivesBaseName = "ShadowCore"
 
 // Get the environment
 ext.env = System.getenv()
@@ -35,11 +35,11 @@ if (env.DRONE_BUILD_NUMBER != null) {
 }
 
 minecraft {
-    version = mc_ver + "-" + forge_ver
-    runDir = "eclipse"
+    version = "$minecraft_version-$forge_version"
+    runDir = "run"
 
-    replaceIn "enfusion/EnFusion.java"
-    replace '@VERSION@', mod_ver
+    replaceIn "shadowcore/ShadowCore.java"
+    replace '@VERSION@', "$mod_version"
 }
 
 dependencies {
@@ -60,11 +60,11 @@ dependencies {
 
 processResources
 {
-    inputs.property "version", rootProject.mod_ver
+    inputs.property "version", "$mod_version"
     
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'
-        expand 'version':mod_ver,'mcversion':mc_ver
+        expand 'version':"$mod_version",'mcversion':"$minecraft_version"
     }
 
     from(sourceSets.main.resources.srcDirs) {
