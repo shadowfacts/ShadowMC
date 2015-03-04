@@ -44,7 +44,7 @@ public class ShadowCore {
 
 		ConfigManager.instance.configDirPath = event.getModConfigurationDirectory().getAbsolutePath();
 
-		ConfigManager.instance.register("test", Configuration.class);
+		ConfigManager.instance.register("Core", Configuration.class);
 
 		ConfigManager.instance.loadAll();
 
