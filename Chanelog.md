@@ -1,3 +1,7 @@
+### 1.0.2
+- Fix config name
+- Add /shadow reloadConfig command
+
 ### 1.0.1
 - Fix using subfolders with the config system
 
