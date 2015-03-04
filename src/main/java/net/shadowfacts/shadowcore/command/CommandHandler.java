@@ -1,15 +1,14 @@
 package net.shadowfacts.shadowcore.command;
 
-import java.util.List;
-import java.util.Set;
-
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import gnu.trove.map.TMap;
 import gnu.trove.map.hash.THashMap;
-
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+
+import java.util.List;
+import java.util.Set;
 
 public class CommandHandler extends CommandBase {
 	
@@ -24,19 +23,24 @@ public class CommandHandler extends CommandBase {
 		registerSubCommand(CommandKillAll.instance);
 		registerSubCommand(CommandVersion.instance);
 		registerSubCommand(CommandHelp.instance);
+		registerSubCommand(CommandReloadConfig.instance);
 	}
 	
 	
 	public static void initCommands(FMLServerStartingEvent event) {
         event.registerServerCommand(instance);
 	}
-	
-	public static boolean registerSubCommand(ISubCommand subCommand) {
-		if (!commands.containsKey(subCommand.getCommandName())) {
-			commands.put(subCommand.getCommandName(), subCommand);
+
+	public static boolean registerSubCommand(String name, ISubCommand subCommand) {
+		if (!commands.containsKey(name)) {
+			commands.put(name, subCommand);
 			return true;
 		}
 		return false;
+	}
+
+	public static boolean registerSubCommand(ISubCommand subCommand) {
+		return registerSubCommand(subCommand.getCommandName(), subCommand);
 	}
 	
 	public static Set<String> getCommandList() {
@@ -69,11 +73,12 @@ public class CommandHandler extends CommandBase {
 		if (args.length <= 0) {
 			throw new WrongUsageException("Type '" + getCommandUsage(sender) + "' for help.");
 		}
+
 		if (commands.containsKey(args[0])) {
 			commands.get(args[0]).handleCommand(sender, args);
-			return;
+		} else {
+			throw new WrongUsageException("Type '" + getCommandUsage(sender) + "' for help.");
 		}
-		throw new WrongUsageException("Type '" + getCommandUsage(sender) + "' for help.");
 	}
 	
 	@Override

@@ -32,6 +32,14 @@ public class ConfigManager {
 		}
 	}
 
+	public ArrayList<String> getLoadedConfigs() {
+		return names;
+	}
+
+	public boolean isConfigLoaded(String name) {
+		return names.contains(name);
+	}
+
 	public void loadAll() {
 		for (String s : this.names) {
 			this.load(s);
