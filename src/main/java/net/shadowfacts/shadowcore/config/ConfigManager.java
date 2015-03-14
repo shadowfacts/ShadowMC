@@ -91,7 +91,7 @@ public class ConfigManager {
 
 							} else if (f.getType() == int.class) {
 
-								int val = config.getInt(propertyName, prop.category(), f.getInt(null), prop.intMin(), prop.intMin(), prop.comment());
+								int val = config.getInt(propertyName, prop.category(), f.getInt(null), prop.intMin(), prop.intMax(), prop.comment());
 								f.setInt(null, val);
 
 							} else if (f.getType() == float.class) {
