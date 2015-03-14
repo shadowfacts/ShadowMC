@@ -45,7 +45,7 @@ public @interface ConfigProperty {
 	 * Only usable for integer properties.
 	 * @return The maximum value.
 	 */
-	public int intMax() default 1;
+	public int intMax() default Integer.MAX_VALUE;
 
 	/**
 	 * Only usable for float properties.
@@ -57,7 +57,7 @@ public @interface ConfigProperty {
 	 * Only usable for float properties.
 	 * @return The maximum value.
 	 */
-	public float floatMax() default 1f;
+	public float floatMax() default Float.MAX_VALUE;
 
 
 	/**
