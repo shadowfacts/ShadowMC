@@ -27,6 +27,7 @@ public class ConfigManager {
 		if (config.isAnnotationPresent(Config.class) && !names.contains(name) && !classes.contains(config)) {
 			names.add(name);
 			classes.add(config);
+			load(name);
 		} else {
 			ShadowCore.log.error(String.format("Someone attempted to register an invalid config (%s).", name));
 		}
