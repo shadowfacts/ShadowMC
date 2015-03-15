@@ -10,7 +10,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.server.MinecraftServer;
 import net.shadowfacts.shadowcore.command.CommandHandler;
 import net.shadowfacts.shadowcore.config.ConfigManager;
 import net.shadowfacts.shadowcore.config.Configuration;
@@ -33,21 +32,15 @@ public class ShadowCore {
 	public static CommonProxy proxy;
 	
 	public static final Log log = new Log(modId);
-	
-	public static MinecraftServer server;
 
 	// Debugger
 	public static ItemDebugger debugger;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-
 		ConfigManager.instance.configDirPath = event.getModConfigurationDirectory().getAbsolutePath();
-
 		ConfigManager.instance.register("Core", Configuration.class);
-
 		ConfigManager.instance.loadAll();
-
 
 		if (Configuration.debugItemEnabled) {
 			debugger = new ItemDebugger();
@@ -71,7 +64,6 @@ public class ShadowCore {
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
 		CommandHandler.initCommands(event);
-		server = event.getServer();
 	}
 	
 }
