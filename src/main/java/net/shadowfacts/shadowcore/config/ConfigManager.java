@@ -22,19 +22,24 @@ public class ConfigManager {
 
 
 	public void register(String name, Class config) {
-		if (config.isAnnotationPresent(Config.class)) {
-			if (configs.containsKey(name)) {
-				ShadowCore.log.error("Someone attempted to register a config class (%s) whose name was already registered.", name);
-				return;
-			} else if (configs.containsValue(config)) {
-				ShadowCore.log.error("Someone attempted to register a config class (%s) that was already registered.", name);
-				return;
+		if (config != null) {
+			if (config.isAnnotationPresent(Config.class)) {
+				if (configs.containsKey(name)) {
+					ShadowCore.log.error("Someone attempted to register a config class (%s) whose name was already registered.", name);
+					return;
+				} else if (configs.containsValue(config)) {
+					ShadowCore.log.error("Someone attempted to register a config class (%s) that was already registered.", name);
+					return;
+				} else {
+					configs.put(name, config);
+					load(name);
+				}
 			} else {
-				configs.put(name, config);
-				load(name);
+				ShadowCore.log.error("Someone attempted to register a config class (%s) that was missing the @Config annotation.", name);
+				return;
 			}
 		} else {
-			ShadowCore.log.error("Someone attempted to register a config class (%s) that was missing the @Config annotation.", name);
+			ShadowCore.log.error("Someone attempted to register a null config class (%s), this should not be happening, report this immediately.", name);
 			return;
 		}
 	}
