@@ -72,8 +72,6 @@ public class ConfigManager {
 
 			Config configClassAnnotation = (Config)configClass.getAnnotation(Config.class);
 
-			String configName = configClassAnnotation.name();
-
 			String path;
 			if (configClassAnnotation.useSubFolder()) {
 				path = this.configDirPath + "/" + configClassAnnotation.folder() + "/" + configClassAnnotation.name() + ".cfg";
