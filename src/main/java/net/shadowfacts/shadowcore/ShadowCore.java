@@ -1,5 +1,6 @@
 package net.shadowfacts.shadowcore;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -14,16 +15,18 @@ import net.shadowfacts.shadowcore.command.CommandHandler;
 import net.shadowfacts.shadowcore.config.ConfigManager;
 import net.shadowfacts.shadowcore.config.Configuration;
 import net.shadowfacts.shadowcore.debug.ItemDebugger;
+import net.shadowfacts.shadowcore.event.ConfigEventHandler;
 import net.shadowfacts.shadowcore.proxy.CommonProxy;
 
-@Mod(modid=ShadowCore.modId, name=ShadowCore.displayName, version=ShadowCore.version)
+@Mod(modid = ShadowCore.modId, name = ShadowCore.displayName, version = ShadowCore.version, guiFactory = ShadowCore.guiFactory)
 public class ShadowCore {
 
 	public static final String modId = "shadowcore";
 	public static final String displayName = "ShadowCore";
-	public static final String version = "1.0.3";
+	public static final String version = "1.0.4";
 	public static final String serverProxy = "net.shadowfacts.shadowcore.proxy.CommonProxy";
 	public static final String clientProxy = "net.shadowfacts.shadowcore.proxy.ClientProxy";
+	public static final String guiFactory = "net.shadowfacts.shadowcore.client.gui.ShadowCoreGuiFactory";
 	
 	@Instance(value=modId)
 	public static ShadowCore instance;
@@ -52,8 +55,8 @@ public class ShadowCore {
 	}
 	
 	@EventHandler
-	public void load(FMLInitializationEvent event) {
-		
+	public void init(FMLInitializationEvent event) {
+		FMLCommonHandler.instance().bus().register(new ConfigEventHandler());
 	}
 	
 	@EventHandler
