@@ -5,7 +5,7 @@ import net.shadowfacts.shadowcore.ShadowCore;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Manages all config files for the new configuration system.
@@ -18,38 +18,45 @@ public class ConfigManager {
 
 	public String configDirPath;
 
-	private ArrayList<String> names = new ArrayList<String>();
-	private ArrayList<Class> classes = new ArrayList<Class>();
-
+	private Map<String, Class> configs = new HashMap<String, Class>();
 
 
 	public void register(String name, Class config) {
-		if (config.isAnnotationPresent(Config.class) && !names.contains(name) && !classes.contains(config)) {
-			names.add(name);
-			classes.add(config);
-			load(name);
+		if (config.isAnnotationPresent(Config.class)) {
+			if (configs.containsKey(name)) {
+				ShadowCore.log.error("Someone attempted to register a config class (%s) whose name was already registered.", name);
+				return;
+			} else if (configs.containsValue(config)) {
+				ShadowCore.log.error("Someone attempted to register a config class (%s) that was already registered.", name);
+				return;
+			} else {
+				configs.put(name, config);
+				load(name);
+			}
 		} else {
-			ShadowCore.log.error(String.format("Someone attempted to register an invalid config (%s).", name));
+			ShadowCore.log.error("Someone attempted to register a config class (%s) that was missing the @Config annotation.", name);
+			return;
 		}
 	}
 
 	public ArrayList<String> getLoadedConfigs() {
-		return names;
+		ArrayList<String> list = new ArrayList<String>();
+		list.addAll(configs.keySet());
+		return list;
 	}
 
 	public boolean isConfigLoaded(String name) {
-		return names.contains(name);
+		return configs.containsKey(name);
 	}
 
 	public void loadAll() {
-		for (String s : this.names) {
-			this.load(s);
+		for (String s : configs.keySet()) {
+			load(s);
 		}
 	}
 
 	public void load(String name) {
-
-		Class configClass = classes.get(names.indexOf(name));
+		Class configClass = configs.get(name);
 
 		if (configClass == null) {
 			ShadowCore.log.error(String.format("The config class %s was null. This should not be happening, report this immediately!", name));
@@ -139,8 +146,6 @@ public class ConfigManager {
 			config.save();
 
 		}
-
-//		Configuration config = new Configuration(new File(this.configDirPath + "/" + ))
 
 	}
 
