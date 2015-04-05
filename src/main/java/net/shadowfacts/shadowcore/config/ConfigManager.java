@@ -18,20 +18,34 @@ public class ConfigManager {
 
 	public String configDirPath;
 
-	private Map<String, Class> configs = new HashMap<String, Class>();
+	private Map<String, Class> configClasses = new HashMap<String, Class>();
+	private Map<String, Configuration> configObjects = new HashMap<String, Configuration>();
 
 
 	public void register(String name, Class config) {
 		if (config != null) {
 			if (config.isAnnotationPresent(Config.class)) {
-				if (configs.containsKey(name)) {
+				if (configClasses.containsKey(name)) {
 					ShadowCore.log.error("Someone attempted to register a config class (%s) whose name was already registered.", name);
 					return;
-				} else if (configs.containsValue(config)) {
+				} else if (configClasses.containsValue(config)) {
 					ShadowCore.log.error("Someone attempted to register a config class (%s) that was already registered.", name);
 					return;
 				} else {
-					configs.put(name, config);
+					configClasses.put(name, config);
+
+					Config configClassAnnotation = (Config)config.getAnnotation(Config.class);
+
+					String path;
+
+					if (configClassAnnotation.useSubFolder()) {
+						path = this.configDirPath + "/" + configClassAnnotation.folder() + "/" + configClassAnnotation.name() + ".cfg";
+					} else {
+						path = this.configDirPath + "/" + configClassAnnotation.name() + ".cfg";
+					}
+
+					configObjects.put(name, new Configuration(new File(path)));
+
 					load(name);
 				}
 			} else {
@@ -46,42 +60,35 @@ public class ConfigManager {
 
 	public ArrayList<String> getLoadedConfigs() {
 		ArrayList<String> list = new ArrayList<String>();
-		list.addAll(configs.keySet());
+		list.addAll(configClasses.keySet());
 		return list;
 	}
 
 	public boolean isConfigLoaded(String name) {
-		return configs.containsKey(name);
+		return configClasses.containsKey(name);
+	}
+
+	public Configuration getConfigurationObject(String name) {
+		return configObjects.get(name);
 	}
 
 	public void loadAll() {
-		for (String s : configs.keySet()) {
+		for (String s : configClasses.keySet()) {
 			load(s);
 		}
 	}
 
 	public void load(String name) {
-		Class configClass = configs.get(name);
+		Class configClass = configClasses.get(name);
 
 		if (configClass == null) {
-			ShadowCore.log.error("The config class %s was null. This should not be happening, report this immediately!", name);
+			ShadowCore.log.error("The config class %s was null, skipping. This should not be happening, report this immediately!", name);
 			return;
 		}
 
 		if (configClass.getAnnotation(Config.class) != null) {
 
-			Config configClassAnnotation = (Config)configClass.getAnnotation(Config.class);
-
-			String path;
-			if (configClassAnnotation.useSubFolder()) {
-				path = this.configDirPath + "/" + configClassAnnotation.folder() + "/" + configClassAnnotation.name() + ".cfg";
-			} else {
-				path = this.configDirPath + "/" + configClassAnnotation.name() + ".cfg";
-			}
-
-			Configuration config = new Configuration(new File(path));
-
-			config.load();
+			Configuration config = configObjects.get(name);
 
 			for (Field f : configClass.getDeclaredFields()) {
 
@@ -90,7 +97,6 @@ public class ConfigManager {
 					ConfigProperty prop = (ConfigProperty)f.getAnnotation(ConfigProperty.class);
 
 					String propertyName = f.getName();
-
 
 					try {
 
@@ -140,18 +146,14 @@ public class ConfigManager {
 						}
 
 					} catch (Exception e) {
-						ShadowCore.log.error("There was a problem getting a value for a config field.");
+						ShadowCore.log.error("There was a problem getting a value for a config field, skipping.");
 						e.printStackTrace();
 					}
 				}
 			}
-
 			config.save();
-
 		}
 
 	}
-
-
 
 }
