@@ -64,7 +64,7 @@ public class ConfigManager {
 		Class configClass = configs.get(name);
 
 		if (configClass == null) {
-			ShadowCore.log.error(String.format("The config class %s was null. This should not be happening, report this immediately!", name));
+			ShadowCore.log.error("The config class %s was null. This should not be happening, report this immediately!", name);
 			return;
 		}
 
