@@ -56,7 +56,18 @@ task deobfJar(type: Jar) {
 	classifier = 'deobf'
 }
 
-tasks.build.dependsOn deobfJar
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+tasks.build.dependsOn deobfJar, sourcesJar
+
+artifacts {
+    archives jar
+    archives deobfJar
+    archives sourcesJar
+}
 
 uploadArchives {
     repositories.mavenDeployer {
