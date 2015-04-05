@@ -52,96 +52,92 @@ public class ConfigManager {
 		Class configClass = classes.get(names.indexOf(name));
 
 		if (configClass == null) {
-			ShadowCore.log.error("Someone tried to load a config that was not registered, " + name);
+			ShadowCore.log.error(String.format("The config class %s was null. This should not be happening, report this immediately!", name));
 			return;
 		}
 
-		if (configClass != null) {
-			if (configClass.getAnnotation(Config.class) != null) {
+		if (configClass.getAnnotation(Config.class) != null) {
 
-				Config configClassAnnotation = (Config)configClass.getAnnotation(Config.class);
+			Config configClassAnnotation = (Config)configClass.getAnnotation(Config.class);
 
-				String configName = configClassAnnotation.name();
+			String configName = configClassAnnotation.name();
 
-				String path;
-				if (configClassAnnotation.useSubFolder()) {
-					path = this.configDirPath + "/" + configClassAnnotation.folder() + "/" + configClassAnnotation.name() + ".cfg";
-				} else {
-					path = this.configDirPath + "/" + configClassAnnotation.name() + ".cfg";
-				}
+			String path;
+			if (configClassAnnotation.useSubFolder()) {
+				path = this.configDirPath + "/" + configClassAnnotation.folder() + "/" + configClassAnnotation.name() + ".cfg";
+			} else {
+				path = this.configDirPath + "/" + configClassAnnotation.name() + ".cfg";
+			}
 
-				Configuration config = new Configuration(new File(path));
+			Configuration config = new Configuration(new File(path));
 
-				config.load();
+			config.load();
 
-				for (Field f : configClass.getDeclaredFields()) {
+			for (Field f : configClass.getDeclaredFields()) {
 
-					if (f.getAnnotation(ConfigProperty.class) != null) {
+				if (f.getAnnotation(ConfigProperty.class) != null) {
 
-						ConfigProperty prop = (ConfigProperty)f.getAnnotation(ConfigProperty.class);
+					ConfigProperty prop = (ConfigProperty)f.getAnnotation(ConfigProperty.class);
 
-						String propertyName = f.getName();
+					String propertyName = f.getName();
 
 
-						try {
+					try {
 
-							if (f.getType() == boolean.class) {
+						if (f.getType() == boolean.class) {
 
-								boolean val = config.getBoolean(propertyName, prop.category(), f.getBoolean(null), prop.comment());
-								f.setBoolean(null, val);
+							boolean val = config.getBoolean(propertyName, prop.category(), f.getBoolean(null), prop.comment());
+							f.setBoolean(null, val);
 
-							} else if (f.getType() == int.class) {
+						} else if (f.getType() == int.class) {
 
-								int val = config.getInt(propertyName, prop.category(), f.getInt(null), prop.intMin(), prop.intMax(), prop.comment());
-								f.setInt(null, val);
+							int val = config.getInt(propertyName, prop.category(), f.getInt(null), prop.intMin(), prop.intMax(), prop.comment());
+							f.setInt(null, val);
 
-							} else if (f.getType() == float.class) {
+						} else if (f.getType() == float.class) {
 
-								float val = config.getFloat(propertyName, prop.category(), f.getFloat(null), prop.floatMin(), prop.floatMax(), prop.comment());
-								f.setFloat(null, val);
+							float val = config.getFloat(propertyName, prop.category(), f.getFloat(null), prop.floatMin(), prop.floatMax(), prop.comment());
+							f.setFloat(null, val);
 
-							} else if (f.getType() == String.class) {
+						} else if (f.getType() == String.class) {
 
-								String val;
+							String val;
 
-								String[] defaults = {"DEFAULT"};
+							String[] defaults = {"DEFAULT"};
 
-								if (prop.stringValidValues() != defaults) { // String with a list of possible values
-									val = config.getString(propertyName, prop.category(), (String)f.get(null), prop.comment(), prop.stringValidValues());
-								} else {
-									val = config.getString(propertyName, prop.category(), (String) f.get(null), prop.comment());
-								}
-
-								f.set(null, val);
-
-							} else if (f.getType() == String[].class) {
-
-								String[] val;
-
-								String[] defaults = {"DEFAULT"};
-
-								if (prop.stringValidValues() != defaults) { // String[] with list of allowed values
-									val = config.getStringList(propertyName, prop.category(), (String[])f.get(null), prop.comment(), prop.stringValidValues());
-								} else {
-									val = config.getStringList(propertyName, prop.category(), (String[])f.get(null), prop.comment());
-								}
-
-								f.set(null, val);
-
+							if (prop.stringValidValues() != defaults) { // String with a list of possible values
+								val = config.getString(propertyName, prop.category(), (String)f.get(null), prop.comment(), prop.stringValidValues());
+							} else {
+								val = config.getString(propertyName, prop.category(), (String) f.get(null), prop.comment());
 							}
 
-						} catch (Exception e) {
-							ShadowCore.log.error("There was a problem getting a value for a config field.");
-							e.printStackTrace();
+							f.set(null, val);
+
+						} else if (f.getType() == String[].class) {
+
+							String[] val;
+
+							String[] defaults = {"DEFAULT"};
+
+							if (prop.stringValidValues() != defaults) { // String[] with list of allowed values
+								val = config.getStringList(propertyName, prop.category(), (String[])f.get(null), prop.comment(), prop.stringValidValues());
+							} else {
+								val = config.getStringList(propertyName, prop.category(), (String[])f.get(null), prop.comment());
+							}
+
+							f.set(null, val);
+
 						}
+
+					} catch (Exception e) {
+						ShadowCore.log.error("There was a problem getting a value for a config field.");
+						e.printStackTrace();
 					}
 				}
-
-				config.save();
-
 			}
-		} else {
-			ShadowCore.log.error(String.format("The config class %s was null. This should not be happening, report this immediately!", name));
+
+			config.save();
+
 		}
 
 //		Configuration config = new Configuration(new File(this.configDirPath + "/" + ))
