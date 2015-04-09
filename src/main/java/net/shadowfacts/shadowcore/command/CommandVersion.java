@@ -1,18 +1,22 @@
 package net.shadowfacts.shadowcore.command;
 
-import java.util.List;
-
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
-
 import net.shadowfacts.shadowcore.ShadowCore;
-import net.shadowfacts.shadowcore.util.StringHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandVersion implements ISubCommand {
 
 	public static CommandVersion instance = new CommandVersion();
 	
-	
+	public ArrayList<String> versions = new ArrayList<String>();
+
+	public CommandVersion() {
+		versions.add("ShadowCore: v" + ShadowCore.version);
+	}
+
 	@Override
 	public String getCommandName() {
 		return "version";
@@ -20,8 +24,9 @@ public class CommandVersion implements ISubCommand {
 
 	@Override
 	public void handleCommand(ICommandSender sender, String[] args) {
-		sender.addChatMessage(new ChatComponentText(StringHelper.BRIGHT_GREEN + "ShadowCore:" + StringHelper.WHITE + " v" + ShadowCore.version));
-//		sender.addChatMessage(new ChatComponentText(StringHelper.BRIGHT_GREEN + "EnFusion:" + StringHelper.WHITE + " v" + EnFusion.version));
+		for (String s : versions) {
+			sender.addChatMessage(new ChatComponentText(s));
+		}
 	}
 
 	@Override
