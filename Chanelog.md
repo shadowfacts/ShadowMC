@@ -1,3 +1,6 @@
+### 1.0.5
+- Allow my other mods to add information to `/shadow version`.
+
 ### 1.0.2
 - Fix config name
 - Add /shadow reloadConfig command
