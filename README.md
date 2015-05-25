@@ -1,2 +1,2 @@
-# ShadowCore
-ShadowCore is a mod that contains various utilities used throughout my mods.
+# ShadowAPI
+ShadowAPI is a library for Minecraft Forge that provides utilites commonly used throughout my mods.
