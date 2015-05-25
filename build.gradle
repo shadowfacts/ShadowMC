@@ -1,18 +1,18 @@
 buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-    }
+	repositories {
+		mavenCentral()
+		maven {
+			name = "forge"
+			url = "http://files.minecraftforge.net/maven"
+		}
+		maven {
+			name = "sonatype"
+			url = "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+	}
 }
 
 apply plugin: 'forge'
@@ -25,29 +25,14 @@ if (System.getenv().DRONE_BUILD_NUMBER != null) {
 }
 
 minecraft {
-    version = "$minecraft_version-$forge_version"
-    runDir = "run"
+	version = "$minecraft_version-$forge_version"
+	runDir = "run"
 
-    replaceIn "shadowcore/ShadowCore.java"
+	replaceIn "shadowapi/ShadowAPIProps.java"
     replace '@VERSION@', "$mod_version"
 }
 
 dependencies {
-
-}
-
-processResources
-{
-    inputs.property "version", "$mod_version"
-    
-    from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
-        expand 'version':"$mod_version",'mcversion':"$minecraft_version"
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
-    }
 
 }
 
@@ -57,20 +42,20 @@ task deobfJar(type: Jar) {
 }
 
 task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
+	from sourceSets.main.allSource
+	classifier = 'sources'
 }
 
 tasks.build.dependsOn deobfJar, sourcesJar
 
 artifacts {
-    archives jar
-    archives deobfJar
-    archives sourcesJar
+	archives jar
+	archives deobfJar
+	archives sourcesJar
 }
 
 uploadArchives {
-    repositories.mavenDeployer {
-        repository(url: "file:///maven/")
-    }
+	repositories.mavenDeployer {
+		repository(url: "file:///maven/")
+	}
 }
