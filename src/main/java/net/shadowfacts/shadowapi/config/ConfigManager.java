@@ -157,4 +157,12 @@ public class ConfigManager {
 
 	}
 
+	public void regenConfig(String name) {
+		Configuration config = configObjects.get(name);
+
+		config.getConfigFile().delete();
+
+		load(name);
+	}
+
 }
