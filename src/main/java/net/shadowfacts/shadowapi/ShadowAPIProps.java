@@ -5,6 +5,6 @@ package net.shadowfacts.shadowapi;
  */
 public class ShadowAPIProps {
 
-    public static final String version = "@VERSION@";
+    public static final String version = "2.0.2";
 
 }
