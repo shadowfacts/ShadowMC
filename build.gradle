@@ -43,6 +43,18 @@ dependencies {
 	compile group: "net.shadowfacts", name: "ShadowLib", version: "1.3.0"
 }
 
+configurations {
+	includedLibs
+}
+
+dependencies {
+	includedLibs group: "net.shadowfacts", name: "ShadowLib", version: "1.3.0"
+}
+
+task fatJar(type: Jar) {
+	classifier = 'fat'
+	from { configurations.includedLibs.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
 }
 
 task sourcesJar(type: Jar) {
@@ -50,11 +62,11 @@ task sourcesJar(type: Jar) {
 	classifier = 'sources'
 }
 
-tasks.build.dependsOn deobfJar, sourcesJar
+tasks.build.dependsOn fatJar, sourcesJar
 
 artifacts {
 	archives jar
-	archives deobfJar
+	archives fatJar
 	archives sourcesJar
 }
 
