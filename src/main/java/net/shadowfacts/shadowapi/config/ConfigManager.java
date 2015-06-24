@@ -1,7 +1,7 @@
 package net.shadowfacts.shadowapi.config;
 
 import net.minecraftforge.common.config.Configuration;
-import net.shadowfacts.shadowapi.util.Log;
+import net.shadowfacts.shadowlib.log.Logger;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -21,7 +21,7 @@ public class ConfigManager {
 	private Map<String, Configuration> configObjects = new HashMap<String, Configuration>();
 
 
-    private Log log = new Log("ShadowCore|ConfigManager");
+    private Logger log = new Logger("ShadowCore|ConfigManager");
 
 	public void register(String name, Class config) {
 		if (config != null) {
