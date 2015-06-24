@@ -17,7 +17,8 @@ public class CommandHandler extends CommandBase {
 	public static CommandHandler instance = new CommandHandler();
 	
 	protected static TMap<String, ISubCommand> commands = new THashMap<String, ISubCommand>();
-	
+
+	private static boolean initialized = false;
 	
 	static {
 		registerSubCommand(CommandKillAll.instance);
@@ -28,7 +29,10 @@ public class CommandHandler extends CommandBase {
 	
 	
 	public static void initCommands(FMLServerStartingEvent event) {
-        event.registerServerCommand(instance);
+		if (!initialized) {
+			event.registerServerCommand(instance);
+			initialized = true;
+		}
 	}
 
 	public static boolean registerSubCommand(String name, ISubCommand subCommand) {
