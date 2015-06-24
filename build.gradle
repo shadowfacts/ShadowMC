@@ -32,7 +32,16 @@ minecraft {
     replace '@VERSION@', "$mod_version"
 }
 
+repositories {
+	maven {
+		name = "shadowfacts"
+		url = "http://maven.shadowfacts.net"
+	}
+}
+
 dependencies {
+	compile group: "net.shadowfacts", name: "ShadowLib", version: "1.3.0"
+}
 
 }
 
