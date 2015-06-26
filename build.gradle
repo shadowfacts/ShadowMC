@@ -58,8 +58,9 @@ task fatJar(type: Jar) {
 }
 
 task sourcesJar(type: Jar) {
-	from sourceSets.main.allSource
 	classifier = 'sources'
+	from { configurations.includedLibs.collect { it.isDirectory() ? it : zipTree(it) } }
+	from sourceSets.main.allSource
 }
 
 tasks.build.dependsOn fatJar, sourcesJar
