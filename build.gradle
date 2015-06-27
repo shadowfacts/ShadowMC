@@ -78,7 +78,7 @@ task sourcesJar(type: Jar) {
 	classifier = 'sources'
 }
 
-tasks.build.dependsOn sourcesJar
+tasks.build.dependsOn deobfJar, sourcesJar
 
 artifacts {
 	archives jar
