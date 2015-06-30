@@ -17,151 +17,157 @@ public class ConfigManager {
 
 	public String configDirPath;
 
-	private Map<String, Class> configClasses = new HashMap<String, Class>();
-	private Map<String, Configuration> configObjects = new HashMap<String, Configuration>();
+//	private Map<String, Class> configClasses = new HashMap<String, Class>();
+//	private Map<String, Configuration> configObjects = new HashMap<String, Configuration>();
+	private HashMap<String, MultiConfig> configs = new HashMap<String, MultiConfig>();
 
 
     private Logger log = new Logger("ShadowCore|ConfigManager");
 
-	public void register(String name, Class config) {
-		if (config != null) {
-			if (config.isAnnotationPresent(Config.class)) {
-				if (configClasses.containsKey(name)) {
-					log.error("Someone attempted to register a config class (%s) whose name was already registered.", name);
-					return;
-				} else if (configClasses.containsValue(config)) {
-					log.error("Someone attempted to register a config class (%s) that was already registered.", name);
-					return;
+	public void register(String name, Class clazz) {
+
+		if (clazz != null) {
+
+			if (clazz.isAnnotationPresent(Config.class)) {
+
+				MultiConfig multiConfig;
+
+				if (!configs.containsKey(name)) {
+					multiConfig = new MultiConfig(name);
+					configs.put(name, multiConfig);
 				} else {
-					configClasses.put(name, config);
-
-					Config configClassAnnotation = (Config)config.getAnnotation(Config.class);
-
-					String path;
-
-					if (configClassAnnotation.useSubFolder()) {
-						path = this.configDirPath + "/" + configClassAnnotation.folder() + "/" + configClassAnnotation.name() + ".cfg";
-					} else {
-						path = this.configDirPath + "/" + configClassAnnotation.name() + ".cfg";
-					}
-
-					configObjects.put(name, new Configuration(new File(path)));
-
-					load(name);
+					multiConfig = configs.get(name);
 				}
+
+				multiConfig.addClass(clazz);
+
+				Config annotation = (Config)clazz.getAnnotation(Config.class);
+
+				if (!multiConfig.hasForgeConfig()) {
+					String path = this.configDirPath;
+					if (annotation.useSubFolder()) {
+						path += "/" + annotation.folder();
+					}
+					path += "/" + annotation.name() + ".cfg";
+
+					multiConfig.setForgeConfig(new Configuration(new File(path)));
+				}
+
 			} else {
-				log.error("Someone attempted to register a config class (%s) that was missing the @Config annotation.", name);
-				return;
+				log.error("Someone attempted to register a config class without the @Config annotation (%s). This should not be happening, report this immediately!", name);
+				throw new RuntimeException("Attempt to register a not-annotated config class");
 			}
+
 		} else {
-			log.error("Someone attempted to register a null config class (%s), this should not be happening, report this immediately.", name);
-			return;
+			log.error("Someone attempted to register a null config class (%s), this should not be happening, report this immediately!", name);
+			throw new RuntimeException("Attempt to register a null config class");
 		}
 	}
 
 	public ArrayList<String> getLoadedConfigs() {
 		ArrayList<String> list = new ArrayList<String>();
-		list.addAll(configClasses.keySet());
+		list.addAll(configs.keySet());
 		return list;
 	}
 
 	public boolean isConfigLoaded(String name) {
-		return configClasses.containsKey(name);
+		return configs.containsKey(name);
 	}
 
 	public Configuration getConfigurationObject(String name) {
-		return configObjects.get(name);
+		return configs.get(name).getForgeConfig();
 	}
 
 	public void loadAll() {
-		for (String s : configClasses.keySet()) {
+		for (String s : configs.keySet()) {
 			load(s);
 		}
 	}
 
 	public void load(String name) {
-		Class configClass = configClasses.get(name);
+		MultiConfig multiConfig = configs.get(name);
 
-		if (configClass == null) {
-			log.error("The config class %s was null, skipping. This should not be happening, report this immediately!", name);
-			return;
+		if (multiConfig == null) {
+			log.error("The config %s was null, skipping. This should not be happening, report this immediately!", name);
+			throw new RuntimeException("Attempt to load a null config.");
 		}
 
-		if (configClass.getAnnotation(Config.class) != null) {
+		Configuration config = multiConfig.getForgeConfig();
 
-			Configuration config = configObjects.get(name);
+		for (Class clazz : multiConfig.getConfigClasses()) {
+			for (Field f : clazz.getDeclaredFields()) {
+				ConfigProperty annotation = (ConfigProperty)f.getAnnotation(ConfigProperty.class);
 
-			for (Field f : configClass.getDeclaredFields()) {
+				String propName;
 
-				if (f.getAnnotation(ConfigProperty.class) != null) {
+				if (!annotation.name().equals("")) {
+					propName = annotation.name();
+				} else {
+					propName = f.getName();
+				}
 
-					ConfigProperty prop = (ConfigProperty)f.getAnnotation(ConfigProperty.class);
+				f.setAccessible(true);
 
-					String propertyName = f.getName();
+				try {
 
-					try {
+					Class type = f.getType();
 
-						if (f.getType() == boolean.class) {
+					if (type == boolean.class) {
 
-							boolean val = config.getBoolean(propertyName, prop.category(), f.getBoolean(null), prop.comment());
-							f.setBoolean(null, val);
+						boolean val = config.getBoolean(propName, annotation.category(), f.getBoolean(null), annotation.comment());
+						f.setBoolean(null, val);
 
-						} else if (f.getType() == int.class) {
+					} else if (type == int.class) {
 
-							int val = config.getInt(propertyName, prop.category(), f.getInt(null), prop.intMin(), prop.intMax(), prop.comment());
-							f.setInt(null, val);
+						int val = config.getInt(propName, annotation.category(), f.getInt(null), annotation.intMin(), annotation.intMax(), annotation.comment());
+						f.setInt(null, val);
 
-						} else if (f.getType() == float.class) {
+					} else if (type == float.class) {
 
-							float val = config.getFloat(propertyName, prop.category(), f.getFloat(null), prop.floatMin(), prop.floatMax(), prop.comment());
-							f.setFloat(null, val);
+						float val = config.getFloat(propName, annotation.category(), f.getFloat(null), annotation.floatMin(), annotation.floatMax(), annotation.comment());
+						f.setFloat(null, val);
 
-						} else if (f.getType() == String.class) {
+					} else if (type == String.class) {
 
-							String val;
+						String val;
+						String[] defaults = {"DEFAULT"};
 
-							String[] defaults = {"DEFAULT"};
-
-							if (prop.stringValidValues() != defaults) { // String with a list of possible values
-								val = config.getString(propertyName, prop.category(), (String)f.get(null), prop.comment(), prop.stringValidValues());
-							} else {
-								val = config.getString(propertyName, prop.category(), (String) f.get(null), prop.comment());
-							}
-
-							f.set(null, val);
-
-						} else if (f.getType() == String[].class) {
-
-							String[] val;
-
-							String[] defaults = {"DEFAULT"};
-
-							if (prop.stringValidValues() != defaults) { // String[] with list of allowed values
-								val = config.getStringList(propertyName, prop.category(), (String[])f.get(null), prop.comment(), prop.stringValidValues());
-							} else {
-								val = config.getStringList(propertyName, prop.category(), (String[])f.get(null), prop.comment());
-							}
-
-							f.set(null, val);
-
+						if (!Arrays.equals(annotation.stringValidValues(), defaults)) { // String with a list of possible values
+							val = config.getString(propName, annotation.category(), (String)f.get(null), annotation.comment(), annotation.stringValidValues());
+						} else {
+							val = config.getString(propName, annotation.category(), (String)f.get(null), annotation.comment());
 						}
 
-					} catch (Exception e) {
-						log.error("There was a problem getting a value for a config field, skipping.");
-						e.printStackTrace();
+						f.set(null, val);
+
+					} else if (type == String[].class) {
+
+						String[] val;
+						String[] defaults = {"DEFAULT"};
+
+						if (!Arrays.equals(annotation.stringValidValues(), defaults)) {
+							val = config.getStringList(propName, annotation.category(), (String[])f.get(null), annotation.comment(), annotation.stringValidValues());
+						} else {
+							val = config.getStringList(propName, annotation.category(), (String[])f.get(null), annotation.comment());
+						}
+
+						f.set(null, val);
+
 					}
+
+				} catch (IllegalAccessException e) {
+					log.error("Couldn't access one of the config values, skipping.");
+					e.printStackTrace();
 				}
+
 			}
-			config.save();
 		}
 
+		config.save();
 	}
 
 	public void regenConfig(String name) {
-		Configuration config = configObjects.get(name);
-
-		config.getConfigFile().delete();
-
+		configs.get(name).getForgeConfig().getConfigFile().delete();
 		load(name);
 	}
 
