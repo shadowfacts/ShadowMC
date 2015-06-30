@@ -1,8 +1,8 @@
-package net.shadowfacts.shadowapi.command;
+package net.shadowfacts.shadowmc.command;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
-import net.shadowfacts.shadowapi.ShadowAPIProps;
+import net.shadowfacts.shadowmc.ShadowMCProps;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class CommandVersion implements ISubCommand {
 	public ArrayList<String> versions = new ArrayList<String>();
 
     public CommandVersion() {
-        versions.add("ShadowAPI v" + ShadowAPIProps.version);
+        versions.add("ShadowAPI v" + ShadowMCProps.version);
     }
 
 	@Override

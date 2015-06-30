@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowapi.config;
+package net.shadowfacts.shadowmc.config;
 
 import net.minecraftforge.common.config.Configuration;
 import net.shadowfacts.shadowlib.log.Logger;

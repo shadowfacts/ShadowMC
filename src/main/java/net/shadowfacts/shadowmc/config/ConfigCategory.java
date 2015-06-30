@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowapi.config;
+package net.shadowfacts.shadowmc.config;
 
 /**
  * @author shadowfacts

@@ -28,10 +28,10 @@ minecraft {
 	version = "$minecraft_version-$forge_version"
 	runDir = "run"
 
-	replaceIn "shadowapi/ShadowAPIProps.java"
+	replaceIn "shadowmc/ShadowMCProps.java"
     replace '@VERSION@', "$mod_version"
 
-    srgExtra "PK: net/shadowfacts/shadowlib net/shadowfacts/shadowapi/shadowlib"
+    srgExtra "PK: net/shadowfacts/shadowlib net/shadowfacts/shadowmc/shadowlib"
 }
 
 repositories {

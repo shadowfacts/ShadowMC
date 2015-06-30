@@ -1,9 +1,9 @@
-package net.shadowfacts.shadowapi.command;
+package net.shadowfacts.shadowmc.command;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.util.ChatComponentText;
-import net.shadowfacts.shadowapi.config.ConfigManager;
+import net.shadowfacts.shadowmc.config.ConfigManager;
 
 import java.util.ArrayList;
 import java.util.List;

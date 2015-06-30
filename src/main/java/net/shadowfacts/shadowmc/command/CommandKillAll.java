@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowapi.command;
+package net.shadowfacts.shadowmc.command;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowapi.command;
+package net.shadowfacts.shadowmc.command;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
-import net.shadowfacts.shadowapi.util.StringHelper;
+import net.shadowfacts.shadowmc.util.StringHelper;
 
 public class CommandHelp implements ISubCommand {
 	public static CommandHelp instance = new CommandHelp();

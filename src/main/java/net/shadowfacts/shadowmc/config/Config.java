@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowapi.config;
+package net.shadowfacts.shadowmc.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

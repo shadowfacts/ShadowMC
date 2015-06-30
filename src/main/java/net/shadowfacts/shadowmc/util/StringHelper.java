@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowapi.util;
+package net.shadowfacts.shadowmc.util;
 
 import net.minecraft.util.StatCollector;
 

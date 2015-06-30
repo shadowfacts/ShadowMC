@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowapi.debug;
+package net.shadowfacts.shadowmc.debug;
 
 import java.util.ArrayList;
 
