@@ -20,8 +20,8 @@ apply plugin: 'maven'
 
 version = "$minecraft_version-$mod_version"
 
-if (System.getenv().DRONE_BUILD_NUMBER != null) {
-	version += "-snapshot-" + System.getenv().DRONE_BUILD_NUMBER
+if (System.getenv().BUILD_NUMER != null) {
+	version += "-build-" + System.getenv().BUILD_NUMER
 }
 
 minecraft {
