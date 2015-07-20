@@ -37,7 +37,7 @@ minecraft {
 repositories {
 	maven {
 		name = "shadowfacts"
-		url = "http://maven.shadowfacts.net"
+		url = "http://mvn.rx14.co.uk/shadowfacts/"
 	}
 }
 
@@ -47,7 +47,7 @@ configurations {
 }
 
 dependencies {
-	shade group: "net.shadowfacts", name: "ShadowLib", version: "1.3.0"
+	shade group: "net.shadowfacts", name: "ShadowLib", version: "1.3.0-build-9"
 }
 
 jar {
