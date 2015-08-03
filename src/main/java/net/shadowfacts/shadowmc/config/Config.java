@@ -17,6 +17,6 @@ public @interface Config {
 
 	public boolean useSubFolder() default true;
 
-	public String folder() default "shadow";
+	public String folder() default "shadowfacts";
 
 }
