@@ -98,66 +98,68 @@ public class ConfigManager {
 			for (Field f : clazz.getDeclaredFields()) {
 				ConfigProperty annotation = (ConfigProperty)f.getAnnotation(ConfigProperty.class);
 
-				String propName;
+				if (annotation != null) {
+					String propName;
 
-				if (!annotation.name().equals("")) {
-					propName = annotation.name();
-				} else {
-					propName = f.getName();
-				}
-
-				f.setAccessible(true);
-
-				try {
-
-					Class type = f.getType();
-
-					if (type == boolean.class) {
-
-						boolean val = config.getBoolean(propName, annotation.category(), f.getBoolean(null), annotation.comment());
-						f.setBoolean(null, val);
-
-					} else if (type == int.class) {
-
-						int val = config.getInt(propName, annotation.category(), f.getInt(null), annotation.intMin(), annotation.intMax(), annotation.comment());
-						f.setInt(null, val);
-
-					} else if (type == float.class) {
-
-						float val = config.getFloat(propName, annotation.category(), f.getFloat(null), annotation.floatMin(), annotation.floatMax(), annotation.comment());
-						f.setFloat(null, val);
-
-					} else if (type == String.class) {
-
-						String val;
-						String[] defaults = {"DEFAULT"};
-
-						if (!Arrays.equals(annotation.stringValidValues(), defaults)) { // String with a list of possible values
-							val = config.getString(propName, annotation.category(), (String)f.get(null), annotation.comment(), annotation.stringValidValues());
-						} else {
-							val = config.getString(propName, annotation.category(), (String)f.get(null), annotation.comment());
-						}
-
-						f.set(null, val);
-
-					} else if (type == String[].class) {
-
-						String[] val;
-						String[] defaults = {"DEFAULT"};
-
-						if (!Arrays.equals(annotation.stringValidValues(), defaults)) {
-							val = config.getStringList(propName, annotation.category(), (String[])f.get(null), annotation.comment(), annotation.stringValidValues());
-						} else {
-							val = config.getStringList(propName, annotation.category(), (String[])f.get(null), annotation.comment());
-						}
-
-						f.set(null, val);
-
+					if (!annotation.name().equals("")) {
+						propName = annotation.name();
+					} else {
+						propName = f.getName();
 					}
 
-				} catch (IllegalAccessException e) {
-					log.error("Couldn't access one of the config values, skipping.");
-					e.printStackTrace();
+					f.setAccessible(true);
+
+					try {
+
+						Class type = f.getType();
+
+						if (type == boolean.class) {
+
+							boolean val = config.getBoolean(propName, annotation.category(), f.getBoolean(null), annotation.comment());
+							f.setBoolean(null, val);
+
+						} else if (type == int.class) {
+
+							int val = config.getInt(propName, annotation.category(), f.getInt(null), annotation.intMin(), annotation.intMax(), annotation.comment());
+							f.setInt(null, val);
+
+						} else if (type == float.class) {
+
+							float val = config.getFloat(propName, annotation.category(), f.getFloat(null), annotation.floatMin(), annotation.floatMax(), annotation.comment());
+							f.setFloat(null, val);
+
+						} else if (type == String.class) {
+
+							String val;
+							String[] defaults = {"DEFAULT"};
+
+							if (!Arrays.equals(annotation.stringValidValues(), defaults)) { // String with a list of possible values
+								val = config.getString(propName, annotation.category(), (String) f.get(null), annotation.comment(), annotation.stringValidValues());
+							} else {
+								val = config.getString(propName, annotation.category(), (String) f.get(null), annotation.comment());
+							}
+
+							f.set(null, val);
+
+						} else if (type == String[].class) {
+
+							String[] val;
+							String[] defaults = {"DEFAULT"};
+
+							if (!Arrays.equals(annotation.stringValidValues(), defaults)) {
+								val = config.getStringList(propName, annotation.category(), (String[]) f.get(null), annotation.comment(), annotation.stringValidValues());
+							} else {
+								val = config.getStringList(propName, annotation.category(), (String[]) f.get(null), annotation.comment());
+							}
+
+							f.set(null, val);
+
+						}
+
+					} catch (IllegalAccessException e) {
+						log.error("Couldn't access one of the config values, skipping.");
+						e.printStackTrace();
+					}
 				}
 
 			}
