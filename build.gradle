@@ -50,7 +50,7 @@ configurations {
 }
 
 dependencies {
-	shade group: "net.shadowfacts", name: "ShadowLib", version: "1.3.0-build-9"
+	shade group: "net.shadowfacts", name: "ShadowLib", version: "1.4.0-build-14"
 }
 
 jar {
