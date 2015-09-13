@@ -20,10 +20,6 @@ apply plugin: 'maven'
 
 version = "$minecraft_version-$mod_version"
 
-if (System.getenv().BUILD_NUMER != null) {
-	version += "-build-" + System.getenv().BUILD_NUMER
-}
-
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
