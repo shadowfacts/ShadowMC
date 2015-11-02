@@ -17,10 +17,6 @@ public class CommandKillAll implements ISubCommand {
 
 	@Override
 	public void handleCommand(ICommandSender sender, String[] args) {
-//		if (!CoreUtils.isOpOrServer(sender.getCommandSenderName())) {
-//			sender.addChatMessage(new ChatComponentText(CommandHandler.COMMAND_DISALLOWED));
-//			return;
-//		}
 		sender.addChatMessage(new ChatComponentText("This command is not implemented yet."));
 	}
 

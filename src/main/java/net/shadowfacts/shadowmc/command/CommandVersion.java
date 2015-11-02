@@ -2,7 +2,8 @@ package net.shadowfacts.shadowmc.command;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
-import net.shadowfacts.shadowmc.ShadowMCProps;
+import net.minecraft.util.EnumChatFormatting;
+import net.shadowfacts.shadowmc.ShadowMC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,10 @@ public class CommandVersion implements ISubCommand {
 
 	public static CommandVersion instance = new CommandVersion();
 	
-	public ArrayList<String> versions = new ArrayList<String>();
+	public List<String> versions = new ArrayList<>();
 
     public CommandVersion() {
-        versions.add("ShadowAPI v" + ShadowMCProps.version);
+        versions.add("ShadowMC " + EnumChatFormatting.GREEN + "v" + ShadowMC.version);
     }
 
 	@Override

@@ -42,20 +42,14 @@ public class CommandReloadConfig implements ISubCommand {
 
 	@Override
 	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
-		List<String> list = new ArrayList<String>();
-
-		list.addAll(ConfigManager.instance.getLoadedConfigs());
-
+		List<String> list = new ArrayList<>(ConfigManager.instance.getLoadedConfigs());
 		list.add("all");
-
 		return list;
 	}
 
 	@Override
 	public void handleHelpRequest(ICommandSender sender, String[] args) {
-
 		sender.addChatMessage(new ChatComponentText("Reloads one or all of the configs registered with the ShadowCore config manager. Use tab completion to view a list of registered configs."));
-
 	}
 
 }

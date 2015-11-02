@@ -1,0 +1,16 @@
+repositories {
+	maven {
+		name "shadowfacts"
+		url "http://mvn.rx14.co.uk/shadowfacts/"
+	}
+}
+
+configurations {
+	shade
+	compile.extendsFrom shade
+}
+
+dependencies {
+	shade group: "net.shadowfacts", name: "ShadowLib", version: config.shadowlib_version
+	compile group: "org.projectlombok", name: "lombok", version: "1.16.6"
+}

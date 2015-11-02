@@ -18,7 +18,6 @@ public class MultiConfig {
 
 	MultiConfig(String name) {
 		this.name = name;
-
 	}
 
 	public ArrayList<Class> getConfigClasses() {

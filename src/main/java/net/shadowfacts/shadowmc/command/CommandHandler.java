@@ -1,13 +1,13 @@
 package net.shadowfacts.shadowmc.command;
 
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import gnu.trove.map.TMap;
-import gnu.trove.map.hash.THashMap;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class CommandHandler extends CommandBase {
@@ -16,7 +16,7 @@ public class CommandHandler extends CommandBase {
 	
 	public static CommandHandler instance = new CommandHandler();
 	
-	protected static TMap<String, ISubCommand> commands = new THashMap<String, ISubCommand>();
+	protected static Map<String, ISubCommand> commands = new HashMap<>();
 
 	private static boolean initialized = false;
 	

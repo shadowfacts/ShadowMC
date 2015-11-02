@@ -1,7 +1,9 @@
 package net.shadowfacts.shadowmc.config;
 
+import lombok.Getter;
 import net.minecraftforge.common.config.Configuration;
-import net.shadowfacts.shadowlib.log.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -15,16 +17,16 @@ public class ConfigManager {
 //	The instance
 	public static ConfigManager instance = new ConfigManager();
 
-	public String configDirPath;
+	public File configDir;
 
-//	private Map<String, Class> configClasses = new HashMap<String, Class>();
-//	private Map<String, Configuration> configObjects = new HashMap<String, Configuration>();
-	private HashMap<String, MultiConfig> configs = new HashMap<String, MultiConfig>();
+	@Getter
+	private HashMap<String, MultiConfig> configs = new HashMap<>();
+	@Getter
+	private HashMap<String, String> modIdConfigNameMap = new HashMap<>();
 
+    private Logger log = LogManager.getLogger("ShadowMC|ConfigManager");
 
-    private Logger log = new Logger("ShadowCore|ConfigManager");
-
-	public void register(String name, Class clazz) {
+	public void register(String name, Class clazz, String modId) {
 
 		if (clazz != null) {
 
@@ -35,6 +37,7 @@ public class ConfigManager {
 				if (!configs.containsKey(name)) {
 					multiConfig = new MultiConfig(name);
 					configs.put(name, multiConfig);
+					modIdConfigNameMap.put(modId, name);
 				} else {
 					multiConfig = configs.get(name);
 				}
@@ -44,13 +47,13 @@ public class ConfigManager {
 				Config annotation = (Config)clazz.getAnnotation(Config.class);
 
 				if (!multiConfig.hasForgeConfig()) {
-					String path = this.configDirPath;
+					String path = "";
 					if (annotation.useSubFolder()) {
 						path += "/" + annotation.folder();
 					}
 					path += "/" + annotation.name() + ".cfg";
 
-					multiConfig.setForgeConfig(new Configuration(new File(path)));
+					multiConfig.setForgeConfig(new Configuration(new File(configDir, path)));
 				}
 
 			} else {
@@ -65,9 +68,7 @@ public class ConfigManager {
 	}
 
 	public ArrayList<String> getLoadedConfigs() {
-		ArrayList<String> list = new ArrayList<String>();
-		list.addAll(configs.keySet());
-		return list;
+		return new ArrayList<>(configs.keySet());
 	}
 
 	public boolean isConfigLoaded(String name) {
@@ -79,9 +80,7 @@ public class ConfigManager {
 	}
 
 	public void loadAll() {
-		for (String s : configs.keySet()) {
-			load(s);
-		}
+		configs.keySet().forEach(this::load);
 	}
 
 	public void load(String name) {
@@ -96,7 +95,7 @@ public class ConfigManager {
 
 		for (Class clazz : multiConfig.getConfigClasses()) {
 			for (Field f : clazz.getDeclaredFields()) {
-				ConfigProperty annotation = (ConfigProperty)f.getAnnotation(ConfigProperty.class);
+				ConfigProperty annotation = f.getAnnotation(ConfigProperty.class);
 
 				if (annotation != null) {
 					String propName;

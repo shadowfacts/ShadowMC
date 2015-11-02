@@ -1,3 +1,11 @@
+// Config
+file("build.properties").withReader {
+	def prop = new Properties()
+	prop.load(it)
+	project.ext.config = new ConfigSlurper().parse(prop)
+}
+
+// Buildscript
 buildscript {
 	repositories {
 		mavenCentral()
@@ -15,78 +23,38 @@ buildscript {
 	}
 }
 
-apply plugin: 'forge'
-apply plugin: 'maven'
+// Plugins
+apply plugin: "forge"
+apply plugin: "maven"
+apply plugin: "curseforge"
+apply from: "gradle/scripts/dependencies.gradle"
+apply from: "gradle/scripts/artifacts.gradle"
 
-version = "$minecraft_version-$mod_version"
+// Mod info
+version = config.minecraft_version + "-" + config.mod_version
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
-	version = "$minecraft_version-$forge_version"
+	version = config.minecraft_version + "-" + config.forge_version
 	runDir = "run"
 
-	replaceIn "shadowmc/ShadowMCProps.java"
-    replace '@VERSION@', "$mod_version"
+	replaceIn "shadowmc/ShadowMC.java"
+	replace '@VERSION@', config.mod_version
 
-    srgExtra "PK: net/shadowfacts/shadowlib net/shadowfacts/shadowmc/shadowlib"
+	srgExtra "PK: net/shadowfacts/shadowlib net/shadowfacts/shadowmc/shadowlib"
 }
 
-repositories {
-	maven {
-		name = "shadowfacts"
-		url = "http://mvn.rx14.co.uk/shadowfacts/"
+processResources {
+	inputs.property "version", project.version
+	inputs.property "mcversion", config.minecraft_version
+
+	from (sourceSets.main.resources.srcDirs) {
+		include 'mcmod.info'
+		expand 'version':project.version, 'mcversion':config.minecraft_version
 	}
-}
-
-configurations {
-	shade
-	compile.extendsFrom shade
-}
-
-dependencies {
-	shade group: "net.shadowfacts", name: "ShadowLib", version: "1.4.0-build-18"
-}
-
-jar {
-	configurations.shade.each { dep ->
-		from (project.zipTree(dep)) {
-			exclude 'META-INF', 'META-INF/**'
-		}
-	}
-}
-
-task deobfJar(type: Jar) {
-	from sourceSets.main.output
-	configurations.shade.each { dep ->
-		from (project.zipTree(dep)) {
-			exclude 'META-INF', 'META-INF/**'
-		}
-	}
-	classifier = 'deobf'
-}
-
-task sourcesJar(type: Jar) {
-	from sourceSets.main.allSource
-	configurations.shade.each { dep ->
-		from (project.zipTree(dep)) {
-			exclude 'META-INF', 'META-INF/**'
-		}
-	}
-	classifier = 'sources'
-}
-
-tasks.build.dependsOn deobfJar, sourcesJar
-
-artifacts {
-	archives jar
-	archives deobfJar
-	archives sourcesJar
-}
-
-uploadArchives {
-	repositories.mavenDeployer {
-		repository(url: "file:///maven/")
+	from (sourceSets.main.resources.srcDirs) {
+		exclude 'mcmod.info'
 	}
 }
