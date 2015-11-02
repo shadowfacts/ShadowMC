@@ -1,6 +1,6 @@
 package net.shadowfacts.shadowmc.anvil;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.shadowfacts.shadowmc.util.ItemStackUtils;
 
@@ -9,8 +9,15 @@ import net.shadowfacts.shadowmc.util.ItemStackUtils;
  *
  * @author shadowfacts
  */
-@AllArgsConstructor
 public class NBTAnvilRecipe extends BasicAnvilRecipe {
+
+	public NBTAnvilRecipe(ItemStack left, ItemStack right, ItemStack result, int xp) {
+		super(left, right, result, xp);
+	}
+
+	public NBTAnvilRecipe(ItemStack left, ItemStack right, ItemStack result) {
+		super(left, right, result);
+	}
 
 	@Override
 	public boolean matches(ItemStack left, ItemStack right) {
