@@ -31,6 +31,7 @@ apply from: "gradle/scripts/dependencies.gradle"
 apply from: "gradle/scripts/artifacts.gradle"
 
 // Mod info
+group = config.group
 version = config.minecraft_version + "-" + config.mod_version
 
 sourceCompatibility = JavaVersion.VERSION_1_8
