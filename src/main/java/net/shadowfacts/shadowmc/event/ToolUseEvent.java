@@ -1,8 +1,7 @@
 package net.shadowfacts.shadowmc.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import cpw.mods.fml.common.eventhandler.Event;
+import lombok.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -15,7 +14,8 @@ import net.shadowfacts.shadowmc.util.coord.Coord3i;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ToolUseEvent {
+@NoArgsConstructor
+public class ToolUseEvent extends Event {
 
 	private ItemStack toolStack;
 	private EntityPlayer player;
@@ -24,4 +24,8 @@ public class ToolUseEvent {
 	private int side;
 	private Coord3f hit;
 
+	@Override
+	public boolean isCancelable() {
+		return true;
+	}
 }

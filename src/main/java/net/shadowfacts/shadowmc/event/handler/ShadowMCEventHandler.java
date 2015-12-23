@@ -1,12 +1,13 @@
 package net.shadowfacts.shadowmc.event.handler;
 
-import com.google.common.eventbus.Subscribe;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.shadowfacts.shadowmc.anvil.AnvilManager;
 import net.shadowfacts.shadowmc.anvil.AnvilRecipe;
 import net.shadowfacts.shadowmc.config.ConfigManager;
+import net.shadowfacts.shadowmc.event.ToolUseEvent;
 
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
  */
 public class ShadowMCEventHandler {
 
-	@Subscribe
+	@SubscribeEvent
 	public void anvilUpdate(AnvilUpdateEvent event) {
 		if (event.left == null || event.right == null) return;
 
@@ -30,8 +31,8 @@ public class ShadowMCEventHandler {
 		}
 	}
 
-	@Subscribe
-	private void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+	@SubscribeEvent
+	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (ConfigManager.instance.getModIdConfigNameMap().containsKey(event.modID)) {
 			String name = ConfigManager.instance.getModIdConfigNameMap().get(event.modID);
 			ConfigManager.instance.load(name);
@@ -41,6 +42,11 @@ public class ShadowMCEventHandler {
 				cfg.save();
 			}
 		}
+	}
+
+	@SubscribeEvent
+	public void test(ToolUseEvent event) {
+		System.out.println("test");
 	}
 
 }

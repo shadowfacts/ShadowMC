@@ -1,8 +1,8 @@
 package net.shadowfacts.shadowmc.command;
 
-import java.util.List;
-
 import net.minecraft.command.ICommandSender;
+
+import java.util.List;
 
 public interface ISubCommand {
 	

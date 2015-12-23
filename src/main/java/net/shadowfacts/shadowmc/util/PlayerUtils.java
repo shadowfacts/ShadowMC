@@ -1,11 +1,13 @@
 package net.shadowfacts.shadowmc.util;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.S07PacketRespawn;
 import net.minecraft.network.play.server.S1DPacketEntityEffect;
 import net.minecraft.network.play.server.S1FPacketSetExperience;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.WorldServer;
 
 import java.util.stream.Stream;
@@ -55,6 +57,14 @@ public class PlayerUtils {
 
 		// TODO: TEST
 
+	}
+
+	public static void addChatMsg(EntityPlayer player, String msg) {
+		player.addChatComponentMessage(new ChatComponentText(msg));
+	}
+
+	public static void addChatMsg(EntityPlayer player, String msg, Object... params) {
+		addChatMsg(player, String.format(msg, params));
 	}
 
 }

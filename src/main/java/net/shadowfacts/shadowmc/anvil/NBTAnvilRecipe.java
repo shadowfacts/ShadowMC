@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.anvil;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.shadowfacts.shadowmc.util.ItemStackUtils;
 
