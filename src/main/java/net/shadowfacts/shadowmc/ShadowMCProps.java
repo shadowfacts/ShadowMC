@@ -5,6 +5,6 @@ package net.shadowfacts.shadowmc;
  */
 public class ShadowMCProps {
 
-    public static final String version = "2.3.0";
+    public static final String version = "@VERSION@";
 
 }

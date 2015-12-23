@@ -27,13 +27,14 @@ minecraft {
 	version = "$minecraft_version-$forge_version"
 	runDir = "run"
 
-	replaceIn "shadowmc/ShadowMCProps.java"
-    replace '@VERSION@', "$mod_version"
+	replaceIn "ShadowMCProps.java"
+    replace "@VERSION@", mod_version
 
     srgExtra "PK: net/shadowfacts/shadowlib net/shadowfacts/shadowmc/shadowlib"
 }
 
 repositories {
+	mavenCentral()
 	maven {
 		name = "shadowfacts"
 		url = "http://mvn.rx14.co.uk/shadowfacts/"
@@ -47,6 +48,7 @@ configurations {
 
 dependencies {
 	shade group: "net.shadowfacts", name: "ShadowLib", version: "1.4.0-build-18"
+	compile group: "org.projectlombok", name: "lombok", version: "1.16.6"
 }
 
 jar {

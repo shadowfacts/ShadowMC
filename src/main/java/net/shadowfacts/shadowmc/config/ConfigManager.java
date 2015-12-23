@@ -1,7 +1,8 @@
 package net.shadowfacts.shadowmc.config;
 
 import net.minecraftforge.common.config.Configuration;
-import net.shadowfacts.shadowlib.log.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -19,10 +20,10 @@ public class ConfigManager {
 
 //	private Map<String, Class> configClasses = new HashMap<String, Class>();
 //	private Map<String, Configuration> configObjects = new HashMap<String, Configuration>();
-	private HashMap<String, MultiConfig> configs = new HashMap<String, MultiConfig>();
+	private HashMap<String, MultiConfig> configs = new HashMap<>();
 
 
-    private Logger log = new Logger("ShadowCore|ConfigManager");
+    private Logger log = LogManager.getLogger("ShadowCore|ConfigManager");
 
 	public void register(String name, Class clazz) {
 
