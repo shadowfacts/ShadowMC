@@ -7,10 +7,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CommandHandler extends CommandBase {
 	
@@ -59,8 +56,8 @@ public class CommandHandler extends CommandBase {
 	}
 	
 	@Override
-	public List getCommandAliases() {
-		return null;
+	public List<String> getCommandAliases() {
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class CommandHandler extends CommandBase {
 		}
 
 		if (commands.containsKey(args[0])) {
-			commands.get(args[0]).handleCommand(sender, args);
+			commands.get(args[0]).handleCommand(sender, Arrays.copyOfRange(args, 1, args.length));
 		} else {
 			throw new WrongUsageException("Type '" + getCommandUsage(sender) + "' for help.");
 		}
