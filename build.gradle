@@ -90,7 +90,7 @@ task(generateChangelog) << {
 		changelog += "- " + it.fullMessage
 	}
 	file("changelog.txt").text = changelog
-	file("gradle/last-release-commit.txt").text = commits.last().id
+	file("gradle/last-release-commit.txt").text = commits.first().id
 }
 
 task(tagRelease) << {
