@@ -1,15 +1,14 @@
 package net.shadowfacts.shadowmc;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.shadowmc.command.CommandHandler;
 import net.shadowfacts.shadowmc.config.ConfigManager;
-import net.shadowfacts.shadowmc.debug.ItemDebugger;
 import net.shadowfacts.shadowmc.event.EventManager;
 import net.shadowfacts.shadowmc.event.handler.ShadowMCEventHandler;
 import net.shadowfacts.shadowmc.util.BytecodePrettyPrinter;
@@ -27,16 +26,11 @@ public class ShadowMC {
 
 	public static EventManager bus = new EventManager();
 
-	public static ItemDebugger debugger;
-
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		ConfigManager.instance.configDir = event.getModConfigurationDirectory();
 		ConfigManager.instance.register(name, ShadowMCConfig.class, modId);
 		ConfigManager.instance.load(name);
-
-		debugger = new ItemDebugger();
-		if (ShadowMCConfig.enableDebugger) GameRegistry.registerItem(debugger, "debugger");
 
 //		Events
 		bus.register(new ShadowMCEventHandler());

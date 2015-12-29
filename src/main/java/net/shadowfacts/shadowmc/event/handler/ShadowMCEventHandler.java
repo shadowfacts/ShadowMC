@@ -1,9 +1,9 @@
 package net.shadowfacts.shadowmc.event.handler;
 
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.shadowfacts.shadowmc.anvil.AnvilManager;
 import net.shadowfacts.shadowmc.anvil.AnvilRecipe;
 import net.shadowfacts.shadowmc.config.ConfigManager;

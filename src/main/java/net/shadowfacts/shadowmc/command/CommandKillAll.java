@@ -1,11 +1,12 @@
 package net.shadowfacts.shadowmc.command;
 
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
 import java.util.List;
 
-public class CommandKillAll implements ISubCommand {
+public class CommandKillAll implements SubCommand {
 
 	public static CommandKillAll instance = new CommandKillAll();
 	
@@ -16,7 +17,7 @@ public class CommandKillAll implements ISubCommand {
 	}
 
 	@Override
-	public void handleCommand(ICommandSender sender, String[] args) {
+	public void handleCommand(ICommandSender sender, String[] args) throws CommandException {
 		sender.addChatMessage(new ChatComponentText("This command is not implemented yet."));
 	}
 

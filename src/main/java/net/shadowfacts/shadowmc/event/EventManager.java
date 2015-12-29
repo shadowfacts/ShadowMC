@@ -1,14 +1,15 @@
 package net.shadowfacts.shadowmc.event;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.shadowfacts.shadowmc.ShadowMC;
-import net.shadowfacts.shadowmc.util.coord.Coord3f;
-import net.shadowfacts.shadowmc.util.coord.Coord3i;
 
 /**
  * @author shadowfacts
@@ -24,8 +25,8 @@ public class EventManager {
 		return MinecraftForge.EVENT_BUS.post(e);
 	}
 
-	public static boolean onToolUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		return ShadowMC.bus.post(new ToolUseEvent(stack, player, world, new Coord3i(x, y, z), side, new Coord3f(hitX, hitY, hitZ)));
+	public static boolean onToolUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+		return ShadowMC.bus.post(new ToolUseEvent(stack, player, world, pos, side, new Vec3(hitX, hitY, hitZ)));
 	}
 
 }

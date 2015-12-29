@@ -1,4 +1,3 @@
+- Rejigger Gradle stuff
 - Work on 3.0.0
 - Set group
-- Whoops
-- Begin work on version 3.0.0

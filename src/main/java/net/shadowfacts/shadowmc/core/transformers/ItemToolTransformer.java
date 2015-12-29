@@ -33,13 +33,11 @@ public class ItemToolTransformer implements Opcodes {
 		onItemUse.instructions.add(new VarInsnNode(ALOAD, 1));
 		onItemUse.instructions.add(new VarInsnNode(ALOAD, 2));
 		onItemUse.instructions.add(new VarInsnNode(ALOAD, 3));
-		onItemUse.instructions.add(new VarInsnNode(ILOAD, 4));
-		onItemUse.instructions.add(new VarInsnNode(ILOAD, 5));
-		onItemUse.instructions.add(new VarInsnNode(ILOAD, 6));
-		onItemUse.instructions.add(new VarInsnNode(ILOAD, 7));
+		onItemUse.instructions.add(new VarInsnNode(ALOAD, 4));
+		onItemUse.instructions.add(new VarInsnNode(ALOAD, 5));
+		onItemUse.instructions.add(new VarInsnNode(FLOAD, 6));
+		onItemUse.instructions.add(new VarInsnNode(FLOAD, 7));
 		onItemUse.instructions.add(new VarInsnNode(FLOAD, 8));
-		onItemUse.instructions.add(new VarInsnNode(FLOAD, 9));
-		onItemUse.instructions.add(new VarInsnNode(FLOAD, 10));
 		onItemUse.instructions.add(new MethodInsnNode(INVOKESTATIC, Type.getInternalName(EventManager.class), "onToolUse", ON_ITEM_USE_DESC, false));
 		onItemUse.instructions.add(new InsnNode(IRETURN));
 

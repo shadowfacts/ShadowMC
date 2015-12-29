@@ -1,12 +1,13 @@
 package net.shadowfacts.shadowmc.event;
 
-import cpw.mods.fml.common.eventhandler.Event;
 import lombok.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.shadowfacts.shadowmc.util.coord.Coord3f;
-import net.shadowfacts.shadowmc.util.coord.Coord3i;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 /**
  * @author shadowfacts
@@ -14,15 +15,14 @@ import net.shadowfacts.shadowmc.util.coord.Coord3i;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class ToolUseEvent extends Event {
 
 	private ItemStack toolStack;
 	private EntityPlayer player;
 	private World world;
-	private Coord3i blockHit;
-	private int side;
-	private Coord3f hit;
+	private BlockPos blockHit;
+	private EnumFacing side;
+	private Vec3 hit;
 
 	@Override
 	public boolean isCancelable() {

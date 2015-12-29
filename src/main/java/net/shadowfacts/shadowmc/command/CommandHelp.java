@@ -1,13 +1,15 @@
 package net.shadowfacts.shadowmc.command;
 
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.shadowfacts.shadowmc.util.StringHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandHelp implements ISubCommand {
+public class CommandHelp implements SubCommand {
 	public static CommandHelp instance = new CommandHelp();
 
 	@Override
@@ -16,14 +18,14 @@ public class CommandHelp implements ISubCommand {
 	}
 
 	@Override
-	public void handleCommand(ICommandSender sender, String[] args) {
+	public void handleCommand(ICommandSender sender, String[] args) throws CommandException {
 		if (args.length != 0) {
 			if (args.length == 1) {
 				StringBuilder output = new StringBuilder();
 				List<String> commandList = new ArrayList<>(CommandHandler.getCommandList());
 
 				commandList.stream()
-						.map(s -> StringHelper.YELLOW + "/shadow " + s + StringHelper.WHITE + ", ")
+						.map(s -> EnumChatFormatting.YELLOW + "/shadow " + s + EnumChatFormatting.WHITE + ", ")
 						.forEach(output::append);
 
 				output.delete(output.length() - 2, output.length()); // remove the last 2 characters (the ending ", ")
@@ -45,7 +47,7 @@ public class CommandHelp implements ISubCommand {
 
 	@Override
 	public void handleHelpRequest(ICommandSender sender, String[] args) {
-		sender.addChatMessage(new ChatComponentText("Help info about all " + StringHelper.YELLOW + "/shadow" + StringHelper.WHITE + " commands."));
+		sender.addChatMessage(new ChatComponentText("Help info about all " + EnumChatFormatting.YELLOW + "/shadow" + EnumChatFormatting.WHITE + " commands."));
 	}
 			
 }

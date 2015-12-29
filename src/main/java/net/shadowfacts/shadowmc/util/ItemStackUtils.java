@@ -1,8 +1,8 @@
 package net.shadowfacts.shadowmc.util;
 
 import com.google.gson.*;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.lang.reflect.Type;
 
@@ -27,11 +27,11 @@ public class ItemStackUtils implements JsonSerializer<ItemStack>, JsonDeserializ
 		} else if (stack.getItem() == null || other.getItem() == null) {
 			return stack.getItem() == null && other.getItem() == null;
 		} else if (stack.isItemEqual(other) && stack.getItemDamage() == other.getItemDamage()) {
-			if (stack.stackTagCompound == null) {
-				return other.stackTagCompound == null;
+			if (stack.getTagCompound() == null) {
+				return other.getTagCompound() == null;
 			}
 
-			return stack.stackTagCompound.equals(other.stackTagCompound);
+			return stack.getTagCompound().equals(other.getTagCompound());
 		}
 
 		return false;
@@ -49,10 +49,7 @@ public class ItemStackUtils implements JsonSerializer<ItemStack>, JsonDeserializ
 		int metadata = obj.get("metadata") != null ? obj.get("metadata").getAsInt() : 0;
 		int stackSize = obj.get("stackSize") != null ? obj.get("stackSize").getAsInt() : 0;
 
-		ItemStack stack = GameRegistry.findItemStack(modId, name, stackSize).copy();
-		stack.setItemDamage(metadata);
-
-		return stack;
+		return new ItemStack(GameRegistry.findItem(modId, name), stackSize, metadata);
 	}
 
 	@Override

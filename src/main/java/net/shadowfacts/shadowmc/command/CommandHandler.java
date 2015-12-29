@@ -1,9 +1,11 @@
 package net.shadowfacts.shadowmc.command;
 
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.util.BlockPos;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,13 +18,12 @@ public class CommandHandler extends CommandBase {
 	
 	public static CommandHandler instance = new CommandHandler();
 	
-	protected static Map<String, ISubCommand> commands = new HashMap<>();
+	protected static Map<String, SubCommand> commands = new HashMap<>();
 
 	private static boolean initialized = false;
 	
 	static {
 		registerSubCommand(CommandKillAll.instance);
-		registerSubCommand(CommandVersion.instance);
 		registerSubCommand(CommandHelp.instance);
 		registerSubCommand(CommandReloadConfig.instance);
 	}
@@ -35,7 +36,7 @@ public class CommandHandler extends CommandBase {
 		}
 	}
 
-	public static boolean registerSubCommand(String name, ISubCommand subCommand) {
+	public static boolean registerSubCommand(String name, SubCommand subCommand) {
 		if (!commands.containsKey(name)) {
 			commands.put(name, subCommand);
 			return true;
@@ -43,7 +44,7 @@ public class CommandHandler extends CommandBase {
 		return false;
 	}
 
-	public static boolean registerSubCommand(ISubCommand subCommand) {
+	public static boolean registerSubCommand(SubCommand subCommand) {
 		return registerSubCommand(subCommand.getCommandName(), subCommand);
 	}
 	
@@ -73,7 +74,7 @@ public class CommandHandler extends CommandBase {
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) {
+	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
 		if (args.length <= 0) {
 			throw new WrongUsageException("Type '" + getCommandUsage(sender) + "' for help.");
 		}
@@ -86,11 +87,11 @@ public class CommandHandler extends CommandBase {
 	}
 	
 	@Override
-	public List addTabCompletionOptions(ICommandSender sender, String[] par2StrArray) {
-		if (par2StrArray.length == 1) {
-			return getListOfStringsFromIterableMatchingLastWord(par2StrArray, commands.keySet());
-		} else if (commands.containsKey(par2StrArray[0])) {
-			return commands.get(par2StrArray[0]).addTabCompletionOptions(sender, par2StrArray);
+	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+		if (args.length == 1) {
+			return getListOfStringsMatchingLastWord(args, commands.keySet());
+		} else if (commands.containsKey(args[0])) {
+			return commands.get(args[0]).addTabCompletionOptions(sender, args);
 		} else {
 			return null;
 		}

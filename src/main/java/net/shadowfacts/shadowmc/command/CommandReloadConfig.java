@@ -1,5 +1,6 @@
 package net.shadowfacts.shadowmc.command;
 
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.util.ChatComponentText;
@@ -12,7 +13,7 @@ import java.util.List;
  * Command to reload all or one of the configs registered with the ConfigManager
  * @author shadowfacts
  */
-public class CommandReloadConfig implements ISubCommand {
+public class CommandReloadConfig implements SubCommand {
 
 	public static CommandReloadConfig instance = new CommandReloadConfig();
 
@@ -22,7 +23,7 @@ public class CommandReloadConfig implements ISubCommand {
 	}
 
 	@Override
-	public void handleCommand(ICommandSender sender, String[] args) {
+	public void handleCommand(ICommandSender sender, String[] args) throws CommandException {
 
 		if (args.length <= 1 || args.length >= 3) {
 			throw new WrongUsageException("Incorrect amount of arguments. Type /shadow help reloadConfig for more information.");
