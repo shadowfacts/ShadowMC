@@ -20,4 +20,9 @@ public class GUIComponent extends AbstractGUI {
 	public boolean hasChildren() {
 		return false;
 	}
+
+	public GUIComponent addTooltip(String tooltip) {
+		this.tooltip.add(tooltip);
+		return this;
+	}
 }

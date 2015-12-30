@@ -36,7 +36,8 @@ public class TestMod {
 	public void openGUI() {
 		GuiScreen gui = new GUIBuilder()
 				.addComponent(new GUIComponentText(50, 50, "Hello, World!"))
-				.addComponent(new GUIButtonText(50, 60, 100, 20, this::testPressed, "Test 1"))
+				.addComponent(new GUIButtonText(50, 60, 100, 20, this::testPressed, "Test 1")
+								.addTooltip("It's a button!"))
 				.wrap();
 		Minecraft.getMinecraft().displayGuiScreen(gui);
 	}

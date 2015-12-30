@@ -52,10 +52,11 @@ public class BaseGUI extends AbstractGUI {
 				.forEach(AbstractGUI::update);
 	}
 
-	public void drawTooltips(int mouseX, int mouseY) {
+	@Override
+	public void drawTooltip(int x, int y) {
 		children.stream()
-				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
-				.forEach(gui -> gui.drawTooltip(mouseX, mouseY));
+				.filter(gui -> gui.isWithinBounds(x, y))
+				.forEach(gui -> gui.drawTooltip(x, y));
 	}
-
+	
 }
