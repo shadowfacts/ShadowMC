@@ -19,7 +19,6 @@ public class GuiScreenWrapper extends GuiScreen {
 		this.gui = new MCBaseGUI(this);
 		gui.setParent(this.gui);
 		this.gui.addChild(gui);
-		this.gui.init();
 	}
 
 	@Override

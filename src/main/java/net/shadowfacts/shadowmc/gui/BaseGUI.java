@@ -6,24 +6,16 @@ import net.shadowfacts.shadowmc.util.MouseButton;
 /**
  * @author shadowfacts
  */
-public class BaseGUI extends AbstractInteractiveGUI {
+public class BaseGUI extends AbstractGUI {
 
 	public BaseGUI(Minecraft mc, int x, int y, int width, int height) {
 		super(mc, x, y, width, height);
 	}
 
 	@Override
-	public void init() {
-		getChildren().stream()
-				.forEach(AbstractGUI::init);
-	}
-
-	@Override
 	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
 		getChildren().stream()
 				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
-				.filter(gui -> gui instanceof AbstractInteractiveGUI)
-				.map(gui -> (AbstractInteractiveGUI)gui)
 				.forEach(gui -> gui.handleMouseClicked(mouseX, mouseY, button));
 	}
 
@@ -31,16 +23,12 @@ public class BaseGUI extends AbstractInteractiveGUI {
 	public void handleMouseReleased(int mouseX, int mouseY, MouseButton mouseButton) {
 		getChildren().stream()
 				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
-				.filter(gui -> gui instanceof AbstractInteractiveGUI)
-				.map(gui -> (AbstractInteractiveGUI)gui)
 				.forEach(gui -> gui.handleMouseReleased(mouseX, mouseY, mouseButton));
 	}
 
 	@Override
 	public void handleKeyPress(int key, char charTyped) {
 		getChildren().stream()
-				.filter(gui -> gui instanceof AbstractInteractiveGUI)
-				.map(gui -> (AbstractInteractiveGUI)gui)
 				.forEach(gui -> gui.handleKeyPress(key, charTyped));
 	}
 

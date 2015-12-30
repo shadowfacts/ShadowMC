@@ -3,6 +3,7 @@ package net.shadowfacts.shadowmc.gui;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
+import net.shadowfacts.shadowmc.util.MouseButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,8 @@ public abstract class AbstractGUI {
 		this.height = height;
 	}
 
-	public void init() {
-
+	public boolean hasChildren() {
+		return true;
 	}
 
 	public <T extends AbstractGUI> T addChild(T child) {
@@ -71,6 +72,18 @@ public abstract class AbstractGUI {
 	}
 
 	public void update() {
+
+	}
+
+	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
+
+	}
+
+	public void handleMouseReleased(int mouseX, int mouseY, MouseButton button) {
+
+	}
+
+	public void handleKeyPress(int keyCode, char charTyped) {
 
 	}
 
