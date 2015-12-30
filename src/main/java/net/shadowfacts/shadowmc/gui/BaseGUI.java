@@ -12,6 +12,10 @@ public class BaseGUI extends AbstractGUI {
 		super(mc, x, y, width, height);
 	}
 
+	public BaseGUI(Minecraft mc) {
+		this(mc, 0, 0, mc.displayWidth, mc.displayHeight);
+	}
+
 	@Override
 	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
 		children.stream()

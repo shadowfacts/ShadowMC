@@ -8,8 +8,12 @@ import net.shadowfacts.shadowmc.gui.AbstractGUI;
  */
 public class GUIComponent extends AbstractGUI {
 
-	public GUIComponent(Minecraft mc, int x, int y, int width, int height) {
+	protected GUIComponent(Minecraft mc, int x, int y, int width, int height) {
 		super(mc, x, y, width, height);
+	}
+
+	public GUIComponent(int x, int y, int width, int height) {
+		this(Minecraft.getMinecraft(), x, y, width, height);
 	}
 
 	@Override

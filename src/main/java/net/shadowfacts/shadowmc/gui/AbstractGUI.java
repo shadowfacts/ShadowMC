@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class AbstractGUI {
 
-	protected final Minecraft mc;
+	protected Minecraft mc;
 
 	protected int x;
 	protected int y;
@@ -30,12 +30,16 @@ public abstract class AbstractGUI {
 	@Getter
 	protected List<String> tooltip = new ArrayList<>();
 
-	public AbstractGUI(Minecraft mc, int x, int y, int width, int height) {
+	protected AbstractGUI(Minecraft mc, int x, int y, int width, int height) {
 		this.mc = mc;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+	}
+
+	public AbstractGUI(int x, int y, int width, int height) {
+		this(Minecraft.getMinecraft(), x, y, width, height);
 	}
 
 	public boolean hasChildren() {

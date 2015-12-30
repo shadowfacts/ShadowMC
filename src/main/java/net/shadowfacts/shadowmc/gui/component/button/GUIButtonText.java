@@ -18,10 +18,14 @@ public class GUIButtonText extends GUIButton {
 
 	protected BiFunction<GUIButtonText, MouseButton, Boolean> callback;
 
-	public GUIButtonText(Minecraft mc, int x, int y, int width, int height, BiFunction<GUIButtonText, MouseButton, Boolean> callback, String text) {
+	protected GUIButtonText(Minecraft mc, int x, int y, int width, int height, BiFunction<GUIButtonText, MouseButton, Boolean> callback, String text) {
 		super(mc, x, y, width, height);
 		this.callback = callback;
 		this.text = text;
+	}
+
+	public GUIButtonText(int x, int y, int width, int height, BiFunction<GUIButtonText, MouseButton, Boolean> callback, String text) {
+		this(Minecraft.getMinecraft(), x, y, width, height, callback, text);
 	}
 
 	@Override
