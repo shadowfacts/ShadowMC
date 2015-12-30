@@ -58,5 +58,5 @@ public class BaseGUI extends AbstractGUI {
 				.filter(gui -> gui.isWithinBounds(x, y))
 				.forEach(gui -> gui.drawTooltip(x, y));
 	}
-	
+
 }

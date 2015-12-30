@@ -12,9 +12,12 @@ public class GUIBuilder {
 	private Minecraft mc;
 	private BaseGUI gui;
 
+	private GuiScreenWrapper wrapper;
+
 	public GUIBuilder(Minecraft mc) {
 		this.mc = mc;
-		this.gui = new BaseGUI(mc);
+		gui = new BaseGUI(mc);
+		wrapper = new GuiScreenWrapper(gui);
 	}
 
 	public GUIBuilder() {
@@ -22,7 +25,7 @@ public class GUIBuilder {
 	}
 
 	public GuiScreen wrap() {
-		return new GuiScreenWrapper(gui);
+		return wrapper;
 	}
 
 	public GUIBuilder addComponent(AbstractGUI component) {
@@ -30,4 +33,10 @@ public class GUIBuilder {
 		gui.addChild(component);
 		return this;
 	}
+
+	public GUIBuilder setPausesGame(boolean pausesGame) {
+		wrapper.setPausesGame(pausesGame);
+		return this;
+	}
+
 }
