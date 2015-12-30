@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowmc.gui;
+package net.shadowfacts.shadowmc.gui.component;
 
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
@@ -18,6 +18,6 @@ public class GUIComponentText extends GUIComponent {
 
 	@Override
 	public void draw() {
-		mc.fontRendererObj.drawString(getText(), getX(), getY(), 0xffffff);
+		mc.fontRendererObj.drawString(getText(), x, y, 0xffffff);
 	}
 }

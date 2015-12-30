@@ -1,6 +1,7 @@
-package net.shadowfacts.shadowmc.gui;
+package net.shadowfacts.shadowmc.gui.component;
 
 import net.minecraft.client.Minecraft;
+import net.shadowfacts.shadowmc.gui.AbstractGUI;
 
 /**
  * @author shadowfacts

@@ -11,23 +11,24 @@ import java.util.List;
 /**
  * @author shadowfacts
  */
-@Getter
 public abstract class AbstractGUI {
 
 	protected final Minecraft mc;
 
-	private int x;
-	private int y;
-	private int width;
-	private int height;
+	protected int x;
+	protected int y;
+	protected int width;
+	protected int height;
 
 	@Setter
-	private AbstractGUI parent;
-	private List<AbstractGUI> children = new ArrayList<>();
+	protected AbstractGUI parent;
+	protected List<AbstractGUI> children = new ArrayList<>();
 
-	private boolean visible = true;
+	@Getter @Setter
+	protected boolean visible = true;
 
-	private List<String> tooltip = new ArrayList<>();
+	@Getter
+	protected List<String> tooltip = new ArrayList<>();
 
 	public AbstractGUI(Minecraft mc, int x, int y, int width, int height) {
 		this.mc = mc;
@@ -42,25 +43,42 @@ public abstract class AbstractGUI {
 	}
 
 	public <T extends AbstractGUI> T addChild(T child) {
-		child.setParent(this);
+		child.parent = this;
 		children.add(child);
 		return child;
 	}
 
 	public AbstractGUI getRoot() {
-		if (getParent() != null) {
-			return getParent().getRoot();
+		if (parent != null) {
+			return parent.getRoot();
 		}
 		return this;
 	}
 
 	public boolean isWithinBounds(int mouseX, int mouseY) {
-		return mouseX >= getX() && mouseX <= getX() + getWidth() &&
-				mouseY >= getY() && mouseY <= getY() + getHeight();
+		return mouseX >= x && mouseX <= x + width &&
+				mouseY >= y && mouseY <= y + height;
 	}
 
-	public void drawHoveringText(List<String> text, int x, int y) {
+	protected void drawHoveringText(List<String> text, int x, int y) {
 		getRoot().drawHoveringText(text, x, y);
+	}
+
+	protected void drawText(String text, int x, int y, int color) {
+		mc.fontRendererObj.drawString(text, x, y, color);
+	}
+
+	protected void drawText(String text, int x, int y) {
+		drawText(text, x, y, 0xffffff);
+	}
+
+	protected void drawCenteredText(String text, int x, int maxX, int y, int color) {
+		int center = x + ((maxX - x) / 2) - (mc.fontRendererObj.getStringWidth(text) / 2);
+		drawText(text, center, y, color);
+	}
+
+	protected void drawCenteredText(String text, int x, int maxX, int y) {
+		drawCenteredText(text, x, maxX, y, 0xffffff);
 	}
 
 	public void draw() {

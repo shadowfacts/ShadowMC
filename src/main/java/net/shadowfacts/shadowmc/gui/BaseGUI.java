@@ -14,40 +14,42 @@ public class BaseGUI extends AbstractGUI {
 
 	@Override
 	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
-		getChildren().stream()
+		children.stream()
+				.filter(AbstractGUI::isVisible)
 				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
 				.forEach(gui -> gui.handleMouseClicked(mouseX, mouseY, button));
 	}
 
 	@Override
 	public void handleMouseReleased(int mouseX, int mouseY, MouseButton mouseButton) {
-		getChildren().stream()
+		children.stream()
+				.filter(AbstractGUI::isVisible)
 				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
 				.forEach(gui -> gui.handleMouseReleased(mouseX, mouseY, mouseButton));
 	}
 
 	@Override
 	public void handleKeyPress(int key, char charTyped) {
-		getChildren().stream()
+		children.stream()
 				.forEach(gui -> gui.handleKeyPress(key, charTyped));
 	}
 
 	@Override
 	public void draw() {
-		getChildren().stream()
+		children.stream()
 				.filter(AbstractGUI::isVisible)
 				.forEach(AbstractGUI::draw);
 	}
 
 	@Override
 	public void update() {
-		getChildren().stream()
+		children.stream()
 				.filter(AbstractGUI::isVisible)
 				.forEach(AbstractGUI::update);
 	}
 
 	public void drawTooltips(int mouseX, int mouseY) {
-		getChildren().stream()
+		children.stream()
 				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
 				.forEach(gui -> gui.drawTooltip(mouseX, mouseY));
 	}
