@@ -6,27 +6,24 @@ import net.minecraft.util.ResourceLocation;
 import net.shadowfacts.shadowmc.gui.component.GUIComponent;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
-import java.util.function.Function;
-
 /**
  * @author shadowfacts
  */
-public abstract class GUIComponentButton extends GUIComponent {
+public abstract class GUIButton extends GUIComponent {
 
-	protected Function<MouseButton, ButtonPressResult> callback;
-
-	public GUIComponentButton(Minecraft mc, int x, int y, int width, int height, Function<MouseButton, ButtonPressResult> callback) {
+	public GUIButton(Minecraft mc, int x, int y, int width, int height) {
 		super(mc, x, y, width, height);
-		this.callback = callback;
 	}
 
 	@Override
 	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
-		ButtonPressResult result = callback.apply(button);
-		if (result == ButtonPressResult.SUCCESS) {
+		boolean result = handlePress(button);
+		if (result) {
 			mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
 		}
 	}
+
+	protected abstract boolean handlePress(MouseButton button);
 
 	@Override
 	public void handleMouseReleased(int mouseX, int mouseY, MouseButton button) {
@@ -45,10 +42,5 @@ public abstract class GUIComponentButton extends GUIComponent {
 	}
 
 	protected abstract void drawButton();
-
-	public enum ButtonPressResult {
-		SUCCESS,
-		FAILURE;
-	}
 
 }

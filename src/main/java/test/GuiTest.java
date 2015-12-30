@@ -3,8 +3,7 @@ package test;
 import net.minecraft.client.Minecraft;
 import net.shadowfacts.shadowmc.gui.BaseGUI;
 import net.shadowfacts.shadowmc.gui.component.GUIComponentText;
-import net.shadowfacts.shadowmc.gui.component.button.GUIComponentButton;
-import net.shadowfacts.shadowmc.gui.component.button.GUIComponentButtonText;
+import net.shadowfacts.shadowmc.gui.component.button.GUIButtonText;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
 /**
@@ -12,14 +11,11 @@ import net.shadowfacts.shadowmc.util.MouseButton;
  */
 public class GuiTest extends BaseGUI {
 
-	protected GUIComponentButtonText button;
-
 	public GuiTest(Minecraft mc) {
 		super(mc, 0, 0, Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
 
 		addChild(new GUIComponentText(mc, 50, 50, "Hello, GUI system!"));
-		button = addChild(new GUIComponentButtonText(mc, 50, 66, 100, 20, this::buttonPressed, "Test 1"));
-		button.setVisible(false);
+		addChild(new GUIButtonText(mc, 50, 66, 100, 20, this::buttonPressed, "Test 1"));
 	}
 
 	@Override
@@ -27,7 +23,7 @@ public class GuiTest extends BaseGUI {
 		super.draw();
 	}
 
-	protected GUIComponentButton.ButtonPressResult buttonPressed(MouseButton mouseButton) {
+	protected boolean buttonPressed(GUIButtonText button, MouseButton mouseButton) {
 		switch (button.getText()) {
 			case "Test 1":
 				button.setText("Test 2");
@@ -36,8 +32,8 @@ public class GuiTest extends BaseGUI {
 				button.setText("Test 1");
 				break;
 			default:
-				return GUIComponentButton.ButtonPressResult.FAILURE;
+				return false;
 		}
-		return GUIComponentButton.ButtonPressResult.SUCCESS;
+		return true;
 	}
 }
