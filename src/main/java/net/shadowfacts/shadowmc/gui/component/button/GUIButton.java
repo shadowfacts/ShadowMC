@@ -3,6 +3,7 @@ package net.shadowfacts.shadowmc.gui.component.button;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.shadowfacts.shadowmc.gui.component.GUIComponent;
 import net.shadowfacts.shadowmc.util.MouseButton;
@@ -11,6 +12,8 @@ import net.shadowfacts.shadowmc.util.MouseButton;
  * @author shadowfacts
  */
 public abstract class GUIButton extends GUIComponent {
+
+	protected static final ResourceLocation bgTexture = new ResourceLocation("minecraft", "textures/gui/widgets.png");
 
 	@Getter
 	protected boolean drawBackground = true;
@@ -44,8 +47,15 @@ public abstract class GUIButton extends GUIComponent {
 	}
 
 	@Override
-	public void draw() {
-//		TODO: draw button background
+	public void draw(int mouseX, int mouseY) {
+		GlStateManager.enableBlend();
+		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+		GlStateManager.blendFunc(770, 771);
+		int i = isWithinBounds(mouseX, mouseY) ? 40 : 20;
+		mc.getTextureManager().bindTexture(bgTexture);
+		drawTexturedRect(x, y, 0, 46 + i, width / 2, height);
+		drawTexturedRect(x + width / 2, y, 200 - width / 2, 46 + i, width / 2, height);
+
 		drawButton();
 	}
 

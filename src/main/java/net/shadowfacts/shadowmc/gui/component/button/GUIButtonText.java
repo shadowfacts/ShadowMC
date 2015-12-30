@@ -7,7 +7,6 @@ import net.shadowfacts.shadowmc.util.MouseButton;
 
 import java.util.function.BiFunction;
 
-
 /**
  * @author shadowfacts
  */
@@ -35,7 +34,7 @@ public class GUIButtonText extends GUIButton {
 
 	@Override
 	protected void drawButton() {
-		drawCenteredText(text, x, x + width, y);
+		drawCenteredText(text, x, x + width, y, y + height);
 	}
 
 }

@@ -23,7 +23,7 @@ public class GuiScreenWrapper extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		gui.draw(mouseX, mouseY);
+		gui.drawAll(mouseX, mouseY);
 	}
 
 	@Override

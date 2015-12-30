@@ -17,8 +17,8 @@ public class MCBaseGUI extends BaseGUI {
 		this.mcGUI = mcGUI;
 	}
 
-	public void draw(int mouseX, int mouseY) {
-		draw();
+	public void drawAll(int mouseX, int mouseY) {
+		draw(mouseX, mouseY);
 		drawTooltip(mouseX, mouseY);
 	}
 

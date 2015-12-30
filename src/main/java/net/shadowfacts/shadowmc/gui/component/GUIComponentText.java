@@ -21,7 +21,7 @@ public class GUIComponentText extends GUIComponent {
 	}
 
 	@Override
-	public void draw() {
+	public void draw(int mouseX, int mouseY) {
 		mc.fontRendererObj.drawString(getText(), x, y, 0xffffff);
 	}
 }

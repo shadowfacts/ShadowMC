@@ -39,10 +39,10 @@ public class BaseGUI extends AbstractGUI {
 	}
 
 	@Override
-	public void draw() {
+	public void draw(int mouseX, int mouseY) {
 		children.stream()
 				.filter(AbstractGUI::isVisible)
-				.forEach(AbstractGUI::draw);
+				.forEach(gui -> gui.draw(mouseX, mouseY));
 	}
 
 	@Override
