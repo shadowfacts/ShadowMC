@@ -87,7 +87,7 @@ task(generateChangelog) << {
 		range(file("gradle/last-release-commit.txt").text, "HEAD")
 	}
 	commits.each {
-		changelog += "- " + it.fullMessage
+		changelog = "- " + it.fullMessage + changelog
 	}
 	file("changelog.txt").text = changelog
 	file("gradle/last-release-commit.txt").text = commits.first().id
