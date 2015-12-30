@@ -2,6 +2,7 @@ package net.shadowfacts.shadowmc.gui.mcwrapper;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.shadowfacts.shadowmc.gui.AbstractGUI;
+import net.shadowfacts.shadowmc.util.MouseButton;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
@@ -40,13 +41,13 @@ public class GuiScreenWrapper extends GuiScreen {
 	}
 
 	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		gui.handleMouseClicked(mouseX, mouseY, mouseButton);
+	protected void mouseClicked(int mouseX, int mouseY, int button) throws IOException {
+		gui.handleMouseClicked(mouseX, mouseY, MouseButton.get(button));
 	}
 
 	@Override
-	protected void mouseReleased(int mouseX, int mouseY, int releasedButton) {
-		gui.handleMouseReleased(mouseX, mouseY, releasedButton);
+	protected void mouseReleased(int mouseX, int mouseY, int button) {
+		gui.handleMouseReleased(mouseX, mouseY, MouseButton.get(button));
 	}
 
 	@Override

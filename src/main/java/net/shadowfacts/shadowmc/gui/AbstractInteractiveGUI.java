@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowmc.gui;
 
 import net.minecraft.client.Minecraft;
+import net.shadowfacts.shadowmc.util.MouseButton;
 
 /**
  * @author shadowfacts
@@ -11,9 +12,9 @@ public abstract class AbstractInteractiveGUI extends AbstractGUI {
 		super(mc, x, y, width, height);
 	}
 
-	public abstract void handleMouseClicked(int mouseX, int mouseY, int mouseButton);
+	public abstract void handleMouseClicked(int mouseX, int mouseY, MouseButton button);
 
-	public abstract void handleMouseReleased(int mouseX, int mouseY, int releasedButton);
+	public abstract void handleMouseReleased(int mouseX, int mouseY, MouseButton button);
 
 	public abstract void handleKeyPress(int keyCode, char charTyped);
 

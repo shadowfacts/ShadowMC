@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowmc.gui.mcwrapper;
 
 import net.shadowfacts.shadowmc.gui.BaseGUI;
+import net.shadowfacts.shadowmc.util.MouseButton;
 
 import java.util.List;
 
@@ -32,12 +33,12 @@ public class MCBaseGUI extends BaseGUI {
 	}
 
 	@Override
-	public void handleMouseClicked(int mouseX, int mouseY, int mouseButton) {
-		super.handleMouseClicked(mouseX, mouseY, mouseButton);
+	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
+		super.handleMouseClicked(mouseX, mouseY, button);
 	}
 
 	@Override
-	public void handleMouseReleased(int mouseX, int mouseY, int releasedButton) {
+	public void handleMouseReleased(int mouseX, int mouseY, MouseButton button) {
 
 	}
 

@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowmc.gui;
 
 import net.minecraft.client.Minecraft;
+import net.shadowfacts.shadowmc.util.MouseButton;
 
 /**
  * @author shadowfacts
@@ -18,16 +19,16 @@ public class BaseGUI extends AbstractInteractiveGUI {
 	}
 
 	@Override
-	public void handleMouseClicked(int mouseX, int mouseY, int mouseButton) {
+	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
 		getChildren().stream()
 				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
 				.filter(gui -> gui instanceof AbstractInteractiveGUI)
 				.map(gui -> (AbstractInteractiveGUI)gui)
-				.forEach(gui -> gui.handleMouseClicked(mouseX, mouseY, mouseButton));
+				.forEach(gui -> gui.handleMouseClicked(mouseX, mouseY, button));
 	}
 
 	@Override
-	public void handleMouseReleased(int mouseX, int mouseY, int mouseButton) {
+	public void handleMouseReleased(int mouseX, int mouseY, MouseButton mouseButton) {
 		getChildren().stream()
 				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
 				.filter(gui -> gui instanceof AbstractInteractiveGUI)
