@@ -5,9 +5,9 @@ import net.minecraft.client.Minecraft;
 /**
  * @author shadowfacts
  */
-public class BasicGUI extends AbstractInteractiveGUI {
+public class BaseGUI extends AbstractInteractiveGUI {
 
-	public BasicGUI(Minecraft mc, int x, int y, int width, int height) {
+	public BaseGUI(Minecraft mc, int x, int y, int width, int height) {
 		super(mc, x, y, width, height);
 	}
 

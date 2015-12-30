@@ -1,13 +1,13 @@
 package test;
 
 import net.minecraft.client.Minecraft;
-import net.shadowfacts.shadowmc.gui.BasicGUI;
+import net.shadowfacts.shadowmc.gui.BaseGUI;
 import net.shadowfacts.shadowmc.gui.GUIComponentText;
 
 /**
  * @author shadowfacts
  */
-public class GuiTest extends BasicGUI {
+public class GuiTest extends BaseGUI {
 
 	public GuiTest(Minecraft mc) {
 		super(mc, 0, 0, Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);

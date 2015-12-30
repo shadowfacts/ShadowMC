@@ -1,13 +1,13 @@
 package net.shadowfacts.shadowmc.gui.mcwrapper;
 
-import net.shadowfacts.shadowmc.gui.BasicGUI;
+import net.shadowfacts.shadowmc.gui.BaseGUI;
 
 import java.util.List;
 
 /**
  * @author shadowfacts
  */
-public class MCGUIWrapper extends BasicGUI {
+public class MCGUIWrapper extends BaseGUI {
 
 	private MCGui mcGUI;
 
