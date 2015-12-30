@@ -61,4 +61,9 @@ public class GuiScreenWrapper extends GuiScreen {
 	public boolean doesGuiPauseGame() {
 		return pausesGame;
 	}
+
+	@Override
+	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+		gui.handleMouseMove(mouseX, mouseY, MouseButton.get(clickedMouseButton));
+	}
 }

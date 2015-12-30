@@ -37,6 +37,8 @@ public abstract class AbstractGUI {
 	@Getter
 	protected List<String> tooltip = new ArrayList<>();
 
+	protected boolean movable = false;
+
 	protected AbstractGUI(Minecraft mc, int x, int y, int width, int height) {
 		this.mc = mc;
 		this.x = x;
@@ -123,12 +125,21 @@ public abstract class AbstractGUI {
 
 	}
 
+	public void handleMouseMove(int mouseX, int mouseY, MouseButton mouseButton) {
+
+	}
+
 	public void handleMouseReleased(int mouseX, int mouseY, MouseButton button) {
 
 	}
 
 	public void handleKeyPress(int keyCode, char charTyped) {
 
+	}
+
+	public void updatePosition(int newX, int newY) {
+		x = newX;
+		y = newY;
 	}
 
 }

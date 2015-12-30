@@ -39,7 +39,7 @@ public class TestMod {
 				.addComponent(new GUIComponentText(50, 50, "Hello, World!")
 								.setColor(Color.LIGHT_PURPLE))
 				.addComponent(new GUIButtonText(50, 60, 100, 20, this::testPressed, "Test 1")
-								.setColor(Color.YELLOW)
+								.setColor(Color.DARK_BLUE)
 								.addTooltip("It's a button!"))
 				.wrap();
 		Minecraft.getMinecraft().displayGuiScreen(gui);
