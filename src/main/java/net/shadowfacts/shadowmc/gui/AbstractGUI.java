@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.ResourceLocation;
 import net.shadowfacts.shadowmc.util.Color;
 import net.shadowfacts.shadowmc.util.MouseButton;
 import org.lwjgl.opengl.GL11;
@@ -94,6 +95,10 @@ public abstract class AbstractGUI {
 
 	protected void drawCenteredText(String text, int x, int maxX, int y, int maxY) {
 		drawCenteredText(text, x, maxX, y, maxY, Color.WHITE);
+	}
+
+	protected void bindTexture(ResourceLocation texture) {
+		mc.getTextureManager().bindTexture(texture);
 	}
 
 	protected void drawTexturedRect(int x, int y, int u, int v, int width, int height) {

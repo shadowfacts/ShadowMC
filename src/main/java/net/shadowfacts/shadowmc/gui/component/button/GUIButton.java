@@ -53,7 +53,7 @@ public abstract class GUIButton extends GUIComponent {
 			GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 			GlStateManager.blendFunc(770, 771);
 			int i = isWithinBounds(mouseX, mouseY) ? 40 : 20;
-			mc.getTextureManager().bindTexture(bgTexture);
+			bindTexture(bgTexture);
 			drawTexturedRect(x, y, 0, 46 + i, width / 2, height);
 			drawTexturedRect(x + width / 2, y, 200 - width / 2, 46 + i, width / 2, height);
 		}
