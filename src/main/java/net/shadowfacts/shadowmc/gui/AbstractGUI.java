@@ -6,7 +6,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.shadowfacts.shadowmc.util.Color;
 import net.shadowfacts.shadowmc.util.MouseButton;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,22 +75,23 @@ public abstract class AbstractGUI {
 		getRoot().drawHoveringText(text, x, y);
 	}
 
-	protected void drawText(String text, int x, int y, int color) {
-		mc.fontRendererObj.drawString(text, x, y, color);
+	protected void drawText(String text, int x, int y, Color color) {
+		mc.fontRendererObj.drawString(text, x, y, color.toARGB());
+		GL11.glColor4f(1, 1, 1, 1);
 	}
 
 	protected void drawText(String text, int x, int y) {
-		drawText(text, x, y, 0xffffff);
+		drawText(text, x, y, Color.WHITE);
 	}
 
-	protected void drawCenteredText(String text, int x, int maxX, int y, int maxY, int color) {
+	protected void drawCenteredText(String text, int x, int maxX, int y, int maxY, Color color) {
 		int centerX = x + ((maxX - x) / 2) - (mc.fontRendererObj.getStringWidth(text) / 2);
 		int centerY = y + ((maxY - y) / 2) - (mc.fontRendererObj.FONT_HEIGHT / 2);
 		drawText(text, centerX, centerY, color);
 	}
 
 	protected void drawCenteredText(String text, int x, int maxX, int y, int maxY) {
-		drawCenteredText(text, x, maxX, y, maxY, 0xffffff);
+		drawCenteredText(text, x, maxX, y, maxY, Color.WHITE);
 	}
 
 	protected void drawTexturedRect(int x, int y, int u, int v, int width, int height) {
@@ -97,10 +100,10 @@ public abstract class AbstractGUI {
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		worldrenderer.pos((double)(x + 0), (double)(y + height), (double)this.zLevel).tex((double)((float)(u + 0) * f), (double)((float)(v + height) * f1)).endVertex();
+		worldrenderer.pos((double)x, (double)(y + height), (double)this.zLevel).tex((double)((float)u * f), (double)((float)(v + height) * f1)).endVertex();
 		worldrenderer.pos((double)(x + width), (double)(y + height), (double)this.zLevel).tex((double)((float)(u + width) * f), (double)((float)(v + height) * f1)).endVertex();
-		worldrenderer.pos((double)(x + width), (double)(y + 0), (double)this.zLevel).tex((double)((float)(u + width) * f), (double)((float)(v + 0) * f1)).endVertex();
-		worldrenderer.pos((double)(x + 0), (double)(y + 0), (double)this.zLevel).tex((double)((float)(u + 0) * f), (double)((float)(v + 0) * f1)).endVertex();
+		worldrenderer.pos((double)(x + width), (double)y, (double)this.zLevel).tex((double)((float)(u + width) * f), (double)((float)v * f1)).endVertex();
+		worldrenderer.pos((double)x, (double)y, (double)this.zLevel).tex((double)((float)u * f), (double)((float)v * f1)).endVertex();
 		tessellator.draw();
 	}
 

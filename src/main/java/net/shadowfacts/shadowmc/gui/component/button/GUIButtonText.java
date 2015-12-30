@@ -3,6 +3,7 @@ package net.shadowfacts.shadowmc.gui.component.button;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
+import net.shadowfacts.shadowmc.util.Color;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
 import java.util.function.BiFunction;
@@ -14,6 +15,8 @@ public class GUIButtonText extends GUIButton {
 
 	@Getter @Setter
 	protected String text;
+
+	protected Color color = Color.WHITE;
 
 	protected BiFunction<GUIButtonText, MouseButton, Boolean> callback;
 
@@ -34,7 +37,12 @@ public class GUIButtonText extends GUIButton {
 
 	@Override
 	protected void drawButton() {
-		drawCenteredText(text, x, x + width, y, y + height);
+		drawCenteredText(text, x, x + width, y, y + height, color);
+	}
+
+	public GUIButtonText setColor(Color color) {
+		this.color = color;
+		return this;
 	}
 
 }
