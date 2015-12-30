@@ -6,7 +6,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.shadowfacts.shadowmc.gui.mcwrapper.MCGui;
+import net.shadowfacts.shadowmc.gui.mcwrapper.GuiScreenWrapper;
 
 /**
  * @author shadowfacts
@@ -22,7 +22,7 @@ public class TestMod {
 	@SubscribeEvent
 	public void clientChat(ClientChatReceivedEvent event) {
 		if (event.message.getUnformattedText().endsWith("test")) {
-			Minecraft.getMinecraft().displayGuiScreen(new MCGui(new GuiTest(Minecraft.getMinecraft())));
+			Minecraft.getMinecraft().displayGuiScreen(new GuiScreenWrapper(new GuiTest(Minecraft.getMinecraft())));
 		}
 	}
 

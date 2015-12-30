@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * @author shadowfacts
  */
-public class MCGui extends GuiScreen {
+public class GuiScreenWrapper extends GuiScreen {
 
 	private MCGUIWrapper gui;
 
-	public MCGui(AbstractGUI gui) {
+	public GuiScreenWrapper(AbstractGUI gui) {
 		this.gui = new MCGUIWrapper(this);
 		gui.setParent(this.gui);
 		this.gui.addChild(gui);
