@@ -33,7 +33,7 @@ minecraft {
 	version = minecraft_version + "-" + forge_version
 	runDir = "run"
 
-	mappings = "snapshot_20151230"
+	mappings = mcp_mappings
 
 	replaceIn "shadowmc/ShadowMC.java"
 	replace '@VERSION@', mod_version
