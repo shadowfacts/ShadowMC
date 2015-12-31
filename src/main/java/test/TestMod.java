@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.shadowfacts.shadowmc.gui.GUIBuilder;
 import net.shadowfacts.shadowmc.gui.component.GUIComponentText;
+import net.shadowfacts.shadowmc.gui.component.GUIComponentWindow;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonText;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonToggle;
 import net.shadowfacts.shadowmc.util.Color;
@@ -43,6 +44,7 @@ public class TestMod {
 								.setColor(Color.DARK_BLUE)
 								.addTooltip("It's a button!"))
 				.addComponent(new GUIButtonToggle(50, 90, this::togglePressed))
+				.addComponent(new GUIComponentWindow(100, 100, 150, 150))
 				.wrap();
 		Minecraft.getMinecraft().displayGuiScreen(gui);
 	}

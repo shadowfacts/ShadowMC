@@ -15,6 +15,7 @@ public class MCBaseGUI extends BaseGUI {
 	public MCBaseGUI(GuiScreenWrapper mcGUI) {
 		super(mcGUI.mc, 0, 0, mcGUI.width, mcGUI.height);
 		this.mcGUI = mcGUI;
+		movable = false;
 	}
 
 	public void drawAll(int mouseX, int mouseY) {

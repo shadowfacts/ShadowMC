@@ -12,6 +12,7 @@ public class BaseGUI extends AbstractGUI {
 
 	public BaseGUI(Minecraft mc, int x, int y, int width, int height) {
 		super(mc, x, y, width, height);
+		movable = true;
 	}
 
 	public BaseGUI(Minecraft mc) {

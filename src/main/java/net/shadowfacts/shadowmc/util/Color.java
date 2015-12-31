@@ -3,6 +3,7 @@ package net.shadowfacts.shadowmc.util;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.renderer.GlStateManager;
 
 /**
  * @author shadowfacts
@@ -54,4 +55,7 @@ public class Color {
 		return ((a & 255) << 24) | ((r & 255) << 16) | ((g & 255) << 8) | (b & 255);
 	}
 
+	public void apply() {
+		GlStateManager.color(alpha, red, green, blue);
+	}
 }

@@ -2,7 +2,6 @@ package net.shadowfacts.shadowmc.gui.mcwrapper;
 
 import lombok.Setter;
 import net.minecraft.client.gui.GuiScreen;
-import net.shadowfacts.shadowmc.gui.AbstractGUI;
 import net.shadowfacts.shadowmc.util.MouseButton;
 import org.lwjgl.input.Keyboard;
 
@@ -14,14 +13,14 @@ import java.util.List;
  */
 public class GuiScreenWrapper extends GuiScreen {
 
-	private MCBaseGUI gui;
+	public MCBaseGUI gui;
 	@Setter
 	private boolean pausesGame = false;
 
-	public GuiScreenWrapper(AbstractGUI gui) {
+	public GuiScreenWrapper() {
 		this.gui = new MCBaseGUI(this);
-		gui.setParent(this.gui);
-		this.gui.addChild(gui);
+//		gui.setParent(this.gui);
+//		this.gui.addChild(gui);
 	}
 
 	@Override

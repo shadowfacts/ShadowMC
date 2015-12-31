@@ -3,6 +3,7 @@ package net.shadowfacts.shadowmc.gui;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -112,6 +113,24 @@ public abstract class AbstractGUI {
 		worldrenderer.pos((double)(x + width), (double)y, (double)this.zLevel).tex((double)((float)(u + width) * f), (double)((float)v * f1)).endVertex();
 		worldrenderer.pos((double)x, (double)y, (double)this.zLevel).tex((double)((float)u * f), (double)((float)v * f1)).endVertex();
 		tessellator.draw();
+	}
+
+	protected void drawRect(int x, int y, int width, int height, Color color) {
+		Tessellator tessellator = Tessellator.getInstance();
+		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+		GlStateManager.enableBlend();
+		GlStateManager.disableTexture2D();
+		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+		color.apply();
+		worldRenderer.begin(7, DefaultVertexFormats.POSITION);
+		worldRenderer.pos((double)x, (double)y + height, zLevel).endVertex();
+		worldRenderer.pos((double)x + width, (double)y + height, zLevel).endVertex();
+		worldRenderer.pos((double)x + width, (double)y, zLevel).endVertex();
+		worldRenderer.pos((double)x, (double)y, zLevel).endVertex();
+		tessellator.draw();
+		Color.WHITE.apply();
+		GlStateManager.enableTexture2D();
+		GlStateManager.disableBlend();
 	}
 
 	public void update() {
