@@ -10,9 +10,10 @@ import java.util.Optional;
  */
 public class BaseGUI extends AbstractGUI {
 
+	protected AbstractGUI guiBeingDragged;
+
 	public BaseGUI(Minecraft mc, int x, int y, int width, int height) {
 		super(mc, x, y, width, height);
-		movable = true;
 	}
 
 	public BaseGUI(Minecraft mc) {
@@ -21,30 +22,40 @@ public class BaseGUI extends AbstractGUI {
 
 	@Override
 	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
-		children.stream()
+		Optional<AbstractGUI> gui = children.stream()
 				.filter(AbstractGUI::isVisible)
-				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
-				.forEach(gui -> gui.handleMouseClicked(mouseX, mouseY, button));
+				.filter(theGui -> theGui.isWithinBounds(mouseX, mouseY))
+				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
+				.findFirst();
+		if (gui.isPresent()) {
+			gui.get().handleMouseClicked(mouseX, mouseY, button);
+		}
 	}
 
 	@Override
 	public void handleMouseMove(int mouseX, int mouseY, MouseButton mouseButton) {
-		Optional<AbstractGUI> gui = children.stream()
-				.filter(AbstractGUI::isVisible)
-				.filter(theGui -> theGui.isWithinBounds(mouseX, mouseY))
-				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? 1 : gui1.zLevel < gui2.zLevel ? -1 : 0)
-				.findFirst();
-		if (gui.isPresent()) {
-			if (gui.get().movable) {
-				gui.get().updatePosition(mouseX, mouseY);
-			} else {
-				gui.get().handleMouseMove(mouseX, mouseY, mouseButton);
+		if (guiBeingDragged != null) {
+			guiBeingDragged.updatePosition(mouseX, mouseY);
+		} else {
+			Optional<AbstractGUI> gui = children.stream()
+					.filter(AbstractGUI::isVisible)
+					.filter(theGui -> theGui.isWithinBounds(mouseX, mouseY))
+					.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
+					.findFirst();
+			if (gui.isPresent()) {
+				if (gui.get().isWithinMovableBounds(mouseX, mouseY)) {
+					guiBeingDragged = gui.get();
+					guiBeingDragged.updatePosition(mouseX, mouseY);
+				} else {
+					gui.get().handleMouseMove(mouseX, mouseY, mouseButton);
+				}
 			}
 		}
 	}
 
 	@Override
 	public void handleMouseReleased(int mouseX, int mouseY, MouseButton mouseButton) {
+		guiBeingDragged = null;
 		children.stream()
 				.filter(AbstractGUI::isVisible)
 				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
@@ -61,7 +72,7 @@ public class BaseGUI extends AbstractGUI {
 	public void draw(int mouseX, int mouseY) {
 		children.stream()
 				.filter(AbstractGUI::isVisible)
-				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? 1 : gui1.zLevel < gui2.zLevel ? -1 : 0)
+				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
 				.forEach(gui -> gui.draw(mouseX, mouseY));
 	}
 
@@ -74,10 +85,13 @@ public class BaseGUI extends AbstractGUI {
 
 	@Override
 	public void drawTooltip(int x, int y) {
-		children.stream()
-				.filter(gui -> gui.isWithinBounds(x, y))
-				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? 1 : gui1.zLevel < gui2.zLevel ? -1 : 0)
-				.forEach(gui -> gui.drawTooltip(x, y));
+		Optional<AbstractGUI> gui = children.stream()
+				.filter(theGui -> theGui.isWithinBounds(x, y))
+				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
+				.findFirst();
+		if (gui.isPresent()) {
+			gui.get().drawTooltip(x, y);
+		}
 	}
 
 	@Override

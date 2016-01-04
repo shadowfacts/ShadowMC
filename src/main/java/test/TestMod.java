@@ -43,8 +43,10 @@ public class TestMod {
 				.addComponent(new GUIButtonText(50, 60, 100, 20, this::testPressed, "Test 1")
 								.setColor(Color.DARK_BLUE)
 								.addTooltip("It's a button!"))
-				.addComponent(new GUIButtonToggle(50, 90, this::togglePressed))
-				.addComponent(new GUIComponentWindow(100, 100, 150, 150))
+				.addComponent(new GUIButtonToggle(50, 90, guiButtonToggle -> {}))
+				.addComponent(new GUIComponentWindow(100, 100, 150, 150)
+								.addComponent(new GUIComponentText(110, 130, "Window!"))
+								.addComponent(new GUIButtonToggle(110, 140, this::togglePressed)))
 				.wrap();
 		Minecraft.getMinecraft().displayGuiScreen(gui);
 	}
@@ -64,7 +66,7 @@ public class TestMod {
 	}
 
 	public void togglePressed(GUIButtonToggle button) {
-
+		System.out.println(String.format("Toggle button pressed, state is now %b", button.state));
 	}
 
 	@SubscribeEvent

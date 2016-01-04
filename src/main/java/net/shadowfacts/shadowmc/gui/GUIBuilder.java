@@ -19,6 +19,7 @@ public class GUIBuilder {
 	}
 
 	public GuiScreen wrap() {
+		wrapper.gui = gui;
 		return wrapper;
 	}
 

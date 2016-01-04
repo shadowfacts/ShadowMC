@@ -15,7 +15,6 @@ public class MCBaseGUI extends BaseGUI {
 	public MCBaseGUI(GuiScreenWrapper mcGUI) {
 		super(mcGUI.mc, 0, 0, mcGUI.width, mcGUI.height);
 		this.mcGUI = mcGUI;
-		movable = false;
 	}
 
 	public void drawAll(int mouseX, int mouseY) {
@@ -26,21 +25,6 @@ public class MCBaseGUI extends BaseGUI {
 	@Override
 	public void drawHoveringText(List<String> text, int x, int y) {
 		mcGUI.drawHoveringText(text, x, y);
-	}
-
-	@Override
-	public void handleKeyPress(int key, char charTyped) {
-		super.handleKeyPress(key, charTyped);
-	}
-
-	@Override
-	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
-		super.handleMouseClicked(mouseX, mouseY, button);
-	}
-
-	@Override
-	public void handleMouseReleased(int mouseX, int mouseY, MouseButton button) {
-
 	}
 
 }

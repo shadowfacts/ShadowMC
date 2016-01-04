@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.GlStateManager;
 public class Color {
 
 //	MC colors
-	public static final Color BLACK = new Color(0xFF00000);
+	public static final Color BLACK = new Color(0xFF000000);
 	public static final Color DARK_BLUE = new Color(0xFF0000AA);
 	public static final Color DARK_GREEN = new Color(0xFF00AA00);
 	public static final Color DARK_AQUA = new Color(0xFF00AAAA);
