@@ -19,6 +19,7 @@ public class GUIBuilder {
 	}
 
 	public GuiScreen wrap() {
+		gui.setZLevel(0);
 		wrapper.gui = gui;
 		return wrapper;
 	}

@@ -28,6 +28,7 @@ public abstract class AbstractGUI {
 	protected int width;
 	protected int height;
 
+	@Setter
 	protected float zLevel = 0;
 
 	@Setter
@@ -58,7 +59,6 @@ public abstract class AbstractGUI {
 
 	public <T extends AbstractGUI> T addChild(T child) {
 		child.parent = this;
-		child.zLevel = zLevel + 1;
 		children.add(child);
 		return child;
 	}
@@ -81,7 +81,7 @@ public abstract class AbstractGUI {
 
 	protected void drawHoveringText(List<String> text, int x, int y) {
 		getRoot().drawHoveringText(text, x, y);
-		
+
 //		TODO: Fix it. It's not working and I have no idea why
 //		if (!text.isEmpty())
 //		{
@@ -157,7 +157,7 @@ public abstract class AbstractGUI {
 
 	protected void drawText(String text, int x, int y, Color color) {
 		GL11.glPushMatrix();
-		GL11.glTranslatef(0, 0, zLevel + 1);
+		GL11.glTranslatef(0, 0, zLevel + .5f);
 		mc.fontRendererObj.drawString(text, x, y, color.toARGB());
 		Color.WHITE.apply();
 		GL11.glPopMatrix(); // TODO: fixme
@@ -264,4 +264,5 @@ public abstract class AbstractGUI {
 		x = newX;
 		y = newY;
 	}
+
 }

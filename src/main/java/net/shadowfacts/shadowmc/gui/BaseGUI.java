@@ -3,7 +3,9 @@ package net.shadowfacts.shadowmc.gui;
 import net.minecraft.client.Minecraft;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author shadowfacts
@@ -56,10 +58,14 @@ public class BaseGUI extends AbstractGUI {
 	@Override
 	public void handleMouseReleased(int mouseX, int mouseY, MouseButton mouseButton) {
 		guiBeingDragged = null;
-		children.stream()
+		Optional<AbstractGUI> gui = children.stream()
 				.filter(AbstractGUI::isVisible)
-				.filter(gui -> gui.isWithinBounds(mouseX, mouseY))
-				.forEach(gui -> gui.handleMouseReleased(mouseX, mouseY, mouseButton));
+				.filter(theGui -> theGui.isWithinBounds(mouseX, mouseY))
+				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
+				.findFirst();
+		if (gui.isPresent()) {
+			gui.get().handleMouseReleased(mouseX, mouseY, mouseButton);
+		}
 	}
 
 	@Override
@@ -102,6 +108,14 @@ public class BaseGUI extends AbstractGUI {
 					gui.y = gui.y - y + newY;
 				});
 		super.updatePosition(newX, newY);
+	}
+
+	@Override
+	public void setZLevel(float zLevel) {
+		super.setZLevel(zLevel);
+		for (int i = 0; i < children.size(); i++) {
+			children.get(i).setZLevel(zLevel + 1 + i);
+		}
 	}
 
 }
