@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -41,16 +40,12 @@ public abstract class AbstractGUI {
 	@Getter
 	protected List<String> tooltip = new ArrayList<>();
 
-	protected AbstractGUI(Minecraft mc, int x, int y, int width, int height) {
-		this.mc = mc;
+	public AbstractGUI(int x, int y, int width, int height) {
+		this.mc = Minecraft.getMinecraft();
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-	}
-
-	public AbstractGUI(int x, int y, int width, int height) {
-		this(Minecraft.getMinecraft(), x, y, width, height);
 	}
 
 	public boolean hasChildren() {

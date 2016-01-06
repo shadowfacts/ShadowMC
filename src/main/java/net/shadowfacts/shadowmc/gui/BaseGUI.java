@@ -1,11 +1,8 @@
 package net.shadowfacts.shadowmc.gui;
 
-import net.minecraft.client.Minecraft;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author shadowfacts
@@ -14,12 +11,8 @@ public class BaseGUI extends AbstractGUI {
 
 	protected AbstractGUI guiBeingDragged;
 
-	public BaseGUI(Minecraft mc, int x, int y, int width, int height) {
-		super(mc, x, y, width, height);
-	}
-
-	public BaseGUI(Minecraft mc) {
-		this(mc, 0, 0, mc.displayWidth, mc.displayHeight);
+	public BaseGUI(int x, int y, int width, int height) {
+		super(x, y, width, height);
 	}
 
 	@Override

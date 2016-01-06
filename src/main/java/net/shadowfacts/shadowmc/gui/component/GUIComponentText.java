@@ -14,13 +14,9 @@ public class GUIComponentText extends GUIComponent {
 
 	private Color color = Color.WHITE;
 
-	protected GUIComponentText(Minecraft mc, int x, int y, String text) {
-		super(mc, x, y, mc.fontRendererObj.getStringWidth(text), 8);
-		this.text = text;
-	}
-
 	public GUIComponentText(int x, int y, String text) {
-		this(Minecraft.getMinecraft(), x, y, text);
+		super(x, y, Minecraft.getMinecraft().fontRendererObj.getStringWidth(text), 8);
+		this.text = text;
 	}
 
 	@Override

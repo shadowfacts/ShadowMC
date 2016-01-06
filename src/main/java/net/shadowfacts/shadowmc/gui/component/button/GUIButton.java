@@ -1,7 +1,6 @@
 package net.shadowfacts.shadowmc.gui.component.button;
 
 import lombok.Getter;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -18,12 +17,8 @@ public abstract class GUIButton extends GUIComponent {
 	@Getter
 	protected boolean drawBackground = true;
 
-	protected GUIButton(Minecraft mc, int x, int y, int width, int height) {
-		super(mc, x, y, width, height);
-	}
-
 	public GUIButton(int x, int y, int width, int height) {
-		this(Minecraft.getMinecraft(), x, y, width, height);
+		super(x, y, width, height);
 	}
 
 	@Override

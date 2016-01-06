@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.gui.component;
 
-import net.minecraft.client.Minecraft;
 import net.shadowfacts.shadowmc.gui.AbstractGUI;
 import net.shadowfacts.shadowmc.gui.BaseGUI;
 import net.shadowfacts.shadowmc.util.Color;
@@ -10,12 +9,8 @@ import net.shadowfacts.shadowmc.util.Color;
  */
 public class GUIComponentWindow extends BaseGUI {
 
-	protected GUIComponentWindow(Minecraft mc, int x, int y, int width, int height) {
-		super(mc, x, y, width, height);
-	}
-
 	public GUIComponentWindow(int x, int y, int width, int height) {
-		this(Minecraft.getMinecraft(), x, y, width, height);
+		super(x, y, width, height);
 	}
 
 	public GUIComponentWindow addComponent(AbstractGUI component) {
