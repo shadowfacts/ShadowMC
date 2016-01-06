@@ -44,9 +44,11 @@ public class TestMod {
 								.setColor(Color.DARK_BLUE)
 								.addTooltip("It's a button!"))
 				.addComponent(new GUIButtonToggle(50, 90, guiButtonToggle -> {}))
-				.addComponent(new GUIComponentWindow(100, 100, 150, 150)
-								.addComponent(new GUIComponentText(110, 130, "Window!"))
-								.addComponent(new GUIButtonToggle(110, 140, this::togglePressed)))
+				.addComponent(new GUIComponentWindow(100, 100, 150, 150, "It's a window!")
+								.addComponent(new GUIButtonToggle(110, 140, this::togglePressed))
+								.setMainColor(new Color(0x55000000))
+								.setTitleBarColor(new Color(0x77000000))
+								.setTitleColor(Color.AQUA))
 				.wrap();
 		Minecraft.getMinecraft().displayGuiScreen(gui);
 	}
