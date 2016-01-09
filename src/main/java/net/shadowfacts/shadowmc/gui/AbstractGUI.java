@@ -3,7 +3,10 @@ package net.shadowfacts.shadowmc.gui;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -76,78 +79,6 @@ public abstract class AbstractGUI {
 
 	protected void drawHoveringText(List<String> text, int x, int y) {
 		getRoot().drawHoveringText(text, x, y);
-
-//		TODO: Fix it. It's not working and I have no idea why
-//		if (!text.isEmpty())
-//		{
-//			GlStateManager.disableRescaleNormal();
-//			RenderHelper.disableStandardItemLighting();
-//			GlStateManager.disableLighting();
-//			GlStateManager.disableDepth();
-//			int i = 0;
-//
-//			for (String s : text)
-//			{
-//				int j = mc.fontRendererObj.getStringWidth(s);
-//
-//				if (j > i)
-//				{
-//					i = j;
-//				}
-//			}
-//
-//			int l1 = x + 12;
-//			int i2 = y - 12;
-//			int k = 8;
-//
-//			if (text.size() > 1)
-//			{
-//				k += 2 + (text.size() - 1) * 10;
-//			}
-//
-//			if (l1 + i > this.width)
-//			{
-//				l1 -= 28 + i;
-//			}
-//
-//			if (i2 + k + 6 > this.height)
-//			{
-//				i2 = this.height - k - 6;
-//			}
-//
-//			this.zLevel = 300.0F;
-//			Color c1 = new Color(-267386864);
-//			this.drawGradientRect(l1 - 3, i2 - 4, l1 + i + 3, i2 - 3, c1, c1);
-//			this.drawGradientRect(l1 - 3, i2 + k + 3, l1 + i + 3, i2 + k + 4, c1, c1);
-//			this.drawGradientRect(l1 - 3, i2 - 3, l1 + i + 3, i2 + k + 3, c1, c1);
-//			this.drawGradientRect(l1 - 4, i2 - 3, l1 - 3, i2 + k + 3, c1, c1);
-//			this.drawGradientRect(l1 + i + 3, i2 - 3, l1 + i + 4, i2 + k + 3, c1, c1);
-//			Color c2 = new Color(1347420415);
-//			Color c3 = new Color(1344798847);
-//			this.drawGradientRect(l1 - 3, i2 - 3 + 1, l1 - 3 + 1, i2 + k + 3 - 1, c2, c3);
-//			this.drawGradientRect(l1 + i + 2, i2 - 3 + 1, l1 + i + 3, i2 + k + 3 - 1, c2, c3);
-//			this.drawGradientRect(l1 - 3, i2 - 3, l1 + i + 3, i2 - 3 + 1, c2, c2);
-//			this.drawGradientRect(l1 - 3, i2 + k + 2, l1 + i + 3, i2 + k + 3, c3, c3);
-//
-//			for (int k1 = 0; k1 < text.size(); ++k1)
-//			{
-//				String s1 = text.get(k1);
-//				mc.fontRendererObj.drawStringWithShadow(s1, (float)l1, (float)i2, -1);
-//
-//				if (k1 == 0)
-//				{
-//					i2 += 2;
-//				}
-//
-//				i2 += 10;
-//			}
-//
-//			this.zLevel = 0.0F;
-//			GlStateManager.enableLighting();
-//			GlStateManager.enableDepth();
-//			RenderHelper.enableStandardItemLighting();
-//			GlStateManager.enableRescaleNormal();
-//		}
 	}
 
 	protected void drawText(String text, int x, int y, Color color) {
@@ -155,7 +86,7 @@ public abstract class AbstractGUI {
 		GL11.glTranslatef(0, 0, zLevel + .5f);
 		mc.fontRendererObj.drawString(text, x, y, color.toARGB());
 		Color.WHITE.apply();
-		GL11.glPopMatrix(); // TODO: fixme
+		GL11.glPopMatrix();
 	}
 
 	protected void drawText(String text, int x, int y) {
@@ -190,10 +121,12 @@ public abstract class AbstractGUI {
 	}
 
 	protected void drawRect(int x, int y, int width, int height, Color color) {
+//		TODO: Fix this, GUI components don't show up behind transparent rects
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
+		GlStateManager.enableAlpha();
 		GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		color.apply();
 		worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
@@ -203,6 +136,7 @@ public abstract class AbstractGUI {
 		worldRenderer.pos((double)x, (double)y, zLevel).endVertex();
 		tessellator.draw();
 		Color.WHITE.apply();
+		GlStateManager.disableAlpha();
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
 	}
