@@ -65,9 +65,9 @@ public abstract class AbstractGUI {
 		return this;
 	}
 
-	public boolean isWithinBounds(int mouseX, int mouseY) {
-		return mouseX >= x && mouseX <= x + width &&
-				mouseY >= y && mouseY <= y + height;
+	public boolean isWithinBounds(int x, int y) {
+		return x >= this.x && x <= this.x + width &&
+				y >= this.y && y <= this.y + height;
 	}
 
 	public boolean isWithinMovableBounds(int mouseX, int mouseY) {

@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.gui.component.button;
 
-import net.minecraft.util.ResourceLocation;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
 import java.util.function.Consumer;
@@ -9,9 +8,6 @@ import java.util.function.Consumer;
  * @author shadowfacts
  */
 public class GUIButtonToggle extends GUIButton {
-
-	protected static final ResourceLocation toggleTexture = new ResourceLocation("shadowmc", "textures/gui/components/button-toggle.png");
-//	TODO: Combine widget textures
 
 	protected Consumer<GUIButtonToggle> callback;
 
@@ -36,7 +32,7 @@ public class GUIButtonToggle extends GUIButton {
 
 	@Override
 	protected void drawButton() {
-		bindTexture(toggleTexture);
+		bindTexture(widgetTextures);
 		if (state) {
 			drawTexturedRect(x, y, 0, 0, width, height);
 		} else {

@@ -42,6 +42,7 @@ public class TestMod {
 								.setColor(Color.LIGHT_PURPLE))
 				.addComponent(new GUIButtonText(50, 60, 100, 20, this::testPressed, "Test 1")
 								.setColor(Color.DARK_BLUE)
+								.setEnabled(false)
 								.addTooltip("It's a button!"))
 				.addComponent(new GUIButtonToggle(50, 90, guiButtonToggle -> {}))
 				.addComponent(new GUIComponentWindow(100, 100, 150, 150, "It's a window!")
