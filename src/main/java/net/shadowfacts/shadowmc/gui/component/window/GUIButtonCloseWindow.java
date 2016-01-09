@@ -25,7 +25,7 @@ public class GUIButtonCloseWindow extends GUIButton {
 
 	@Override
 	protected void drawButton() {
-		drawText("x", x, y, Color.RED);
+		drawText("x", x, y, Color.PURE_RED);
 	}
 
 }

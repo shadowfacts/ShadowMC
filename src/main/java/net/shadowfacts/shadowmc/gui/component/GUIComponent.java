@@ -6,7 +6,7 @@ import net.shadowfacts.shadowmc.gui.AbstractGUI;
 /**
  * @author shadowfacts
  */
-public class GUIComponent extends AbstractGUI {
+public abstract class GUIComponent extends AbstractGUI {
 
 	protected static final ResourceLocation widgetTextures = new ResourceLocation("shadowmc", "textures/gui/widgets.png");
 

@@ -195,9 +195,7 @@ public abstract class AbstractGUI {
 
 	}
 
-	public void draw(int mouseX, int mouseY) {
-
-	}
+	public abstract void draw(int mouseX, int mouseY);
 
 	public void drawTooltip(int x, int y) {
 		drawHoveringText(getTooltip(), x, y);

@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.shadowfacts.shadowmc.gui.GUIBuilder;
 import net.shadowfacts.shadowmc.gui.component.GUIComponentText;
+import net.shadowfacts.shadowmc.gui.component.GUIVerticalBarIndicator;
 import net.shadowfacts.shadowmc.gui.component.window.GUIComponentWindow;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonLink;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonText;
@@ -38,7 +39,7 @@ public class TestMod {
 	}
 
 	public void openGUI() {
-		Minecraft.getMinecraft().displayGuiScreen(buildGui2());
+		Minecraft.getMinecraft().displayGuiScreen(buildGui3());
 	}
 
 	public boolean testPressed(GUIButtonText button, MouseButton mouseButton) {
@@ -94,7 +95,31 @@ public class TestMod {
 				.addComponent(new GUIComponentWindow(200, 0, 150, 150, "Window 2", true)
 								.addComponent(new GUIButtonToggle(210, 30, this::togglePressed))
 								.setTitleColor(new Color(0xFF00FF00)))
+
 				.wrap();
+	}
+
+	private GuiScreen buildGui3() {
+		return new GUIBuilder()
+				.addComponent(new GUIVerticalBarIndicator(0, 0, 20, 100, this::getLevel)
+								.setPrimaryColor(Color.PURE_BLUE)
+								.setSecondaryColor(Color.DARK_BLUE)
+								.addTooltip("Stuff and things"))
+				.wrap();
+	}
+
+	private int i = 0;
+	private float level;
+	private float getLevel() {
+		i++;
+		if (i % 60 == 0) {
+			level += .05f;
+			if (level > 1) {
+				level = 0;
+			}
+			i = 0;
+		}
+		return level;
 	}
 
 
