@@ -22,12 +22,14 @@ public abstract class AbstractGUI {
 
 	protected Minecraft mc;
 
+	@Getter @Setter
 	protected int x;
+	@Getter @Setter
 	protected int y;
 	protected int width;
 	protected int height;
 
-	@Setter
+	@Getter @Setter
 	protected float zLevel = 0;
 
 	@Setter
@@ -74,7 +76,7 @@ public abstract class AbstractGUI {
 				y >= this.y && y <= this.y + height;
 	}
 
-	public boolean isWithinMovableBounds(int mouseX, int mouseY) {
+	public boolean isWithinMovableBounds(int x, int y) {
 		return false;
 	}
 
@@ -140,6 +142,33 @@ public abstract class AbstractGUI {
 		GlStateManager.disableAlpha();
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
+	}
+
+	/**
+	 * BROKEN AF
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param angle
+	 * @param color
+	 */
+	@Deprecated
+	protected void drawLine(int x, int y, int width, int height, float angle, Color color) {
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(angle, 1, 1, 1);
+		drawRect(x, y, width, height, color);
+		GlStateManager.popMatrix();
+	}
+
+	@Deprecated
+	protected void drawVerticalLine(int x, int y, int width, int height, Color color) {
+		drawLine(x, y, width, height, 45, color);
+	}
+
+	@Deprecated
+	protected void drawHorizontalLine(int x, int y, int width, int height, Color color) {
+		drawLine(x, y, width, height, 0, color);
 	}
 
 	protected void drawGradientRect(int x, int y, int width, int height, Color topColor, Color bottomColor) {

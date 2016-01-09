@@ -50,7 +50,7 @@ public class TestMod {
 								.addComponent(new GUIButtonToggle(110, 140, this::togglePressed))
 								.addComponent(new GUIButtonLink(110, 165, 50, 20, "GH", "https://github.com/shadowfacts/"))
 								.setMainColor(new Color(0x55000000))
-								.setTitleBarColor(new Color(0x77000000))
+								.setTitleBarColor(new Color(0x99000000))
 								.setTitleColor(Color.AQUA))
 				.wrap();
 		Minecraft.getMinecraft().displayGuiScreen(gui);
