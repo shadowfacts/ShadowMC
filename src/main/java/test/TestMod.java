@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.shadowfacts.shadowmc.gui.GUIBuilder;
 import net.shadowfacts.shadowmc.gui.component.GUIComponentText;
 import net.shadowfacts.shadowmc.gui.component.GUIComponentWindow;
+import net.shadowfacts.shadowmc.gui.component.button.GUIButtonLink;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonText;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonToggle;
 import net.shadowfacts.shadowmc.util.Color;
@@ -47,6 +48,7 @@ public class TestMod {
 				.addComponent(new GUIButtonToggle(50, 90, guiButtonToggle -> {}))
 				.addComponent(new GUIComponentWindow(100, 100, 150, 150, "It's a window!")
 								.addComponent(new GUIButtonToggle(110, 140, this::togglePressed))
+								.addComponent(new GUIButtonLink(110, 165, 50, 20, "GH", "https://github.com/shadowfacts/"))
 								.setMainColor(new Color(0x55000000))
 								.setTitleBarColor(new Color(0x77000000))
 								.setTitleColor(Color.AQUA))

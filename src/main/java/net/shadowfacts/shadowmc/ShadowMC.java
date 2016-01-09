@@ -11,6 +11,8 @@ import net.shadowfacts.shadowmc.command.CommandHandler;
 import net.shadowfacts.shadowmc.config.ConfigManager;
 import net.shadowfacts.shadowmc.event.handler.ShadowMCEventHandler;
 import net.shadowfacts.shadowmc.util.BytecodePrettyPrinter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.Type;
 
 /**
@@ -22,6 +24,8 @@ public class ShadowMC {
 	public static final String modId = "shadowmc";
 	public static final String name = "ShadowMC";
 	public static final String version = "@VERSION@";
+
+	public static final Logger log = LogManager.getLogger(name);
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
