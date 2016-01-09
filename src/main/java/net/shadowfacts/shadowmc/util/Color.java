@@ -29,6 +29,7 @@ public class Color {
 	public static final Color LIGHT_PURPLE = new Color(0xFFFF55FF);
 	public static final Color YELLOW = new Color(0xFFFFFF55);
 	public static final Color WHITE = new Color(0xFFFFFFFF);
+	public static final Color RED = new Color(0xFFFF0000);
 
 	private float alpha = 1;
 	private float red;

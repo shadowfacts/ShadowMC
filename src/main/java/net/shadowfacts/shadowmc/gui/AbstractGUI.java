@@ -58,6 +58,10 @@ public abstract class AbstractGUI {
 		return child;
 	}
 
+	public void removeChild(AbstractGUI child) {
+		children.remove(child);
+	}
+
 	public AbstractGUI getRoot() {
 		if (parent != null) {
 			return parent.getRoot();
