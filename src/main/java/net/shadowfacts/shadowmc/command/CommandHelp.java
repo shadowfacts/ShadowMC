@@ -4,7 +4,6 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.shadowfacts.shadowmc.util.StringHelper;
 
 import java.util.ArrayList;
 import java.util.List;

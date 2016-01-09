@@ -7,8 +7,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.shadowfacts.shadowmc.ShadowMC;
 
 /**
  * @author shadowfacts

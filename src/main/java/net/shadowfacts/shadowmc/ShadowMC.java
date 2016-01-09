@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.shadowfacts.shadowmc.command.CommandHandler;
 import net.shadowfacts.shadowmc.config.ConfigManager;
-import net.shadowfacts.shadowmc.event.EventManager;
 import net.shadowfacts.shadowmc.event.handler.ShadowMCEventHandler;
 import net.shadowfacts.shadowmc.util.BytecodePrettyPrinter;
 import org.objectweb.asm.Type;
