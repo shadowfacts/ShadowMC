@@ -30,7 +30,12 @@ public class GUIBuilder {
 	}
 
 	public GUIBuilder setPausesGame(boolean pausesGame) {
-		wrapper.setPausesGame(pausesGame);
+		wrapper.pausesGame = pausesGame;
+		return this;
+	}
+
+	public GUIBuilder setDrawMCBackgroundOverlay(boolean drawMCBackgroundOverlay) {
+		wrapper.drawMCBackgroundOverlay = drawMCBackgroundOverlay;
 		return this;
 	}
 

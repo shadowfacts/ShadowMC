@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.gui.mcwrapper;
 
-import lombok.Setter;
 import net.minecraft.client.gui.GuiScreen;
 import net.shadowfacts.shadowmc.util.MouseButton;
 import org.lwjgl.input.Keyboard;
@@ -14,8 +13,10 @@ import java.util.List;
 public class GuiScreenWrapper extends GuiScreen {
 
 	public MCBaseGUI gui;
-	@Setter
-	private boolean pausesGame = false;
+
+	public boolean pausesGame = false;
+
+	public boolean drawMCBackgroundOverlay = true;
 
 	public GuiScreenWrapper() {
 		this.gui = new MCBaseGUI(this);
@@ -23,6 +24,11 @@ public class GuiScreenWrapper extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		if (drawMCBackgroundOverlay && mc.theWorld != null) {
+			drawGradientRect(0, 0, width, height, -1072689136, -804253680);
+		} else {
+			drawBackground(0);
+		}
 		gui.draw(mouseX, mouseY);
 		gui.drawTooltip(mouseX, mouseY);
 	}
