@@ -123,4 +123,13 @@ public class GUIComponentWindow extends BaseGUI {
 		this.titleColor = titleColor;
 		return this;
 	}
+
+	@Override
+	public void setZLevel(float zLevel) {
+		this.zLevel = zLevel;
+		for (int i = 0; i < children.size(); i++) {
+			children.get(i).setZLevel(zLevel + i * 0.001f);
+		}
+	}
+
 }

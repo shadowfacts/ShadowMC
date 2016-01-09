@@ -17,6 +17,11 @@ public class MCBaseGUI extends BaseGUI {
 	}
 
 	@Override
+	public void draw(int mouseX, int mouseY) {
+		super.draw(mouseX, mouseY);
+	}
+
+	@Override
 	public void drawHoveringText(List<String> text, int x, int y) {
 		mcGUI.drawHoveringText(text, x, y);
 	}

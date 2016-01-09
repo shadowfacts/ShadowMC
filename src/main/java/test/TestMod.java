@@ -38,22 +38,7 @@ public class TestMod {
 	}
 
 	public void openGUI() {
-		GuiScreen gui = new GUIBuilder()
-				.addComponent(new GUIComponentText(50, 50, "Hello, World!")
-								.setColor(Color.LIGHT_PURPLE))
-				.addComponent(new GUIButtonText(50, 60, 100, 20, this::testPressed, "Test 1")
-								.setColor(Color.DARK_BLUE)
-								.setEnabled(false)
-								.addTooltip("It's a button!"))
-				.addComponent(new GUIButtonToggle(50, 90, guiButtonToggle -> {}))
-				.addComponent(new GUIComponentWindow(100, 100, 150, 150, "It's a window!", true)
-								.addComponent(new GUIButtonToggle(110, 140, this::togglePressed))
-								.addComponent(new GUIButtonLink(110, 165, 50, 20, "GH", "https://github.com/shadowfacts/"))
-								.setMainColor(new Color(0x55000000))
-								.setTitleBarColor(new Color(0x99000000))
-								.setTitleColor(Color.AQUA))
-				.wrap();
-		Minecraft.getMinecraft().displayGuiScreen(gui);
+		Minecraft.getMinecraft().displayGuiScreen(buildGui2());
 	}
 
 	public boolean testPressed(GUIButtonText button, MouseButton mouseButton) {
@@ -79,6 +64,37 @@ public class TestMod {
 		if (ClientProxy.keyBindings[0].isPressed()) {
 			openGUI();
 		}
+	}
+
+	private GuiScreen buildGui() {
+		return new GUIBuilder()
+				.addComponent(new GUIComponentText(50, 50, "Hello, World!")
+						.setColor(Color.LIGHT_PURPLE))
+				.addComponent(new GUIButtonText(50, 60, 100, 20, this::testPressed, "Test 1")
+						.setColor(Color.DARK_BLUE)
+						.setEnabled(false)
+						.addTooltip("It's a button!"))
+				.addComponent(new GUIButtonToggle(50, 90, guiButtonToggle -> {}))
+				.addComponent(new GUIComponentWindow(100, 100, 150, 150, "It's a window!", true)
+						.addComponent(new GUIButtonToggle(110, 140, this::togglePressed))
+						.addComponent(new GUIButtonLink(110, 165, 50, 20, "GH", "https://github.com/shadowfacts/"))
+						.setMainColor(new Color(0x55000000))
+						.setTitleBarColor(new Color(0x99000000))
+						.setTitleColor(Color.AQUA))
+				.wrap();
+	}
+
+	private GuiScreen buildGui2() {
+		return new GUIBuilder()
+				.addComponent(new GUIComponentWindow(0, 0, 150, 150, "Window 1")
+								.addComponent(new GUIComponentText(10, 30, "My GitHub profile:"))
+								.addComponent(new GUIButtonLink(10, 48, 70, 20, "Link", "https://github.com/shadowfacts/"))
+								.setMainColor(new Color(0x99000000))
+								.setTitleBarColor(new Color(0x77FF0000)))
+				.addComponent(new GUIComponentWindow(200, 0, 150, 150, "Window 2", true)
+								.addComponent(new GUIButtonToggle(210, 30, this::togglePressed))
+								.setTitleColor(new Color(0xFF00FF00)))
+				.wrap();
 	}
 
 
