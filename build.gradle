@@ -116,7 +116,7 @@ curseforge {
 		id = "226780"
 
 		mainArtifact(shadowJar) {
-			releaseType = "beta"
+			releaseType = "alpha"
 			changelog = file("changelog.txt").text
 		}
 	}
