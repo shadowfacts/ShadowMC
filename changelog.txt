@@ -1,10 +1,1 @@
-- Begin work on version 3.0.0
-- Whoops
-- Set group
-- Work on 3.0.0
-- Rejigger Gradle stuff
-- Whoops
-- Initial update to 1.8.8
-- Update Gradle wrapper to 2.10
-- Add /shadow killall {RANGE}
-- IT'S A GUI SYSTEM! IT WORKS! IT'S BETTER THAN MC'S! :D
+- Release
