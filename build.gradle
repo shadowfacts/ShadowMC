@@ -125,3 +125,4 @@ curseforge {
 }
 
 tasks.curseforge.mustRunAfter generateChangelog
+tasks.curseforge.dependsOn shadowJar
