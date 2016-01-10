@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author shadowfacts
  */
-@IFMLLoadingPlugin.MCVersion("1.7.10")
+@IFMLLoadingPlugin.MCVersion("1.8.9")
 @IFMLLoadingPlugin.TransformerExclusions("net.shadowfacts.shadowmc")
 public class ShadowMCPlugin implements IFMLLoadingPlugin {
 
