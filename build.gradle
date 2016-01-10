@@ -62,7 +62,7 @@ repositories {
 dependencies {
 	compile group: "net.shadowfacts", name: "ShadowLib", version: shadowlib_version
 	
-	compile group: "org.projectlombok", name: "lombok", version: "1.16.6"
+	compile group: "org.projectlombok", name: "lombok", version: lombok_version
 }
 
 shadowJar {

@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.shadowfacts.shadowmc.gui.GUIBuilder;
 import net.shadowfacts.shadowmc.gui.component.GUIComponentText;
 import net.shadowfacts.shadowmc.gui.component.GUIVerticalBarIndicator;
+import net.shadowfacts.shadowmc.gui.component.button.GUIButtonEnum;
 import net.shadowfacts.shadowmc.gui.component.window.GUIComponentWindow;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonLink;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonText;
@@ -105,6 +106,8 @@ public class TestMod {
 								.setPrimaryColor(Color.PURE_BLUE)
 								.setSecondaryColor(Color.DARK_BLUE)
 								.addTooltip("Stuff and things"))
+				.addComponent(new GUIButtonEnum<>(30, 0, 100, 20, TestEnum.THING1, TestEnum::localize)
+								.setColor(Color.AQUA))
 				.wrap();
 	}
 
