@@ -126,4 +126,7 @@ curseforge {
 
 tasks.curseforge.mustRunAfter generateChangelog
 reobf { shadowJar { mappingType = 'SEARGE' } }
-tasks.curseforge.dependsOn reobfShadowJar
+tasks.reobfShadowJar.mustRunAfter shadowJar
+afterEvaluate {
+	tasks.curseforge226780.dependsOn reobfShadowJar
+}
