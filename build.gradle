@@ -102,11 +102,11 @@ task(generateChangelog) << {
 }
 
 task(tagRelease) << {
-	repo.tag.add {
-		name = version
-		message = "Release ${version}"
-	}
-	repo.push(tags: true)
+	// repo.tag.add {
+	// 	name = version
+	// 	message = "Release ${version}"
+	// }
+	// repo.push(tags: true)
 }
 
 tasks.generateChangelog.mustRunAfter tagRelease
