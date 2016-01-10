@@ -10,8 +10,9 @@ import java.util.Map;
  * @author shadowfacts
  */
 @IFMLLoadingPlugin.MCVersion("1.8.9")
-@IFMLLoadingPlugin.TransformerExclusions("net.shadowfacts.shadowmc")
-public class ShadowMCPlugin implements IFMLLoadingPlugin {
+@IFMLLoadingPlugin.TransformerExclusions("net.shadowfacts.shadowmc.core")
+@IFMLLoadingPlugin.SortingIndex(1001)
+public class ShadowMCCore implements IFMLLoadingPlugin {
 
 	public static final Logger log = LogManager.getLogger("ShadowMC|Core");
 

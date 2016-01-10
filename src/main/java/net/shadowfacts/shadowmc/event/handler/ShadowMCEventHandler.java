@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.shadowfacts.shadowmc.anvil.AnvilManager;
 import net.shadowfacts.shadowmc.anvil.AnvilRecipe;
 import net.shadowfacts.shadowmc.config.ConfigManager;
-import net.shadowfacts.shadowmc.event.ToolUseEvent;
 
 import java.util.Optional;
 
@@ -44,9 +43,9 @@ public class ShadowMCEventHandler {
 		}
 	}
 
-	@SubscribeEvent
-	public void test(ToolUseEvent event) {
-		System.out.println("test");
-	}
+//	@SubscribeEvent
+//	public void test(ToolUseEvent event) {
+//		System.out.println("test");
+//	}
 
 }

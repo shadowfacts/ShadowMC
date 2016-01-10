@@ -2,6 +2,7 @@ package net.shadowfacts.shadowmc.core;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.shadowfacts.shadowmc.core.transformers.ItemToolTransformer;
+import net.shadowfacts.shadowmc.core.transformers.ScreenShotHelperTransformer;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
@@ -15,7 +16,8 @@ import java.util.List;
 public class ShadowMCTransformer implements IClassTransformer {
 
 	private static final List<String> classes = Arrays.asList(
-			"net.minecraft.item.ItemTool"
+			"net.minecraft.item.ItemTool",
+			"net.minecraft.util.ScreenShotHelper"
 	);
 
 	@Override
@@ -35,13 +37,16 @@ public class ShadowMCTransformer implements IClassTransformer {
 				case 0:
 					ItemToolTransformer.transform(classNode, obfuscated);
 					break;
+				case 1:
+					ScreenShotHelperTransformer.transform(classNode, obfuscated);
+					break;
 			}
 
 			ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
 			classNode.accept(classWriter);
 			return classWriter.toByteArray();
 		} catch (Exception e) {
-			ShadowMCPlugin.log.error("There was a problem transforming " + classes.get(index));
+			ShadowMCCore.log.error("There was a problem transforming " + classes.get(index));
 			e.printStackTrace();
 		}
 
