@@ -1,0 +1,12 @@
+- Release
+
+- Fix stuff
+
+- Disable tagging
+
+- Move things to src/test/java
+
+- Maybe?
+
+- CurseGradle snapshot
+
