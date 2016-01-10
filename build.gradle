@@ -75,7 +75,7 @@ jar {
 shadowJar {
 	classifier = ""
 	dependencies {
-		include(dependency("net.shadowfacts:ShadowLib:${shadowlib_version}"))
+		include(dependency("net.shadowfacts:ShadowLib:1.6.0-SNAPSHOT"))
 	}
 	exclude "test/*"
 }
@@ -95,7 +95,7 @@ task(generateChangelog) << {
 		range(file("gradle/last-release-commit.txt").text, "HEAD")
 	}
 	commits.each {
-		changelog = "- " + it.fullMessage + changelog
+		changelog = "- " + it.fullMessage + "\n" + changelog
 	}
 	file("changelog.txt").text = changelog
 	file("gradle/last-release-commit.txt").text = commits.first().id
@@ -108,6 +108,8 @@ task(tagRelease) << {
 	}
 	repo.push(tags: true)
 }
+
+tasks.generateChangelog.mustRunAfter tagRelease
 
 curseforge {
 	apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
