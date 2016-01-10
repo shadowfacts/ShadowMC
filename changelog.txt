@@ -1,12 +1,6 @@
 - Release
 
-- Fix stuff
+- CurseGradle 1.0.6
 
-- Disable tagging
-
-- Move things to src/test/java
-
-- Maybe?
-
-- CurseGradle snapshot
+- Fix reobf
 
