@@ -65,10 +65,17 @@ dependencies {
 	compile group: "org.projectlombok", name: "lombok", version: lombok_version
 }
 
+jar {
+	manifest {
+		attributes("FMLCorePlugin": "net.shadowfacts.shadowmc.core.ShadowMCCore",
+					"FMLCorePluginContainsFMLMod": "true")
+	}
+}
+
 shadowJar {
 	classifier = ""
 	dependencies {
-		exclude(dependency("org.projectlombok:lombok:.*"))
+		include(dependency("net.shadowfacts:ShadowLib:${shadowlib_version}"))
 	}
 }
 
