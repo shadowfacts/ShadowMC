@@ -1,0 +1,6 @@
+# Redstone modes
+redstone.always=Always
+redstone.never=Never
+redstone.high=High
+redstone.low=Low
+redstone.pulse=Pulse

@@ -18,7 +18,6 @@ public class GUIButtonEnum<E extends Enum> extends GUIButtonText {
 		this.callback = this::handleClick;
 		this.localizer = localizer;
 		setValue(value);
-
 	}
 
 	private boolean handleClick(GUIButtonText button, MouseButton mouseButton) {

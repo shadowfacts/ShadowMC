@@ -12,13 +12,11 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.shadowfacts.shadowmc.gui.GUIBuilder;
 import net.shadowfacts.shadowmc.gui.component.GUIComponentText;
 import net.shadowfacts.shadowmc.gui.component.GUIVerticalBarIndicator;
-import net.shadowfacts.shadowmc.gui.component.button.GUIButtonEnum;
+import net.shadowfacts.shadowmc.gui.component.button.*;
 import net.shadowfacts.shadowmc.gui.component.window.GUIComponentWindow;
-import net.shadowfacts.shadowmc.gui.component.button.GUIButtonLink;
-import net.shadowfacts.shadowmc.gui.component.button.GUIButtonText;
-import net.shadowfacts.shadowmc.gui.component.button.GUIButtonToggle;
 import net.shadowfacts.shadowmc.util.Color;
 import net.shadowfacts.shadowmc.util.MouseButton;
+import net.shadowfacts.shadowmc.util.RedstoneMode;
 
 /**
  * @author shadowfacts
@@ -108,7 +106,12 @@ public class TestMod {
 								.addTooltip("Stuff and things"))
 				.addComponent(new GUIButtonEnum<>(30, 0, 100, 20, TestEnum.THING1, TestEnum::localize)
 								.setColor(Color.AQUA))
+				.addComponent(new GUIButtonRedstoneMode(30, 30, this::handleModeChange))
 				.wrap();
+	}
+
+	private void handleModeChange(RedstoneMode mode) {
+		System.out.println("Redstone mode: " + mode);
 	}
 
 	private int i = 0;
