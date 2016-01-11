@@ -1,6 +1,4 @@
 - Release
 
-- CurseGradle 1.0.6
-
-- Fix reobf
+- Fix things, for real this time
 
