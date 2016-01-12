@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.MathHelper;
+import net.shadowfacts.shadowmc.gui.handler.ClickHandler;
+import net.shadowfacts.shadowmc.gui.handler.KeyInputHandler;
 import net.shadowfacts.shadowmc.util.Color;
 import net.shadowfacts.shadowmc.util.MouseButton;
 import org.lwjgl.opengl.GL11;
@@ -18,7 +20,7 @@ import java.util.regex.Pattern;
 /**
  * @author shadowfacts
  */
-public class GUIComponentTextField extends GUIComponent {
+public class GUIComponentTextField extends GUIComponent implements ClickHandler, KeyInputHandler {
 
 	protected String text;
 	protected Pattern validator;

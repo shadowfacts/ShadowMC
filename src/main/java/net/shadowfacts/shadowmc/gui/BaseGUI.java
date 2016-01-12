@@ -1,5 +1,8 @@
 package net.shadowfacts.shadowmc.gui;
 
+import net.shadowfacts.shadowmc.gui.handler.ClickHandler;
+import net.shadowfacts.shadowmc.gui.handler.KeyInputHandler;
+import net.shadowfacts.shadowmc.gui.handler.MouseMovementHandler;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
 import java.util.Optional;
@@ -7,7 +10,7 @@ import java.util.Optional;
 /**
  * @author shadowfacts
  */
-public class BaseGUI extends AbstractGUI {
+public class BaseGUI extends AbstractGUI implements ClickHandler, KeyInputHandler, MouseMovementHandler {
 
 	protected AbstractGUI guiBeingDragged;
 
@@ -17,10 +20,12 @@ public class BaseGUI extends AbstractGUI {
 
 	@Override
 	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
-		Optional<AbstractGUI> gui = children.stream()
+		Optional<ClickHandler> gui = children.stream()
+				.filter(theGui -> theGui instanceof ClickHandler)
 				.filter(AbstractGUI::isVisible)
 				.filter(theGui -> theGui.isWithinBounds(mouseX, mouseY))
 				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
+				.map(theGui -> (ClickHandler)theGui)
 				.findFirst();
 		if (gui.isPresent()) {
 			gui.get().handleMouseClicked(mouseX, mouseY, button);
@@ -30,6 +35,8 @@ public class BaseGUI extends AbstractGUI {
 	@Override
 	public void handleMouseClickAnywhere(int mouseX, int mouseY, MouseButton button) {
 		children.stream()
+				.filter(gui -> gui instanceof ClickHandler)
+				.map(gui -> (ClickHandler)gui)
 				.forEach(gui -> gui.handleMouseClickAnywhere(mouseX, mouseY, button));
 	}
 
@@ -39,6 +46,7 @@ public class BaseGUI extends AbstractGUI {
 			guiBeingDragged.updatePosition(mouseX, mouseY);
 		} else {
 			Optional<AbstractGUI> gui = children.stream()
+					.filter(theGui -> theGui instanceof MouseMovementHandler)
 					.filter(AbstractGUI::isVisible)
 					.filter(theGui -> theGui.isWithinBounds(mouseX, mouseY))
 					.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
@@ -48,7 +56,7 @@ public class BaseGUI extends AbstractGUI {
 					guiBeingDragged = gui.get();
 					guiBeingDragged.updatePosition(mouseX, mouseY);
 				} else {
-					gui.get().handleMouseMove(mouseX, mouseY, mouseButton);
+					((MouseMovementHandler)gui.get()).handleMouseMove(mouseX, mouseY, mouseButton);
 				}
 			}
 		}
@@ -57,10 +65,12 @@ public class BaseGUI extends AbstractGUI {
 	@Override
 	public void handleMouseReleased(int mouseX, int mouseY, MouseButton mouseButton) {
 		guiBeingDragged = null;
-		Optional<AbstractGUI> gui = children.stream()
+		Optional<ClickHandler> gui = children.stream()
+				.filter(theGui -> theGui instanceof ClickHandler)
 				.filter(AbstractGUI::isVisible)
 				.filter(theGui -> theGui.isWithinBounds(mouseX, mouseY))
 				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
+				.map(theGui -> (ClickHandler)theGui)
 				.findFirst();
 		if (gui.isPresent()) {
 			gui.get().handleMouseReleased(mouseX, mouseY, mouseButton);
@@ -70,6 +80,8 @@ public class BaseGUI extends AbstractGUI {
 	@Override
 	public void handleKeyPress(int key, char charTyped) {
 		children.stream()
+				.filter(gui -> gui instanceof KeyInputHandler)
+				.map(gui -> (KeyInputHandler)gui)
 				.forEach(gui -> gui.handleKeyPress(key, charTyped));
 	}
 

@@ -205,26 +205,6 @@ public abstract class AbstractGUI {
 		drawHoveringText(getTooltip(), x, y);
 	}
 
-	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
-
-	}
-
-	public void handleMouseClickAnywhere(int mouseX, int mouseY, MouseButton button) {
-
-	}
-
-	public void handleMouseMove(int mouseX, int mouseY, MouseButton mouseButton) {
-
-	}
-
-	public void handleMouseReleased(int mouseX, int mouseY, MouseButton button) {
-
-	}
-
-	public void handleKeyPress(int keyCode, char charTyped) {
-
-	}
-
 	public void updatePosition(int newX, int newY) {
 		x = newX;
 		y = newY;

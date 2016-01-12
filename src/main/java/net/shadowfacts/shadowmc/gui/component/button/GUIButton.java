@@ -4,13 +4,14 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.shadowfacts.shadowmc.gui.component.GUIComponent;
+import net.shadowfacts.shadowmc.gui.handler.ClickHandler;
 import net.shadowfacts.shadowmc.util.MouseButton;
 import org.lwjgl.opengl.GL11;
 
 /**
  * @author shadowfacts
  */
-public abstract class GUIButton extends GUIComponent {
+public abstract class GUIButton extends GUIComponent implements ClickHandler {
 
 	protected boolean enabled = true;
 
@@ -31,16 +32,6 @@ public abstract class GUIButton extends GUIComponent {
 	}
 
 	protected abstract boolean handlePress(MouseButton button);
-
-	@Override
-	public void handleMouseReleased(int mouseX, int mouseY, MouseButton button) {
-
-	}
-
-	@Override
-	public void handleKeyPress(int key, char charTyped) {
-
-	}
 
 	@Override
 	public void draw(int mouseX, int mouseY) {

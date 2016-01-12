@@ -2,6 +2,8 @@ package net.shadowfacts.shadowmc.gui.component.window;
 
 import net.shadowfacts.shadowmc.gui.AbstractGUI;
 import net.shadowfacts.shadowmc.gui.BaseGUI;
+import net.shadowfacts.shadowmc.gui.component.button.GUIButton;
+import net.shadowfacts.shadowmc.gui.handler.ClickHandler;
 import net.shadowfacts.shadowmc.util.Color;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
@@ -60,11 +62,12 @@ public class GUIComponentWindow extends BaseGUI {
 	@Override
 	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
 		if (minimized) {
-			Optional<AbstractGUI> gui = children.stream()
+			Optional<GUIButton> gui = children.stream()
 					.filter(theGui -> theGui instanceof GUIButtonCloseWindow || theGui instanceof GUIButtonMinimizeWindow)
 					.filter(AbstractGUI::isVisible)
 					.filter(theGui -> theGui.isWithinBounds(mouseX, mouseY))
 					.sorted((gui1, gui2) -> gui1.getZLevel() > gui2.getZLevel() ? -1 : gui1.getZLevel() < gui2.getZLevel() ? 1 : 0)
+					.map(theGui -> (GUIButton)theGui)
 					.findFirst();
 			if (gui.isPresent()) {
 				gui.get().handleMouseClicked(mouseX, mouseY, button);
