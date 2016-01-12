@@ -42,6 +42,7 @@ public class GuiScreenWrapper extends GuiScreen {
 	protected void keyTyped(char charTyped, int keyCode) throws IOException {
 		if (keyCode == Keyboard.KEY_ESCAPE) {
 			mc.displayGuiScreen(null);
+			return;
 		}
 		gui.handleKeyPress(keyCode, charTyped);
 	}
@@ -49,6 +50,7 @@ public class GuiScreenWrapper extends GuiScreen {
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int button) throws IOException {
 		gui.handleMouseClicked(mouseX, mouseY, MouseButton.get(button));
+		gui.handleMouseClickAnywhere(mouseX, mouseY, MouseButton.get(button));
 	}
 
 	@Override

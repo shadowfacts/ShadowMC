@@ -123,7 +123,7 @@ public abstract class AbstractGUI {
 		tessellator.draw();
 	}
 
-	protected void drawRect(int x, int y, int width, int height, Color color) {
+	protected void drawRect(int x, int y, int width, int height, Color color, float zLevel) {
 //		TODO: Fix this, GUI components don't show up behind transparent rects
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
@@ -142,6 +142,10 @@ public abstract class AbstractGUI {
 		GlStateManager.disableAlpha();
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
+	}
+
+	protected void drawRect(int x, int y, int width, int height, Color color) {
+		drawRect(x, y, width, height, color, zLevel);
 	}
 
 	/**
@@ -202,6 +206,10 @@ public abstract class AbstractGUI {
 	}
 
 	public void handleMouseClicked(int mouseX, int mouseY, MouseButton button) {
+
+	}
+
+	public void handleMouseClickAnywhere(int mouseX, int mouseY, MouseButton button) {
 
 	}
 

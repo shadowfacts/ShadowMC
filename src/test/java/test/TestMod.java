@@ -11,12 +11,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.shadowfacts.shadowmc.gui.GUIBuilder;
 import net.shadowfacts.shadowmc.gui.component.GUIComponentText;
+import net.shadowfacts.shadowmc.gui.component.GUIComponentTextField;
 import net.shadowfacts.shadowmc.gui.component.GUIVerticalBarIndicator;
 import net.shadowfacts.shadowmc.gui.component.button.*;
 import net.shadowfacts.shadowmc.gui.component.window.GUIComponentWindow;
 import net.shadowfacts.shadowmc.util.Color;
 import net.shadowfacts.shadowmc.util.MouseButton;
 import net.shadowfacts.shadowmc.util.RedstoneMode;
+
+import java.util.regex.Pattern;
 
 /**
  * @author shadowfacts
@@ -38,7 +41,7 @@ public class TestMod {
 	}
 
 	public void openGUI() {
-		Minecraft.getMinecraft().displayGuiScreen(buildGui3());
+		Minecraft.getMinecraft().displayGuiScreen(buildGui4());
 	}
 
 	public boolean testPressed(GUIButtonText button, MouseButton mouseButton) {
@@ -112,6 +115,18 @@ public class TestMod {
 
 	private void handleModeChange(RedstoneMode mode) {
 		System.out.println("Redstone mode: " + mode);
+	}
+
+	private GuiScreen buildGui4() {
+		return new GUIBuilder()
+				.addComponent(new GUIComponentWindow(0, 0, 200, 200, "Test", false)
+								.addComponent(new GUIComponentTextField(0, 30, 200, 20, this::textHandler)))
+				.addComponent(new GUIComponentTextField(0, 230, 200, 20, "1234", Pattern.compile("\\d+"), this::textHandler))
+				.wrap();
+	}
+
+	public void textHandler(String text) {
+		System.out.println("Text is: " + text);
 	}
 
 	private int i = 0;

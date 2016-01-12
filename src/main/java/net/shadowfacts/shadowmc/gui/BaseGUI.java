@@ -28,6 +28,12 @@ public class BaseGUI extends AbstractGUI {
 	}
 
 	@Override
+	public void handleMouseClickAnywhere(int mouseX, int mouseY, MouseButton button) {
+		children.stream()
+				.forEach(gui -> gui.handleMouseClickAnywhere(mouseX, mouseY, button));
+	}
+
+	@Override
 	public void handleMouseMove(int mouseX, int mouseY, MouseButton mouseButton) {
 		if (guiBeingDragged != null) {
 			guiBeingDragged.updatePosition(mouseX, mouseY);
