@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowmc.gui.component;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.shadowfacts.shadowmc.util.Color;
 
@@ -9,7 +10,7 @@ import net.shadowfacts.shadowmc.util.Color;
  */
 public class GUIComponentText extends GUIComponent {
 
-	@Getter
+	@Getter @Setter
 	private String text;
 
 	private Color color = Color.WHITE;

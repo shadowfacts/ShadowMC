@@ -1,5 +1,6 @@
 package net.shadowfacts.shadowmc.gui.component;
 
+import lombok.Getter;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -22,6 +23,7 @@ import java.util.regex.Pattern;
  */
 public class GUIComponentTextField extends GUIComponent implements ClickHandler, KeyInputHandler {
 
+	@Getter
 	protected String text;
 	protected Pattern validator;
 	protected Consumer<String> textChangeHandler;
