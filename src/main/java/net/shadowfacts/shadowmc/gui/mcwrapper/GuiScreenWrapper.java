@@ -75,6 +75,7 @@ public class GuiScreenWrapper extends GuiScreen {
 		super.func_183500_a(width, height);
 		gui.setWidth(width);
 		gui.setHeight(height);
+		gui.setInitialized(true);
 	}
 
 	@Override
@@ -82,5 +83,6 @@ public class GuiScreenWrapper extends GuiScreen {
 		super.setWorldAndResolution(mc, width, height);
 		gui.setWidth(width);
 		gui.setHeight(height);
+		gui.setInitialized(true);
 	}
 }

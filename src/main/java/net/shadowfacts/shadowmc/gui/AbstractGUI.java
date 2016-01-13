@@ -44,12 +44,17 @@ public abstract class AbstractGUI {
 	@Getter
 	protected List<String> tooltip = new ArrayList<>();
 
+	@Getter @Setter
+	protected boolean initialized;
+
 	public AbstractGUI(int x, int y, int width, int height) {
 		this.mc = Minecraft.getMinecraft();
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+
+		initialized = true;
 	}
 
 	public boolean hasChildren() {

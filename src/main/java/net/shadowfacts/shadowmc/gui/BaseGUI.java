@@ -17,6 +17,9 @@ public class BaseGUI extends AbstractGUI implements ClickHandler, KeyHandler, Mo
 	protected AbstractGUI guiBeingDragged;
 	protected List<KeyHandler> keyHandlers = new ArrayList<>();
 
+	protected int xSize = 176;
+	protected int ySize = 166;
+
 	public BaseGUI(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
@@ -99,27 +102,33 @@ public class BaseGUI extends AbstractGUI implements ClickHandler, KeyHandler, Mo
 
 	@Override
 	public void draw(int mouseX, int mouseY) {
-		children.stream()
-				.filter(AbstractGUI::isVisible)
-				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
-				.forEach(gui -> gui.draw(mouseX, mouseY));
+		if (initialized) {
+			children.stream()
+					.filter(AbstractGUI::isVisible)
+					.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
+					.forEach(gui -> gui.draw(mouseX, mouseY));
+		}
 	}
 
 	@Override
 	public void update() {
-		children.stream()
-				.filter(AbstractGUI::isVisible)
-				.forEach(AbstractGUI::update);
+		if (initialized) {
+			children.stream()
+					.filter(AbstractGUI::isVisible)
+					.forEach(AbstractGUI::update);
+		}
 	}
 
 	@Override
 	public void drawTooltip(int x, int y) {
-		Optional<AbstractGUI> gui = children.stream()
-				.filter(theGui -> theGui.isWithinBounds(x, y))
-				.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
-				.findFirst();
-		if (gui.isPresent()) {
-			gui.get().drawTooltip(x, y);
+		if (initialized) {
+			Optional<AbstractGUI> gui = children.stream()
+					.filter(theGui -> theGui.isWithinBounds(x, y))
+					.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
+					.findFirst();
+			if (gui.isPresent()) {
+				gui.get().drawTooltip(x, y);
+			}
 		}
 	}
 
