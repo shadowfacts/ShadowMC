@@ -1,5 +1,6 @@
 package net.shadowfacts.shadowmc.gui.mcwrapper;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.shadowfacts.shadowmc.util.MouseButton;
 import org.lwjgl.input.Keyboard;
@@ -71,5 +72,19 @@ public class GuiScreenWrapper extends GuiScreen {
 	@Override
 	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
 		gui.handleMouseMove(mouseX, mouseY, MouseButton.get(clickedMouseButton));
+	}
+
+	@Override
+	public void func_183500_a(int width, int height) {
+		super.func_183500_a(width, height);
+		gui.setWidth(width);
+		gui.setHeight(height);
+	}
+
+	@Override
+	public void setWorldAndResolution(Minecraft mc, int width, int height) {
+		super.setWorldAndResolution(mc, width, height);
+		gui.setWidth(width);
+		gui.setHeight(height);
 	}
 }

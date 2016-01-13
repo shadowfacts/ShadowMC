@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class MCBaseGUI extends BaseGUI {
 
-	private GuiScreenWrapper mcGUI;
+	protected GuiScreenWrapper mcGUI;
 
 	public MCBaseGUI(GuiScreenWrapper mcGUI) {
 		super(0, 0, mcGUI.width, mcGUI.height);

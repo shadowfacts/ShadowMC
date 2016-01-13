@@ -26,7 +26,9 @@ public abstract class AbstractGUI {
 	protected int x;
 	@Getter @Setter
 	protected int y;
+	@Getter @Setter
 	protected int width;
+	@Getter @Setter
 	protected int height;
 
 	@Getter @Setter
