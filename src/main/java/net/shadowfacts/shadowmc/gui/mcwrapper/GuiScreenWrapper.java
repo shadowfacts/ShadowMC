@@ -41,10 +41,6 @@ public class GuiScreenWrapper extends GuiScreen {
 
 	@Override
 	protected void keyTyped(char charTyped, int keyCode) throws IOException {
-		if (keyCode == Keyboard.KEY_ESCAPE) {
-			mc.displayGuiScreen(null);
-			return;
-		}
 		gui.handleKeyPress(keyCode, charTyped);
 	}
 

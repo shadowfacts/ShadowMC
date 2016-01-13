@@ -1,18 +1,21 @@
 package net.shadowfacts.shadowmc.gui;
 
 import net.shadowfacts.shadowmc.gui.handler.ClickHandler;
-import net.shadowfacts.shadowmc.gui.handler.KeyInputHandler;
+import net.shadowfacts.shadowmc.gui.handler.KeyHandler;
 import net.shadowfacts.shadowmc.gui.handler.MouseMovementHandler;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author shadowfacts
  */
-public class BaseGUI extends AbstractGUI implements ClickHandler, KeyInputHandler, MouseMovementHandler {
+public class BaseGUI extends AbstractGUI implements ClickHandler, KeyHandler, MouseMovementHandler {
 
 	protected AbstractGUI guiBeingDragged;
+	protected List<KeyHandler> keyHandlers = new ArrayList<>();
 
 	public BaseGUI(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -78,11 +81,20 @@ public class BaseGUI extends AbstractGUI implements ClickHandler, KeyInputHandle
 	}
 
 	@Override
-	public void handleKeyPress(int key, char charTyped) {
+	public void handleKeyPress(int keyCode, char charTyped) {
+		Optional<KeyHandler> handler = keyHandlers.stream()
+				.filter(theHandler -> theHandler.acceptsKey(keyCode, charTyped))
+				.findFirst();
+		if (handler.isPresent()){
+			handler.get().handleKeyPress(keyCode, charTyped);
+			return;
+		}
+
+
 		children.stream()
-				.filter(gui -> gui instanceof KeyInputHandler)
-				.map(gui -> (KeyInputHandler)gui)
-				.forEach(gui -> gui.handleKeyPress(key, charTyped));
+				.filter(gui -> gui instanceof KeyHandler)
+				.map(gui -> (KeyHandler)gui)
+				.forEach(gui -> gui.handleKeyPress(keyCode, charTyped));
 	}
 
 	@Override
