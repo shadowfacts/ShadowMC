@@ -41,7 +41,7 @@ public class TestMod {
 	}
 
 	public void openGUI() {
-		Minecraft.getMinecraft().displayGuiScreen(buildGui4());
+		Minecraft.getMinecraft().displayGuiScreen(TestGUI.create());
 	}
 
 	public boolean testPressed(GUIButtonText button, MouseButton mouseButton) {
