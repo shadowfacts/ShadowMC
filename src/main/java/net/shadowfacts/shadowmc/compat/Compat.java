@@ -28,7 +28,7 @@ public @interface Compat {
 	 * Any method marked with this must be static
 	 */
 	@Retention(RetentionPolicy.RUNTIME)
-	@Target(ElementType.TYPE)
+	@Target(ElementType.METHOD)
 	@interface PreInit {
 
 	}
@@ -39,7 +39,7 @@ public @interface Compat {
 	 * Any method marked with this must be static
 	 */
 	@Retention(RetentionPolicy.RUNTIME)
-	@Target(ElementType.TYPE)
+	@Target(ElementType.METHOD)
 	@interface Init {
 
 	}
@@ -50,7 +50,7 @@ public @interface Compat {
 	 * Any method marked with this must be static
 	 */
 	@Retention(RetentionPolicy.RUNTIME)
-	@Target(ElementType.TYPE)
+	@Target(ElementType.METHOD)
 	@interface PostInit {
 
 	}
