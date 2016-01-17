@@ -2,6 +2,7 @@ package test;
 
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -12,8 +13,8 @@ public class ClientProxy extends CommonProxy {
 	public static KeyBinding[] keyBindings;
 
 	@Override
-	public void init() {
-		super.init();
+	public void init(FMLInitializationEvent event) {
+		super.init(event);
 
 		keyBindings = new KeyBinding[1];
 

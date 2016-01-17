@@ -1,4 +1,20 @@
 - Release
 
-- Fix things, for real this time
+- GUIComponentTextField
+
+- Extract mouse click, key press, and mouse move to separate interfaces
+
+- Add missing @Getter
+
+- Set GUI width and height
+
+- KeyHandler stuff
+
+- Update things
+
+- Compatibility things
+
+- derp
+
+- Stuff
 

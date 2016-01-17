@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.shadowfacts.shadowmc.BaseMod;
 import net.shadowfacts.shadowmc.util.LogHelper;
 
 import java.lang.reflect.Modifier;
@@ -14,13 +15,17 @@ import java.util.List;
 /**
  * @author shadowfacts
  */
-public class CompatRegistrar {
+public class CompatManager {
 
-	private static LogHelper log = new LogHelper("ShadowMC|Comapt");
+	private LogHelper log;
 
-	private static List<Class> modules = new ArrayList<>();
+	private List<Class> modules = new ArrayList<>();
 
-	public static boolean registerModule(Class clazz) {
+	public CompatManager(BaseMod owner) {
+		log = new LogHelper(owner.getName() + "|Compat");
+	}
+
+	public boolean registerModule(Class clazz) {
 		if (clazz.isAnnotationPresent(Compat.class)) {
 			Compat annotation = (Compat)clazz.getAnnotation(Compat.class);
 			if (Loader.isModLoaded(annotation.value())) {
@@ -36,7 +41,7 @@ public class CompatRegistrar {
 		}
 	}
 
-	public static void preInit(FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) {
 		log.info("Attempting to run pre-initialization methods for all registered compatibility modules");
 		modules.stream()
 				.flatMap(clazz -> Arrays.stream(clazz.getMethods()))
@@ -52,7 +57,7 @@ public class CompatRegistrar {
 				});
 	}
 
-	public static void init(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {
 		log.info("Attempting to run pre-initialization methods for all registered compatibility modules");
 		modules.stream()
 				.flatMap(clazz -> Arrays.stream(clazz.getMethods()))
@@ -68,7 +73,7 @@ public class CompatRegistrar {
 				});
 	}
 
-	public static void postInit(FMLPostInitializationEvent event) {
+	public void postInit(FMLPostInitializationEvent event) {
 		log.info("Attempting to run pre-initialization methods for all registered compatibility modules");
 		modules.stream()
 				.flatMap(clazz -> Arrays.stream(clazz.getMethods()))
