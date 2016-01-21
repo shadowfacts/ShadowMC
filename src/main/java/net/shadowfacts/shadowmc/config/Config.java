@@ -6,17 +6,21 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @Config for the new config system, used on a class to be registered with the ConfigManager.
+ * Annotation used for the config system, used on a class to be registered with the ConfigManager.
  * @author shadowfacts
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Config {
 
-	public String name();
+	/**
+	 * Config file name
+	 */
+	String name();
 
-	public boolean useSubFolder() default true;
-
-	public String folder() default "shadowfacts";
+	/**
+	 * Folder to place the config file in, relative to the run directory.
+	 */
+	String directory() default "config/shadowfacts";
 
 }

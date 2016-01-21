@@ -16,7 +16,7 @@ import java.util.HashMap;
  * @author shadowfacts
  */
 public class ConfigManager {
-//	The instance
+
 	public static ConfigManager instance = new ConfigManager();
 
 	public File configDir;
@@ -49,13 +49,7 @@ public class ConfigManager {
 				Config annotation = (Config)clazz.getAnnotation(Config.class);
 
 				if (!multiConfig.hasForgeConfig()) {
-					String path = "";
-					if (annotation.useSubFolder()) {
-						path += "/" + annotation.folder();
-					}
-					path += "/" + annotation.name() + ".cfg";
-
-					multiConfig.setForgeConfig(new Configuration(new File(configDir, path)));
+					multiConfig.setForgeConfig(new Configuration(new File(annotation.directory() + File.separator + annotation.name() + ".cfg")));
 				}
 
 			} else {
