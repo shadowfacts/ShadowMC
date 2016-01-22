@@ -37,7 +37,6 @@ public abstract class BaseMod {
 		return new Version(getVersionString());
 	}
 
-	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		if (getConfigClass() != null) initConfig(event.getModConfigurationDirectory());
 
@@ -48,14 +47,12 @@ public abstract class BaseMod {
 		compatManager.preInit(event);
 	}
 
-	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		getProxy().init(event);
 
 		compatManager.init(event);
 	}
 
-	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		getProxy().postInit(event);
 

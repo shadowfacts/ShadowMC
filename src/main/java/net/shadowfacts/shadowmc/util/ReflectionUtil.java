@@ -72,7 +72,7 @@ public class ReflectionUtil {
 	 * @throws ClassNotFoundException if the owner class doesn't exist
 	 * @throws NoSuchMethodException if the method doesn't exist
 	 */
-	private static void putMethod(String owner, String name, Class... paramTypes) throws ClassNotFoundException, NoSuchMethodException {
+	private static void putMethod(String owner, String name, Class<?>... paramTypes) throws ClassNotFoundException, NoSuchMethodException {
 		putMethod(Class.forName(owner), name, paramTypes);
 	}
 
@@ -83,7 +83,7 @@ public class ReflectionUtil {
 	 * @param paramTypes The types of parameters the method takes
 	 * @throws NoSuchMethodException if the method doesn't exist
 	 */
-	private static void putMethod(Class owner, String name, Class... paramTypes) throws NoSuchMethodException {
+	private static void putMethod(Class<?> owner, String name, Class<?>... paramTypes) throws NoSuchMethodException {
 		Method m = owner.getDeclaredMethod(name, paramTypes);
 		m.setAccessible(true);
 		methodMap.put(new MethodDesc(owner, name, paramTypes), m);

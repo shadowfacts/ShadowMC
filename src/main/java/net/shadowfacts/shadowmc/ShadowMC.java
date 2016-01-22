@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc;
 
-import lombok.Getter;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -52,7 +51,7 @@ public class ShadowMC extends BaseMod {
 
 	@Override
 	public Class<?> getConfigClass() {
-		return null;
+		return ShadowMCConfig.class;
 	}
 
 	@Mod.EventHandler
