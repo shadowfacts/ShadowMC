@@ -85,4 +85,9 @@ public class GuiScreenWrapper extends GuiScreen {
 		gui.setHeight(height);
 		gui.setInitialized(true);
 	}
+
+	@Override
+	public void onGuiClosed() {
+		gui.onGUIClosed();
+	}
 }

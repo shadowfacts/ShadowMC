@@ -91,12 +91,24 @@ public abstract class AbstractGUI {
 		getRoot().drawHoveringText(text, x, y);
 	}
 
-	protected void drawText(String text, int x, int y, Color color) {
+	protected void drawText(String text, int x, int y, Color color, boolean shadow) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef(0, 0, zLevel + .5f);
-		mc.fontRendererObj.drawString(text, x, y, color.toARGB());
+		if (shadow) {
+			mc.fontRendererObj.drawStringWithShadow(text, x, y, color.toARGB());
+		} else {
+			mc.fontRendererObj.drawString(text, x, y, color.toARGB());
+		}
 		Color.WHITE.apply();
 		GL11.glPopMatrix();
+	}
+
+	protected void drawText(String text, int x, int y, boolean shadow) {
+		drawText(text, x, y, Color.WHITE, shadow);
+	}
+
+	protected void drawText(String text, int x, int y, Color color) {
+		drawText(text, x, y, color, false);
 	}
 
 	protected void drawText(String text, int x, int y) {
@@ -215,6 +227,10 @@ public abstract class AbstractGUI {
 	public void updatePosition(int newX, int newY) {
 		x = newX;
 		y = newY;
+	}
+
+	public void onGUIClosed() {
+
 	}
 
 }

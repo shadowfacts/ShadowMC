@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.shadowfacts.shadowmc.command.CommandHandler;
 import net.shadowfacts.shadowmc.event.handler.ShadowMCEventHandler;
 import net.shadowfacts.shadowmc.proxy.CommonProxy;
@@ -28,6 +29,8 @@ public class ShadowMC extends BaseMod {
 
 	@Mod.Instance(modId)
 	public static ShadowMC instance;
+
+	public static SimpleNetworkWrapper network;
 
 	@Override
 	public String getModId() {

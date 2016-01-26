@@ -150,4 +150,9 @@ public class BaseGUI extends AbstractGUI implements ClickHandler, KeyHandler, Mo
 		}
 	}
 
+	@Override
+	public void onGUIClosed() {
+		children.stream()
+				.forEach(AbstractGUI::onGUIClosed);
+	}
 }

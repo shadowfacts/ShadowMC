@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * @author shadowfacts
  */
-public class MCBaseGUI extends BaseGUI {
+public class MCBaseGUIContainer extends BaseGUI {
 
-	protected GuiScreenWrapper wrapper;
+	protected GuiContainerWrapper wrapper;
 
-	public MCBaseGUI(GuiScreenWrapper wrapper) {
+	public MCBaseGUIContainer(GuiContainerWrapper wrapper) {
 		super(0, 0, wrapper.width, wrapper.height);
 		this.wrapper = wrapper;
 
