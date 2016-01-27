@@ -25,11 +25,10 @@ public class GuiContainerWrapper extends GuiContainer {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super.drawScreen(mouseX, mouseY, partialTicks);
 
 		gui.draw(mouseX, mouseY);
 		gui.drawTooltip(mouseX, mouseY);
-
-		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
 	@Override
