@@ -3,11 +3,13 @@ package net.shadowfacts.shadowmc.network;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 import net.shadowfacts.shadowmc.ShadowMC;
 import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
 
@@ -28,10 +30,18 @@ public class PacketUpdateTE extends PacketBase<PacketUpdateTE, IMessage> {
 
 	@Override
 	public IMessage onMessage(PacketUpdateTE msg, MessageContext ctx) {
-		World world = ShadowMC.proxy.getClientWorld();
-		TileEntity te = world.getTileEntity(msg.pos);
-		if (te instanceof BaseTileEntity) {
-			((BaseTileEntity)te).load(msg.tag);
+		if (ctx.side == Side.CLIENT) {
+			World world = ShadowMC.proxy.getClientWorld();
+			TileEntity te = world.getTileEntity(msg.pos);
+			if (te instanceof BaseTileEntity) {
+				((BaseTileEntity) te).load(msg.tag);
+			}
+		} else {
+			World world = MinecraftServer.getServer().worldServerForDimension(msg.dim);
+			TileEntity te = world.getTileEntity(msg.pos);
+			if (te instanceof BaseTileEntity) {
+				((BaseTileEntity)te).load(msg.tag);
+			}
 		}
 		return null;
 	}

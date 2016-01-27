@@ -36,6 +36,7 @@ public class CommonProxy extends BaseProxy {
 		ShadowMC.network.registerMessage(PacketSpawnItem.class, PacketSpawnItem.class, 0, Side.SERVER);
 		ShadowMC.network.registerMessage(PacketRequestTEUpdate.class, PacketRequestTEUpdate.class, 1, Side.SERVER);
 		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 2, Side.CLIENT);
+		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 2, Side.SERVER);
 	}
 
 	public World getClientWorld() {
