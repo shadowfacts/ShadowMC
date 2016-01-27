@@ -1,7 +1,9 @@
 package test;
 
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -11,6 +13,10 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.shadowmc.BaseMod;
+import net.shadowfacts.shadowmc.gui.GUIBuilder;
+import net.shadowfacts.shadowmc.gui.component.GUIComponent;
+import net.shadowfacts.shadowmc.gui.component.GUIComponentTexture;
+import net.shadowfacts.shadowmc.gui.mcwrapper.GuiScreenWrapper;
 import net.shadowfacts.shadowmc.proxy.BaseProxy;
 
 /**
@@ -75,18 +81,35 @@ public class ModTest extends BaseMod {
 		super.init(event);
 	}
 
+	private static GuiScreen create1() {
+		return new GUIBuilder()
+				.addComponent(new GUIComponentTexture(0, 0, 256, 256, GUIComponent.widgetTextures))
+				.wrap();
+	}
+
 	public static class TestGUIHandler implements IGuiHandler {
 
 		@Override
 		public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-			return new ContainerTest(player, (TileEntityTest)world.getTileEntity(new BlockPos(x, y, z)));
+			switch (ID) {
+				case 0:
+					return new ContainerTest(player, (TileEntityTest) world.getTileEntity(new BlockPos(x, y, z)));
+				default:
+					return null;
+			}
 		}
 
 		@Override
 		public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-			return GUITest.create(player, (TileEntityTest)world.getTileEntity(new BlockPos(x, y, z)));
+			switch (ID) {
+				case 0:
+					return GUITest.create(player, (TileEntityTest)world.getTileEntity(new BlockPos(x, y, z)));
+				case 1:
+					return create1();
+				default:
+					return null;
+			}
 		}
-
 	}
 
 }
