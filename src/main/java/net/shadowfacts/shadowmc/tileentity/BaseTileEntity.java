@@ -31,7 +31,7 @@ public abstract class BaseTileEntity extends TileEntity {
 	public void sync() {
 		Side side = FMLCommonHandler.instance().getSide();
 		if (side == Side.CLIENT) {
-			ShadowMC.network.sendToServer(new PacketRequestTEUpdate(this));
+			ShadowMC.network.sendToServer(new PacketUpdateTE(this));
 		} else {
 			ShadowMC.network.sendToAllAround(new PacketUpdateTE(this), new NetworkRegistry.TargetPoint(worldObj.provider.getDimensionId(), pos.getX(), pos.getY(), pos.getZ(), 64));
 		}
