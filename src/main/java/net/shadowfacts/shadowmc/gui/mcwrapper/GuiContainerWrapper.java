@@ -24,14 +24,6 @@ public class GuiContainerWrapper extends GuiContainer {
 	}
 
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		super.drawScreen(mouseX, mouseY, partialTicks);
-
-		gui.draw(mouseX, mouseY);
-		gui.drawTooltip(mouseX, mouseY);
-	}
-
-	@Override
 	public void drawWorldBackground(int tint) {
 		if (drawMCBackgroundOverlay && mc.theWorld != null) {
 			drawGradientRect(0, 0, this.width, this.height, -1072689136, -804253680);
@@ -101,8 +93,13 @@ public class GuiContainerWrapper extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		gui.drawTooltip(mouseX, mouseY);
+	}
 
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+		gui.draw(mouseX, mouseY);
 	}
 
 }
