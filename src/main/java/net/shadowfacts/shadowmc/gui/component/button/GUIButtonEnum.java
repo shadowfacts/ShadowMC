@@ -1,5 +1,6 @@
 package net.shadowfacts.shadowmc.gui.component.button;
 
+import lombok.Getter;
 import net.shadowfacts.shadowlib.util.EnumUtils;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
@@ -12,6 +13,7 @@ import java.util.function.Function;
  */
 public class GUIButtonEnum<E extends Enum> extends GUIButtonText {
 
+	@Getter
 	protected E value;
 	protected Function<E, String> localizer;
 	protected Consumer<GUIButtonEnum<E>> clickHandler;
