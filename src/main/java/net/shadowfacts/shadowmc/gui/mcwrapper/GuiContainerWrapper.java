@@ -45,7 +45,7 @@ public class GuiContainerWrapper extends GuiContainer {
 
 		MouseButton button = MouseButton.get(mouseButton);
 		gui.handleMouseClicked(mouseX, mouseY, button);
-		gui.handleMouseClicked(mouseX, mouseY, button);
+		gui.handleMouseClickAnywhere(mouseX, mouseY, button);
 	}
 
 	@Override
