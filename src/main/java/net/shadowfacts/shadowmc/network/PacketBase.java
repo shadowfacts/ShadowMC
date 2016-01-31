@@ -1,7 +1,6 @@
 package net.shadowfacts.shadowmc.network;
 
 import io.netty.buffer.ByteBuf;
-import javafx.util.Pair;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
@@ -9,8 +8,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
+import net.shadowfacts.shadowlib.util.Pair;
 import net.shadowfacts.shadowmc.util.Vector3d;
 
 import java.lang.reflect.Field;
@@ -74,11 +72,11 @@ public abstract class PacketBase<REQ extends PacketBase, REPLY extends IMessage>
 	}
 
 	private void read(Field f, PacketBuffer buf) throws IllegalAccessException {
-		f.set(this, getHandlers(f).getKey().read(buf));
+		f.set(this, getHandlers(f).getLeft().read(buf));
 	}
 
 	private void write(Field f, PacketBuffer buf) throws IllegalAccessException {
-		getHandlers(f).getValue().write(f.get(this), buf);
+		getHandlers(f).getRight().write(f.get(this), buf);
 	}
 
 	private static boolean accepts(Field f) {

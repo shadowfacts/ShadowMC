@@ -1,20 +1,42 @@
-- Release
+- Base mod stuff
 
-- GUIComponentTextField
-
-- Extract mouse click, key press, and mouse move to separate interfaces
-
-- Add missing @Getter
-
-- Set GUI width and height
-
-- KeyHandler stuff
-
-- Update things
-
-- Compatibility things
-
-- derp
+- Change config system to allow for custom directories
 
 - Stuff
+
+- Achievement stuff
+
+- container stuff
+
+- Lock FG snapshot version
+
+- Revert "Lock FG snapshot version"
+
+5f05e5cb5f7d173de2c317e723d1871080c112ef
+
+- Remove ClientPRoxy.java
+
+- Add ClientProxy.java
+
+- BaseTileEntity, packets
+
+- Allow access to GUIButtonEnum#value
+
+- Add GUIComponentTexture
+
+- Fix syncing
+
+- Fix TE syncing
+
+- Move super.drawScreen call
+
+- Maybe if GuiContainerWrapper?
+
+- Whoopsies
+
+- Fix syncing?
+
+- Whoopsies
+
+- Maybe fix CompatManager?
 
