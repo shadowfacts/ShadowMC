@@ -25,7 +25,7 @@ public class PacketUpdateTE extends PacketBase<PacketUpdateTE, IMessage> {
 	public NBTTagCompound tag;
 
 	public PacketUpdateTE(BaseTileEntity te) {
-		this(te.getWorld().provider.getDimensionId(), te.getPos(), te.save(new NBTTagCompound()));
+		this(te.getWorld().provider.getDimensionId(), te.getPos(), te.save(new NBTTagCompound(), false));
 	}
 
 	@Override
@@ -34,13 +34,13 @@ public class PacketUpdateTE extends PacketBase<PacketUpdateTE, IMessage> {
 			World world = ShadowMC.proxy.getClientWorld();
 			TileEntity te = world.getTileEntity(msg.pos);
 			if (te instanceof BaseTileEntity) {
-				((BaseTileEntity) te).load(msg.tag);
+				((BaseTileEntity) te).load(msg.tag, false);
 			}
 		} else {
 			World world = MinecraftServer.getServer().worldServerForDimension(msg.dim);
 			TileEntity te = world.getTileEntity(msg.pos);
 			if (te instanceof BaseTileEntity) {
-				((BaseTileEntity)te).load(msg.tag);
+				((BaseTileEntity)te).load(msg.tag, false);
 			}
 		}
 		return null;

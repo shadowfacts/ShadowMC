@@ -1,5 +1,6 @@
 package net.shadowfacts.shadowmc.gui.mcwrapper;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.shadowfacts.shadowmc.gui.BaseGUI;
 import net.shadowfacts.shadowmc.gui.handler.ExitWindowKeyHandler;
 import org.lwjgl.input.Keyboard;

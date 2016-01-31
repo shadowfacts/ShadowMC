@@ -24,9 +24,9 @@ public abstract class BaseTileEntity extends TileEntity {
 		super.readFromNBT(compound);
 	}
 
-	public abstract NBTTagCompound save(NBTTagCompound tag);
+	public abstract NBTTagCompound save(NBTTagCompound tag, boolean saveInventory);
 
-	public abstract void load(NBTTagCompound tag);
+	public abstract void load(NBTTagCompound tag, boolean loadInventory);
 
 	public void sync() {
 		Side side = FMLCommonHandler.instance().getSide();
