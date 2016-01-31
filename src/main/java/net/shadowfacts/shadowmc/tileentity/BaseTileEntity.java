@@ -17,11 +17,13 @@ public abstract class BaseTileEntity extends TileEntity {
 	@Override
 	public void writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
+		save(compound, true);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
+		load(compound, true);
 	}
 
 	public abstract NBTTagCompound save(NBTTagCompound tag, boolean saveInventory);
