@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.shadowfacts.shadowmc.BaseMod;
 import net.shadowfacts.shadowmc.util.LogHelper;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,50 +44,53 @@ public class CompatManager {
 
 	public void preInit(FMLPreInitializationEvent event) {
 		log.info("Attempting to run pre-initialization methods for all registered compatibility modules");
-		modules.stream()
-				.flatMap(clazz -> Arrays.stream(clazz.getMethods()))
-				.filter(method -> Modifier.isStatic(method.getModifiers()))
-				.filter(method -> method.isAnnotationPresent(Compat.PreInit.class))
-				.forEach(method -> {
+		for (Class clazz : modules) {
+			for (Method m : clazz.getDeclaredMethods()) {
+				if (Modifier.isStatic(m.getModifiers()) &&
+						m.isAnnotationPresent(Compat.PreInit.class)) {
 					try {
-						method.invoke(null, event);
+						m.invoke(null, event);
 					} catch (ReflectiveOperationException e) {
-						Compat annotation = method.getDeclaringClass().getAnnotation(Compat.class);
+						Compat annotation = (Compat)clazz.getAnnotation(Compat.class);
 						log.error("There was an error trying to invoke the pre-initialization method for %s", e, annotation.value());
 					}
-				});
+				}
+			}
+		}
 	}
 
 	public void init(FMLInitializationEvent event) {
-		log.info("Attempting to run pre-initialization methods for all registered compatibility modules");
-		modules.stream()
-				.flatMap(clazz -> Arrays.stream(clazz.getMethods()))
-				.filter(method -> Modifier.isStatic(method.getModifiers()))
-				.filter(method -> method.isAnnotationPresent(Compat.Init.class))
-				.forEach(method -> {
+		log.info("Attempting to run initialization methods for all registered compatibility modules");
+		for (Class clazz : modules) {
+			for (Method m : clazz.getDeclaredMethods()) {
+				if (Modifier.isStatic(m.getModifiers()) &&
+						m.isAnnotationPresent(Compat.PreInit.class)) {
 					try {
-						method.invoke(null, event);
+						m.invoke(null, event);
 					} catch (ReflectiveOperationException e) {
-						Compat annotation = method.getDeclaringClass().getAnnotation(Compat.class);
+						Compat annotation = (Compat)clazz.getAnnotation(Compat.class);
 						log.error("There was an error trying to invoke the initialization method for %s", e, annotation.value());
 					}
-				});
+				}
+			}
+		}
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
-		log.info("Attempting to run pre-initialization methods for all registered compatibility modules");
-		modules.stream()
-				.flatMap(clazz -> Arrays.stream(clazz.getMethods()))
-				.filter(method -> Modifier.isStatic(method.getModifiers()))
-				.filter(method -> method.isAnnotationPresent(Compat.PostInit.class))
-				.forEach(method -> {
+		log.info("Attempting to run post-initialization methods for all registered compatibility modules");
+		for (Class clazz : modules) {
+			for (Method m : clazz.getDeclaredMethods()) {
+				if (Modifier.isStatic(m.getModifiers()) &&
+						m.isAnnotationPresent(Compat.PreInit.class)) {
 					try {
-						method.invoke(null, event);
+						m.invoke(null, event);
 					} catch (ReflectiveOperationException e) {
-						Compat annotation = method.getDeclaringClass().getAnnotation(Compat.class);
+						Compat annotation = (Compat)clazz.getAnnotation(Compat.class);
 						log.error("There was an error trying to invoke the post-initialization method for %s", e, annotation.value());
 					}
-				});
+				}
+			}
+		}
 	}
 
 }
