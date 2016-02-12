@@ -68,8 +68,8 @@ public class GuiContainerWrapper extends GuiContainer {
 	}
 
 	@Override
-	public void func_183500_a(int width, int height) {
-		super.func_183500_a(width, height);
+	public void setGuiSize(int width, int height) {
+		super.setGuiSize(width, height);
 
 		gui.setWidth(width);
 		gui.setHeight(height);
