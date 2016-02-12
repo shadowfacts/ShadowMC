@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.shadowfacts.shadowmc.ShadowMC;
+import net.shadowfacts.shadowmc.nbt.AutoNBTSerializer;
 import net.shadowfacts.shadowmc.network.PacketRequestTEUpdate;
 import net.shadowfacts.shadowmc.network.PacketUpdateTE;
 
@@ -17,12 +18,14 @@ public abstract class BaseTileEntity extends TileEntity {
 	@Override
 	public void writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
+		AutoNBTSerializer.serialize(getClass(), this, compound);
 		save(compound, true);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
+		AutoNBTSerializer.deserialize(getClass(), this, compound);
 		load(compound, true);
 	}
 
