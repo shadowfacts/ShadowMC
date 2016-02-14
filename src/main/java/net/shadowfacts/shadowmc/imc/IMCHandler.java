@@ -20,12 +20,12 @@ public abstract class IMCHandler {
 	protected IMCHandler(String owner) {
 		this.owner = owner;
 		log = new LogHelper(owner + "|IMCHandler");
-		registerHandlers();
-	}
+			registerHandlers();
+		}
 
 	protected abstract void registerHandlers();
 
-	private void addMessageHandler(String id, Consumer<NBTTagCompound> handler) {
+	protected void addMessageHandler(String id, Consumer<NBTTagCompound> handler) {
 		handlers.put(id, handler);
 	}
 
