@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
  * @author shadowfacts
  */
 @Mod(modid = ShadowMC.modId, name = ShadowMC.name, version = ShadowMC.versionString)
-public class ShadowMC extends BaseMod {
+public class ShadowMC {
 
 	public static final String modId = "shadowmc";
 	public static final String name = "ShadowMC";
@@ -32,35 +32,11 @@ public class ShadowMC extends BaseMod {
 
 	public static SimpleNetworkWrapper network;
 
-	@Override
-	public String getModId() {
-		return modId;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public String getVersionString() {
-		return versionString;
-	}
-
-	@Override
-	public CommonProxy getProxy() {
-		return proxy;
-	}
-
-	@Override
-	public Class<?> getConfigClass() {
-		return ShadowMCConfig.class;
-	}
-
 	@Mod.EventHandler
-	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		super.preInit(event);
+		ShadowMCConfig.init(event.getModConfigurationDirectory());
+
+		proxy.preInit(event);
 
 		MinecraftForge.EVENT_BUS.register(new ShadowMCEventHandler());
 	}

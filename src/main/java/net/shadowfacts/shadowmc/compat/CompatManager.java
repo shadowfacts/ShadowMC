@@ -4,13 +4,11 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.shadowfacts.shadowmc.BaseMod;
 import net.shadowfacts.shadowmc.util.LogHelper;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,8 +20,11 @@ public class CompatManager {
 
 	private List<Class> modules = new ArrayList<>();
 
-	public CompatManager(BaseMod owner) {
-		log = new LogHelper(owner.getName() + "|Compat");
+	/**
+	 * @param owner The ID of the owner, typically the mod ID
+	 */
+	public CompatManager(String owner) {
+		log = new LogHelper(owner + "|Compat");
 	}
 
 	public boolean registerModule(Class clazz) {

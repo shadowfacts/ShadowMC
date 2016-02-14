@@ -14,22 +14,11 @@ import net.shadowfacts.shadowmc.network.PacketUpdateTE;
 /**
  * @author shadowfacts
  */
-public class CommonProxy extends BaseProxy {
+public class CommonProxy {
 
-	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		ShadowMC.network = NetworkRegistry.INSTANCE.newSimpleChannel(ShadowMC.modId);
 		registerPackets();
-	}
-
-	@Override
-	public void init(FMLInitializationEvent event) {
-
-	}
-
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
-
 	}
 
 	private void registerPackets() {

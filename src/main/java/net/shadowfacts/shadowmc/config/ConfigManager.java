@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Manages all config files for the new configuration system.
@@ -22,9 +23,9 @@ public class ConfigManager {
 	public File configDir;
 
 	@Getter
-	private HashMap<String, MultiConfig> configs = new HashMap<>();
+	private Map<String, MultiConfig> configs = new HashMap<>();
 	@Getter
-	private HashMap<String, String> modIdConfigNameMap = new HashMap<>();
+	private Map<String, String> modIdConfigNameMap = new HashMap<>();
 
     private Logger log = LogManager.getLogger("ShadowMC|ConfigManager");
 
@@ -160,7 +161,9 @@ public class ConfigManager {
 			}
 		}
 
-		config.save();
+		if (config.hasChanged()) {
+			config.save();
+		}
 	}
 
 	public void regenConfig(String name) {

@@ -40,11 +40,6 @@ public class ShadowMCEventHandler {
 		if (ConfigManager.instance.getModIdConfigNameMap().containsKey(event.modID)) {
 			String name = ConfigManager.instance.getModIdConfigNameMap().get(event.modID);
 			ConfigManager.instance.load(name);
-
-			Configuration cfg = ConfigManager.instance.getConfigurationObject(name);
-			if (cfg.hasChanged()) {
-				cfg.save();
-			}
 		}
 	}
 
