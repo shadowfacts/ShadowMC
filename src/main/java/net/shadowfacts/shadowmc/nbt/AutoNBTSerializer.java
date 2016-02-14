@@ -4,8 +4,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.shadowfacts.shadowlib.util.Pair;
 import net.shadowfacts.shadowmc.util.LogHelper;
+import net.shadowfacts.shadowmc.util.RedstoneMode;
 
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -34,6 +37,9 @@ public class AutoNBTSerializer {
 		registerSerializer(boolean.class, NBTTagCompound::setBoolean, NBTTagCompound::getBoolean);
 		registerSerializer(ItemStack.class, AutoNBTSerializer::serializeItemStack, AutoNBTSerializer::deserializeItemStack);
 		registerSerializer(ItemStack[].class, AutoNBTSerializer::serializeItemStackArray, AutoNBTSerializer::deserializeItemStackArray);
+		registerSerializer(EnumFacing.class, AutoNBTSerializer::serializeEnumFacing, AutoNBTSerializer::deserializeEnumFacing);
+		registerSerializer(BlockPos.class, AutoNBTSerializer::serializeBlockPos, AutoNBTSerializer::deserializeBlockPos);
+		registerSerializer(RedstoneMode.class, AutoNBTSerializer::serializeRedstoneMode, AutoNBTSerializer::deserializeRedstoneMode);
 	}
 
 	public static <T> void registerSerializer(Class<T> clazz, NBTSerializer<T> serializer, NBTDeserializer<T> deserializer) {
@@ -124,6 +130,30 @@ public class AutoNBTSerializer {
 		}
 
 		return stacks;
+	}
+
+	private static void serializeEnumFacing(NBTTagCompound tag, String name, EnumFacing val) {
+		tag.setInteger(name, val.getIndex());
+	}
+
+	private static EnumFacing deserializeEnumFacing(NBTTagCompound tag, String name) {
+		return EnumFacing.getFront(tag.getInteger(name));
+	}
+
+	private static void serializeBlockPos(NBTTagCompound tag, String name, BlockPos val) {
+		tag.setLong(name, val.toLong());
+	}
+
+	private static BlockPos deserializeBlockPos(NBTTagCompound tag, String name) {
+		return BlockPos.fromLong(tag.getLong(name));
+	}
+
+	private static void serializeRedstoneMode(NBTTagCompound tag, String name, RedstoneMode val) {
+		tag.setInteger(name, val.ordinal());
+	}
+
+	private static RedstoneMode deserializeRedstoneMode(NBTTagCompound tag, String name) {
+		return RedstoneMode.values()[tag.getInteger(name)];
 	}
 
 }
