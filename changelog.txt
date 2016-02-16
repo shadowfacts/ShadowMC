@@ -1,42 +1,14 @@
-- Base mod stuff
+- Use ShadowLib Pair, bump version
 
-- Change config system to allow for custom directories
+- Update Forge and mappings
 
-- Stuff
+- Auto NBT (de)serialization
 
-- Achievement stuff
+- Remove BaseMod
 
-- container stuff
+- More (de)serializers
 
-- Lock FG snapshot version
+- IMC message handler base class
 
-- Revert "Lock FG snapshot version"
-
-5f05e5cb5f7d173de2c317e723d1871080c112ef
-
-- Remove ClientPRoxy.java
-
-- Add ClientProxy.java
-
-- BaseTileEntity, packets
-
-- Allow access to GUIButtonEnum#value
-
-- Add GUIComponentTexture
-
-- Fix syncing
-
-- Fix TE syncing
-
-- Move super.drawScreen call
-
-- Maybe if GuiContainerWrapper?
-
-- Whoopsies
-
-- Fix syncing?
-
-- Whoopsies
-
-- Maybe fix CompatManager?
+- Whoops
 
