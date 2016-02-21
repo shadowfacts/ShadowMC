@@ -1,11 +1,14 @@
 package net.shadowfacts.shadowmc.nbt;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.shadowlib.util.Pair;
 import net.shadowfacts.shadowmc.util.LogHelper;
 import net.shadowfacts.shadowmc.util.RedstoneMode;
@@ -40,6 +43,8 @@ public class AutoNBTSerializer {
 		registerSerializer(EnumFacing.class, AutoNBTSerializer::serializeEnumFacing, AutoNBTSerializer::deserializeEnumFacing);
 		registerSerializer(BlockPos.class, AutoNBTSerializer::serializeBlockPos, AutoNBTSerializer::deserializeBlockPos);
 		registerSerializer(RedstoneMode.class, AutoNBTSerializer::serializeRedstoneMode, AutoNBTSerializer::deserializeRedstoneMode);
+		registerSerializer(Block.class, AutoNBTSerializer::serializeBlock, AutoNBTSerializer::deserializeBlock);
+		registerSerializer(Item.class, (tag, name, val) -> serializeItem(tag, name, val), (tag, name) -> deserializeItem(tag, name));
 	}
 
 	public static <T> void registerSerializer(Class<T> clazz, NBTSerializer<T> serializer, NBTDeserializer<T> deserializer) {
@@ -154,6 +159,44 @@ public class AutoNBTSerializer {
 
 	private static RedstoneMode deserializeRedstoneMode(NBTTagCompound tag, String name) {
 		return RedstoneMode.values()[tag.getInteger(name)];
+	}
+
+	private static void serializeBlock(NBTTagCompound tag, String name, Block val) {
+		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(val);
+		tag.setString(name, id.toString());
+	}
+
+	private static Block deserializeBlock(NBTTagCompound tag, String name) {
+		String[] bits = tag.getString(name).split(":");
+		String modId;
+		String blockName;
+		if (bits.length == 1) {
+			modId = "minecraft";
+			blockName = bits[0];
+		} else {
+			modId = bits[0];
+			blockName = bits[1];
+		}
+		return GameRegistry.findBlock(modId, blockName);
+	}
+
+	private static void serializeItem(NBTTagCompound tag, String name, Item val) {
+		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(val);
+		tag.setString(name, id.toString());
+	}
+
+	private static Item deserializeItem(NBTTagCompound tag, String name) {
+		String[] bits = tag.getString(name).split(":");
+		String modId;
+		String itemName;
+		if (bits.length == 1) {
+			modId = "minecraft";
+			itemName = bits[0];
+		} else {
+			modId = bits[0];
+			itemName = bits[1];
+		}
+		return GameRegistry.findItem(modId, itemName);
 	}
 
 }
