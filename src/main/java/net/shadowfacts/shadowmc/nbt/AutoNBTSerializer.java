@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.shadowlib.util.Pair;
 import net.shadowfacts.shadowmc.util.LogHelper;
@@ -163,19 +164,19 @@ public class AutoNBTSerializer {
 	}
 
 	private static void serializeBlock(NBTTagCompound tag, String name, Block val) {
-		tag.setString(name, Block.blockRegistry.getNameForObject(val).toString());
+		tag.setString(name, GameData.getBlockRegistry().getNameForObject(val).toString());
 	}
 
 	private static Block deserializeBlock(NBTTagCompound tag, String name) {
-		return Block.blockRegistry.getObject(new ResourceLocation(tag.getString(name)));
+		return GameData.getBlockRegistry().getObject(new ResourceLocation(tag.getString(name)));
 	}
 
 	private static void serializeItem(NBTTagCompound tag, String name, Item val) {
-		tag.setString(name, Item.itemRegistry.getNameForObject(val).toString());
+		tag.setString(name, GameData.getItemRegistry().getNameForObject(val).toString());
 	}
 
 	private static Item deserializeItem(NBTTagCompound tag, String name) {
-		return Item.itemRegistry.getObject(new ResourceLocation(tag.getString(name)));
+		return GameData.getItemRegistry().getObject(new ResourceLocation(tag.getString(name)));
 	}
 
 }
