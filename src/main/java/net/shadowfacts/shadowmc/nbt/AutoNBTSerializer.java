@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.shadowlib.util.Pair;
 import net.shadowfacts.shadowmc.util.LogHelper;
@@ -162,41 +163,19 @@ public class AutoNBTSerializer {
 	}
 
 	private static void serializeBlock(NBTTagCompound tag, String name, Block val) {
-		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(val);
-		tag.setString(name, id.toString());
+		tag.setString(name, Block.blockRegistry.getNameForObject(val).toString());
 	}
 
 	private static Block deserializeBlock(NBTTagCompound tag, String name) {
-		String[] bits = tag.getString(name).split(":");
-		String modId;
-		String blockName;
-		if (bits.length == 1) {
-			modId = "minecraft";
-			blockName = bits[0];
-		} else {
-			modId = bits[0];
-			blockName = bits[1];
-		}
-		return GameRegistry.findBlock(modId, blockName);
+		return Block.blockRegistry.getObject(new ResourceLocation(tag.getString(name)));
 	}
 
 	private static void serializeItem(NBTTagCompound tag, String name, Item val) {
-		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(val);
-		tag.setString(name, id.toString());
+		tag.setString(name, Item.itemRegistry.getNameForObject(val).toString());
 	}
 
 	private static Item deserializeItem(NBTTagCompound tag, String name) {
-		String[] bits = tag.getString(name).split(":");
-		String modId;
-		String itemName;
-		if (bits.length == 1) {
-			modId = "minecraft";
-			itemName = bits[0];
-		} else {
-			modId = bits[0];
-			itemName = bits[1];
-		}
-		return GameRegistry.findItem(modId, itemName);
+		return Item.itemRegistry.getObject(new ResourceLocation(tag.getString(name)));
 	}
 
 }
