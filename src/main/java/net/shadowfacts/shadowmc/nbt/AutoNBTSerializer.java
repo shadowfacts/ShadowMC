@@ -12,9 +12,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.shadowlib.util.Pair;
+import net.shadowfacts.shadowmc.fluid.FluidTank;
 import net.shadowfacts.shadowmc.util.LogHelper;
 import net.shadowfacts.shadowmc.util.RedstoneMode;
 
@@ -52,6 +54,7 @@ public class AutoNBTSerializer {
 		registerSerializer(Item.class, AutoNBTSerializer::serializeItem, AutoNBTSerializer::deserializeItem);
 		registerSerializer(FluidStack.class, AutoNBTSerializer::serializeFluidStack, AutoNBTSerializer::deserializeFluidStack);
 		registerSerializer(Fluid.class, AutoNBTSerializer::serializeFluid, AutoNBTSerializer::deserializeFluid);
+		registerSerializer(FluidTank.class, AutoNBTSerializer::serializeFluidTank, AutoNBTSerializer::deserializeFluidTank);
 	}
 
 	public static <T> void registerSerializer(Class<T> clazz, NBTSerializer<T> serializer, NBTDeserializer<T> deserializer) {
@@ -114,13 +117,15 @@ public class AutoNBTSerializer {
 	}
 
 	private static void serializeItemStack(NBTTagCompound tag, String name, ItemStack val) {
-		NBTTagCompound stackTag = new NBTTagCompound();
-		val.writeToNBT(stackTag);
-		tag.setTag(name, stackTag);
+		if (val != null) {
+			NBTTagCompound stackTag = new NBTTagCompound();
+			val.writeToNBT(stackTag);
+			tag.setTag(name, stackTag);
+		}
 	}
 
 	private static ItemStack deserializeItemStack(NBTTagCompound tag, String name) {
-		return ItemStack.loadItemStackFromNBT(tag.getCompoundTag(name));
+		return tag.hasKey(name) ? ItemStack.loadItemStackFromNBT(tag.getCompoundTag(name)) : null;
 	}
 
 	private static void serializeItemStackArray(NBTTagCompound tag, String name, ItemStack[] val) {
@@ -200,6 +205,16 @@ public class AutoNBTSerializer {
 
 	private static Fluid deserializeFluid(NBTTagCompound tag, String name) {
 		return FluidRegistry.getFluid(tag.getString(name));
+	}
+
+	private static void serializeFluidTank(NBTTagCompound tag, String name, FluidTank val) {
+		NBTTagCompound tankTag = new NBTTagCompound();
+		val.writeToNBT(tankTag);
+		tag.setTag(name, tankTag);
+	}
+
+	private static FluidTank deserializeFluidTank(NBTTagCompound tag, String name) {
+		return new FluidTank(0).readFromNBT(tag.getCompoundTag(name));
 	}
 
 }
