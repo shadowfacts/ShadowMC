@@ -87,6 +87,10 @@ public abstract class AbstractGUI {
 		return false;
 	}
 
+	public void onMove(int mouseX, int mouseY) {
+
+	}
+
 	protected void drawHoveringText(List<String> text, int x, int y) {
 		getRoot().drawHoveringText(text, x, y);
 	}
