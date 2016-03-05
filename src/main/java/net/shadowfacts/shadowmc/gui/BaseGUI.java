@@ -61,7 +61,7 @@ public class BaseGUI extends AbstractGUI implements ClickHandler, KeyHandler, Mo
 				if (gui.get().isWithinMovableBounds(mouseX, mouseY)) {
 					guiBeingDragged = gui.get();
 					guiBeingDragged.updatePosition(mouseX, mouseY);
-					guiBeingDragged.onMove(mouseX, mouseY);
+					guiBeingDragged.onMove(mouseX, mouseY, mouseButton);
 				} else {
 					((MouseMovementHandler)gui.get()).handleMouseMove(mouseX, mouseY, mouseButton);
 				}

@@ -87,7 +87,7 @@ public abstract class AbstractGUI {
 		return false;
 	}
 
-	public void onMove(int mouseX, int mouseY) {
+	public void onMove(int mouseX, int mouseY, MouseButton mouseButton) {
 
 	}
 
