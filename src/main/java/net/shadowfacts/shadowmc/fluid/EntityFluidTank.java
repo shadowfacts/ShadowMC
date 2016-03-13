@@ -1,0 +1,113 @@
+package net.shadowfacts.shadowmc.fluid;
+
+import net.minecraft.entity.DataWatcher;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+
+/**
+ * @author shadowfacts
+ */
+public class EntityFluidTank extends FluidTank {
+
+//	Data watcher IDs
+	public static final int AMOUNT = 20;
+	public static final int NAME = 21;
+	public static final int CAPACITY = 22;
+
+	protected DataWatcher watcher;
+
+	public EntityFluidTank(DataWatcher watcher, FluidStack stack, int capacity) {
+		super(capacity);
+		this.watcher = watcher;
+
+		watcher.addObject(CAPACITY, 0);
+		watcher.addObject(AMOUNT, 0);
+		watcher.addObject(NAME, "");
+
+		setCapacity(capacity);
+		setFluid(fluid);
+	}
+
+	public EntityFluidTank(DataWatcher watcher, int capacity) {
+		this(watcher, null, capacity);
+	}
+
+	public EntityFluidTank(DataWatcher watcher, Fluid fluid, int amount, int capacity) {
+		this(watcher, new FluidStack(fluid, amount), capacity);
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+		FluidStack fluid = getFluid();
+		if (fluid != null) {
+			fluid.writeToNBT(tag);
+		} else {
+			tag.setString("Empty", "");
+		}
+
+		return tag;
+	}
+
+	@Override
+	public FluidTank readFromNBT(NBTTagCompound tag) {
+		if (!tag.hasKey("Empty")) {
+			FluidStack fluid = FluidStack.loadFluidStackFromNBT(tag);
+			setFluid(fluid);
+		} else {
+			setFluid(null);
+		}
+		return this;
+	}
+
+	private String getFluidName() {
+		return watcher.getWatchableObjectString(NAME);
+	}
+
+	private Fluid getFluidFromDataWatcher() {
+		String name = getFluidName();
+		if (!name.isEmpty()) {
+			return FluidRegistry.getFluid(name);
+		} else {
+			return null;
+		}
+	}
+
+	private void setFluidName(String name) {
+		watcher.updateObject(NAME, name);
+	}
+
+	private void setFluidAmount(int amount) {
+		watcher.updateObject(AMOUNT, amount);
+	}
+
+	@Override
+	public void setCapacity(int capacity) {
+		watcher.updateObject(CAPACITY, capacity);
+	}
+
+	@Override
+	public void setFluid(FluidStack fluid) {
+		if (fluid != null) {
+			setFluidAmount(fluid.amount);
+			setFluidName(FluidRegistry.getFluidName(fluid));
+		} else {
+			setFluidAmount(0);
+			setFluidName("");
+		}
+	}
+
+	@Override
+	public FluidStack getFluid() {
+		Fluid fluid = getFluidFromDataWatcher();
+		if (fluid == null) return null;
+		return new FluidStack(fluid, getFluidAmount());
+	}
+
+	@Override
+	public int getFluidAmount() {
+		return watcher.getWatchableObjectInt(AMOUNT);
+	}
+
+}
