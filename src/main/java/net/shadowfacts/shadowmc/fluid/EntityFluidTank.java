@@ -1,6 +1,9 @@
 package net.shadowfacts.shadowmc.fluid;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.entity.DataWatcher;
+import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -12,30 +15,39 @@ import net.minecraftforge.fluids.FluidStack;
 public class EntityFluidTank extends FluidTank {
 
 //	Data watcher IDs
-	public static final int AMOUNT = 20;
-	public static final int NAME = 21;
-	public static final int CAPACITY = 22;
+	@Getter @Setter
+	public int AMOUNT = 30;
+	@Getter @Setter
+	public int NAME = 31;
+	@Getter @Setter
+	public int CAPACITY = 32;
 
 	protected DataWatcher watcher;
 
-	public EntityFluidTank(DataWatcher watcher, FluidStack stack, int capacity) {
+	public EntityFluidTank(FluidStack stack, int capacity) {
 		super(capacity);
-		this.watcher = watcher;
-
-		watcher.addObject(CAPACITY, 0);
-		watcher.addObject(AMOUNT, 0);
-		watcher.addObject(NAME, "");
 
 		setCapacity(capacity);
 		setFluid(fluid);
 	}
 
-	public EntityFluidTank(DataWatcher watcher, int capacity) {
-		this(watcher, null, capacity);
+	public EntityFluidTank(int capacity) {
+		this(null, capacity);
 	}
 
-	public EntityFluidTank(DataWatcher watcher, Fluid fluid, int amount, int capacity) {
-		this(watcher, new FluidStack(fluid, amount), capacity);
+	public EntityFluidTank(Fluid fluid, int amount, int capacity) {
+		this(new FluidStack(fluid, amount), capacity);
+	}
+
+	/**
+	 * Called from {@link Entity#entityInit()}
+	 * @param watcher The {@link DataWatcher} to use
+	 */
+	public void entityInit(DataWatcher watcher) {
+		this.watcher = watcher;
+		watcher.addObject(CAPACITY, 0);
+		watcher.addObject(AMOUNT, 0);
+		watcher.addObject(NAME, "");
 	}
 
 	@Override
