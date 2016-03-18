@@ -24,30 +24,24 @@ public class EntityFluidTank extends FluidTank {
 
 	protected DataWatcher watcher;
 
-	public EntityFluidTank(FluidStack stack, int capacity) {
+	public EntityFluidTank(DataWatcher watcher, FluidStack stack, int capacity) {
 		super(capacity);
+
+		this.watcher = watcher;
+		watcher.addObject(CAPACITY, 0);
+		watcher.addObject(AMOUNT, 0);
+		watcher.addObject(NAME, "");
 
 		setCapacity(capacity);
 		setFluid(fluid);
 	}
 
-	public EntityFluidTank(int capacity) {
-		this(null, capacity);
+	public EntityFluidTank(DataWatcher watcher, int capacity) {
+		this(watcher, null, capacity);
 	}
 
-	public EntityFluidTank(Fluid fluid, int amount, int capacity) {
-		this(new FluidStack(fluid, amount), capacity);
-	}
-
-	/**
-	 * Called from {@link Entity#entityInit()}
-	 * @param watcher The {@link DataWatcher} to use
-	 */
-	public void entityInit(DataWatcher watcher) {
-		this.watcher = watcher;
-		watcher.addObject(CAPACITY, 0);
-		watcher.addObject(AMOUNT, 0);
-		watcher.addObject(NAME, "");
+	public EntityFluidTank(DataWatcher watcher, Fluid fluid, int amount, int capacity) {
+		this(watcher, new FluidStack(fluid, amount), capacity);
 	}
 
 	@Override
