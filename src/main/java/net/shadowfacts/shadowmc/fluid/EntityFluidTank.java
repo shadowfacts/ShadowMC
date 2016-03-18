@@ -1,9 +1,6 @@
 package net.shadowfacts.shadowmc.fluid;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.entity.DataWatcher;
-import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -15,33 +12,42 @@ import net.minecraftforge.fluids.FluidStack;
 public class EntityFluidTank extends FluidTank {
 
 //	Data watcher IDs
-	@Getter @Setter
-	public int AMOUNT = 30;
-	@Getter @Setter
-	public int NAME = 31;
-	@Getter @Setter
-	public int CAPACITY = 32;
+	public static int DEFAULT_AMOUNT = 20;
+	public static int DEFAULT_NAME = 21;
+	public static int DEFAULT_CAPACITY = 22;
+
+	protected int amountID;
+	protected int nameID;
+	protected int capacityID;
 
 	protected DataWatcher watcher;
 
-	public EntityFluidTank(DataWatcher watcher, FluidStack stack, int capacity) {
+	public EntityFluidTank(DataWatcher watcher, int amountID, int nameID, int capacityID, FluidStack stack, int capacity) {
 		super(capacity);
 
+		this.amountID = amountID;
+		this.nameID = nameID;
+		this.capacityID = capacityID;
+
 		this.watcher = watcher;
-		watcher.addObject(CAPACITY, 0);
-		watcher.addObject(AMOUNT, 0);
-		watcher.addObject(NAME, "");
+		watcher.addObject(capacityID, 0);
+		watcher.addObject(amountID, 0);
+		watcher.addObject(nameID, "");
 
 		setCapacity(capacity);
 		setFluid(fluid);
 	}
 
-	public EntityFluidTank(DataWatcher watcher, int capacity) {
-		this(watcher, null, capacity);
+	public EntityFluidTank(DataWatcher watcher, int amountID, int nameID, int capacityID, int capacity) {
+		this(watcher, amountID, nameID, capacityID, null, capacity);
 	}
 
-	public EntityFluidTank(DataWatcher watcher, Fluid fluid, int amount, int capacity) {
-		this(watcher, new FluidStack(fluid, amount), capacity);
+	public EntityFluidTank(DataWatcher watcher, FluidStack stack, int capacity) {	
+		this(watcher, DEFAULT_AMOUNT, DEFAULT_NAME, DEFAULT_CAPACITY, stack, capacity);
+	}
+
+	public EntityFluidTank(DataWatcher watcher, int capacity) {
+		this(watcher, DEFAULT_AMOUNT, DEFAULT_NAME, DEFAULT_CAPACITY, capacity);
 	}
 
 	@Override
@@ -68,7 +74,7 @@ public class EntityFluidTank extends FluidTank {
 	}
 
 	private String getFluidName() {
-		return watcher.getWatchableObjectString(NAME);
+		return watcher.getWatchableObjectString(nameID);
 	}
 
 	private Fluid getFluidFromDataWatcher() {
@@ -81,16 +87,16 @@ public class EntityFluidTank extends FluidTank {
 	}
 
 	private void setFluidName(String name) {
-		watcher.updateObject(NAME, name);
+		watcher.updateObject(nameID, name);
 	}
 
 	private void setFluidAmount(int amount) {
-		watcher.updateObject(AMOUNT, amount);
+		watcher.updateObject(amountID, amount);
 	}
 
 	@Override
 	public void setCapacity(int capacity) {
-		watcher.updateObject(CAPACITY, capacity);
+		watcher.updateObject(capacityID, capacity);
 	}
 
 	@Override
@@ -113,7 +119,7 @@ public class EntityFluidTank extends FluidTank {
 
 	@Override
 	public int getFluidAmount() {
-		return watcher.getWatchableObjectInt(AMOUNT);
+		return watcher.getWatchableObjectInt(amountID);
 	}
 
 }
