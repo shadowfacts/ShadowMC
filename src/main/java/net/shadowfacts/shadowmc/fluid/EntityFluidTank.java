@@ -35,14 +35,14 @@ public class EntityFluidTank extends FluidTank {
 		watcher.addObject(nameID, "");
 
 		setCapacity(capacity);
-		setFluid(fluid);
+		setFluid(stack);
 	}
 
 	public EntityFluidTank(DataWatcher watcher, int amountID, int nameID, int capacityID, int capacity) {
 		this(watcher, amountID, nameID, capacityID, null, capacity);
 	}
 
-	public EntityFluidTank(DataWatcher watcher, FluidStack stack, int capacity) {	
+	public EntityFluidTank(DataWatcher watcher, FluidStack stack, int capacity) {
 		this(watcher, DEFAULT_AMOUNT, DEFAULT_NAME, DEFAULT_CAPACITY, stack, capacity);
 	}
 
