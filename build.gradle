@@ -81,8 +81,11 @@ curseforge {
 	project {
 		id = "226780"
 
+		addGameVersion "1.9"
+		addGameVersion "Java 8"
+
 		mainArtifact(shadowJar) {
-			releaseType = "alpha"
+			releaseType = "beta"
 			changelog = file("changelog.txt").text
 		}
 	}

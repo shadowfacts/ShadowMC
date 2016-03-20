@@ -20,7 +20,7 @@ public class ShadowMC {
 
 	public static final String modId = "shadowmc";
 	public static final String name = "ShadowMC";
-	public static final String versionString = "3.0.0-SNAPSHOT";
+	public static final String versionString = "3.1.0";
 
 	public static final Logger log = LogManager.getLogger(name);
 
