@@ -1,7 +1,7 @@
 package net.shadowfacts.shadowmc.util;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.text.TextComponentString;
 
 /**
  * @author shadowfacts
@@ -9,7 +9,7 @@ import net.minecraft.util.ChatComponentText;
 public class PlayerUtils {
 
 	public static void addChatMsg(EntityPlayer player, String msg) {
-		player.addChatComponentMessage(new ChatComponentText(msg));
+		player.addChatComponentMessage(new TextComponentString(msg));
 	}
 
 	public static void addChatMsg(EntityPlayer player, String msg, Object... params) {

@@ -5,9 +5,9 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class CommandKillAll implements SubCommand {
 			}
 
 
-			world.getEntitiesWithinAABB(EntityMob.class, AxisAlignedBB.fromBounds(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range))
+			world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range))
 					.stream()
 					.forEach(Entity::setDead);
 		}
@@ -52,7 +52,7 @@ public class CommandKillAll implements SubCommand {
 
 	@Override
 	public void handleHelpRequest(ICommandSender sender, String[] args) {
-		sender.addChatMessage(new ChatComponentText("Kills all mobs within a specified range."));
+		sender.addChatMessage(new TextComponentString("Kills all mobs within a specified range."));
 	}
 
 }

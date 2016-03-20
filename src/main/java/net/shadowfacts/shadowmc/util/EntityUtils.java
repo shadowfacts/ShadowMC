@@ -1,8 +1,8 @@
 package net.shadowfacts.shadowmc.util;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 
 /**
  * @author shadowfacts
@@ -15,10 +15,10 @@ public class EntityUtils {
 	 * @param distance
 	 * @return
 	 */
-	public static MovingObjectPosition rayTrace(Entity entity, double distance) {
-		Vec3 eyePos = entity.getPositionEyes(0);
-		Vec3 lookVec = entity.getLook(0);
-		Vec3 vec = eyePos.addVector(lookVec.xCoord * distance, lookVec.yCoord * distance, lookVec.zCoord * distance);
+	public static RayTraceResult rayTrace(Entity entity, double distance) {
+		Vec3d eyePos = entity.getPositionEyes(0);
+		Vec3d lookVec = entity.getLook(0);
+		Vec3d vec = eyePos.addVector(lookVec.xCoord * distance, lookVec.yCoord * distance, lookVec.zCoord * distance);
 		return entity.worldObj.rayTraceBlocks(eyePos, vec, false, false, true);
 	}
 

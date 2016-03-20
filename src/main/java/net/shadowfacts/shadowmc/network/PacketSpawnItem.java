@@ -6,6 +6,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.shadowfacts.shadowmc.util.Vector3d;
@@ -23,8 +24,8 @@ public class PacketSpawnItem extends PacketBase<PacketSpawnItem, IMessage> {
 
 	@Override
 	public IMessage onMessage(PacketSpawnItem msg, MessageContext ctx) {
-		MinecraftServer.getServer().addScheduledTask(() -> {
-			World world = MinecraftServer.getServer().worldServerForDimension(msg.dim);
+		FMLCommonHandler.instance().getMinecraftServerInstance().addScheduledTask(() -> {
+			World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(msg.dim);
 			EntityItem entity = new EntityItem(world, msg.pos.x, msg.pos.y, msg.pos.z, msg.stack);
 			entity.setDefaultPickupDelay();
 			world.spawnEntityInWorld(entity);

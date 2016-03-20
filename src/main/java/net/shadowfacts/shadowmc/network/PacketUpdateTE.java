@@ -3,10 +3,10 @@ package net.shadowfacts.shadowmc.network;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
@@ -25,7 +25,7 @@ public class PacketUpdateTE extends PacketBase<PacketUpdateTE, IMessage> {
 	public NBTTagCompound tag;
 
 	public PacketUpdateTE(BaseTileEntity te) {
-		this(te.getWorld().provider.getDimensionId(), te.getPos(), null);
+		this(te.getWorld().provider.getDimension(), te.getPos(), null);
 		NBTTagCompound tag = new NBTTagCompound();
 		te.writeToNBT(tag);
 		this.tag = tag;
@@ -40,7 +40,7 @@ public class PacketUpdateTE extends PacketBase<PacketUpdateTE, IMessage> {
 				te.readFromNBT(msg.tag);
 			}
 		} else {
-			World world = MinecraftServer.getServer().worldServerForDimension(msg.dim);
+			World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(msg.dim);
 			TileEntity te = world.getTileEntity(msg.pos);
 			if (te instanceof BaseTileEntity) {
 				te.readFromNBT(msg.tag);

@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.shadowfacts.shadowmc.command.CommandHandler;
-import net.shadowfacts.shadowmc.event.handler.ShadowMCEventHandler;
+import net.shadowfacts.shadowmc.event.ShadowMCEventHandler;
 import net.shadowfacts.shadowmc.proxy.CommonProxy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

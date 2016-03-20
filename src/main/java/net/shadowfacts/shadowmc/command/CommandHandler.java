@@ -4,14 +4,13 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.util.BlockPos;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import java.util.*;
 
 public class CommandHandler extends CommandBase {
-	
-	public static final String COMMAND_DISALLOWED = "You are not allowed to use this command.";
 	
 	public static CommandHandler instance = new CommandHandler();
 	
@@ -61,17 +60,7 @@ public class CommandHandler extends CommandBase {
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender arg0) {
-		return "/" + getCommandName() + " help";
-	}
-	
-	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender sender) {
-		return true;
-	}
-
-	@Override
-	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if (args.length <= 0) {
 			throw new WrongUsageException("Type '" + getCommandUsage(sender) + "' for help.");
 		}
@@ -82,9 +71,19 @@ public class CommandHandler extends CommandBase {
 			throw new WrongUsageException("Type '" + getCommandUsage(sender) + "' for help.");
 		}
 	}
+
+	@Override
+	public String getCommandUsage(ICommandSender arg0) {
+		return "/" + getCommandName() + " help";
+	}
 	
 	@Override
-	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		return true;
+	}
+	
+	@Override
+	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, commands.keySet());
 		} else if (commands.containsKey(args[0])) {

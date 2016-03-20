@@ -2,8 +2,8 @@ package net.shadowfacts.shadowmc.command;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +24,12 @@ public class CommandHelp implements SubCommand {
 				List<String> commandList = new ArrayList<>(CommandHandler.getCommandList());
 
 				commandList.stream()
-						.map(s -> EnumChatFormatting.YELLOW + "/shadow " + s + EnumChatFormatting.WHITE + ", ")
+						.map(s -> TextFormatting.YELLOW + "/shadow " + s + TextFormatting.WHITE + ", ")
 						.forEach(output::append);
 
 				output.delete(output.length() - 2, output.length()); // remove the last 2 characters (the ending ", ")
 
-				sender.addChatMessage(new ChatComponentText(output.toString()));
+				sender.addChatMessage(new TextComponentString(output.toString()));
 			} else if (args.length > 1) {
 				CommandHandler.commands.get(args[1]).handleHelpRequest(sender, args);
 			}
@@ -46,7 +46,7 @@ public class CommandHelp implements SubCommand {
 
 	@Override
 	public void handleHelpRequest(ICommandSender sender, String[] args) {
-		sender.addChatMessage(new ChatComponentText("Help info about all " + EnumChatFormatting.YELLOW + "/shadow" + EnumChatFormatting.WHITE + " commands."));
+		sender.addChatMessage(new TextComponentString("Help info about all " + TextFormatting.YELLOW + "/shadow" + TextFormatting.WHITE + " commands."));
 	}
 			
 }

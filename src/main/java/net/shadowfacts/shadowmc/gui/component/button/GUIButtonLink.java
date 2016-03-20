@@ -1,6 +1,6 @@
 package net.shadowfacts.shadowmc.gui.component.button;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.shadowfacts.shadowlib.util.DesktopUtils;
 import net.shadowfacts.shadowmc.ShadowMC;
 import net.shadowfacts.shadowmc.util.Color;
@@ -41,6 +41,6 @@ public class GUIButtonLink extends GUIButtonText {
 
 	@Override
 	protected void drawButton() {
-		drawCenteredText(EnumChatFormatting.UNDERLINE + text + EnumChatFormatting.RESET, x, x + width, y, y + height, color);
+		drawCenteredText(TextFormatting.UNDERLINE + text + TextFormatting.RESET, x, x + width, y, y + height, color);
 	}
 }

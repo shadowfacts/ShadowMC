@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowmc.event.handler;
+package net.shadowfacts.shadowmc.event;
 
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;

@@ -1,7 +1,8 @@
 package net.shadowfacts.shadowmc.fluid;
 
-import net.minecraft.entity.DataWatcher;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -11,43 +12,26 @@ import net.minecraftforge.fluids.FluidStack;
  */
 public class EntityFluidTank extends FluidTank {
 
-//	Data watcher IDs
-	public static int DEFAULT_AMOUNT = 20;
-	public static int DEFAULT_NAME = 21;
-	public static int DEFAULT_CAPACITY = 22;
+	protected DataParameter<Integer> amount;
+	protected DataParameter<Integer> capacity;
+	protected DataParameter<String> name;
 
-	protected int amountID;
-	protected int nameID;
-	protected int capacityID;
+	protected EntityDataManager dataManager;
 
-	protected DataWatcher watcher;
+	public EntityFluidTank(EntityDataManager dataManager, DataParameter<Integer> amount, DataParameter<Integer> capacity, DataParameter<String> name, FluidStack stack, int tankCapacity) {
+		super(tankCapacity);
 
-	public EntityFluidTank(DataWatcher watcher, int amountID, int nameID, int capacityID, FluidStack stack, int capacity) {
-		super(capacity);
+		this.dataManager = dataManager;
+		this.amount = amount;
+		this.capacity = capacity;
+		this.name = name;
 
-		this.amountID = amountID;
-		this.nameID = nameID;
-		this.capacityID = capacityID;
+		dataManager.register(capacity, 0);
+		dataManager.register(amount, 0);
+		dataManager.register(name, "");
 
-		this.watcher = watcher;
-		watcher.addObject(capacityID, 0);
-		watcher.addObject(amountID, 0);
-		watcher.addObject(nameID, "");
-
-		setCapacity(capacity);
+		setCapacity(tankCapacity);
 		setFluid(stack);
-	}
-
-	public EntityFluidTank(DataWatcher watcher, int amountID, int nameID, int capacityID, int capacity) {
-		this(watcher, amountID, nameID, capacityID, null, capacity);
-	}
-
-	public EntityFluidTank(DataWatcher watcher, FluidStack stack, int capacity) {
-		this(watcher, DEFAULT_AMOUNT, DEFAULT_NAME, DEFAULT_CAPACITY, stack, capacity);
-	}
-
-	public EntityFluidTank(DataWatcher watcher, int capacity) {
-		this(watcher, DEFAULT_AMOUNT, DEFAULT_NAME, DEFAULT_CAPACITY, capacity);
 	}
 
 	@Override
@@ -74,7 +58,7 @@ public class EntityFluidTank extends FluidTank {
 	}
 
 	private String getFluidName() {
-		return watcher.getWatchableObjectString(nameID);
+		return dataManager.get(name);
 	}
 
 	private Fluid getFluidFromDataWatcher() {
@@ -87,16 +71,16 @@ public class EntityFluidTank extends FluidTank {
 	}
 
 	private void setFluidName(String name) {
-		watcher.updateObject(nameID, name);
+		dataManager.set(this.name, name);
 	}
 
 	private void setFluidAmount(int amount) {
-		watcher.updateObject(amountID, amount);
+		dataManager.set(this.amount, amount);
 	}
 
 	@Override
 	public void setCapacity(int capacity) {
-		watcher.updateObject(capacityID, capacity);
+		dataManager.set(this.capacity, capacity);
 	}
 
 	@Override
@@ -119,7 +103,7 @@ public class EntityFluidTank extends FluidTank {
 
 	@Override
 	public int getFluidAmount() {
-		return watcher.getWatchableObjectInt(amountID);
+		return dataManager.get(amount);
 	}
 
 }

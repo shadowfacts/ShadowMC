@@ -2,6 +2,7 @@ package net.shadowfacts.shadowmc.gui.component.button;
 
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.shadowfacts.shadowmc.gui.component.GUIComponent;
 import net.shadowfacts.shadowmc.gui.handler.ClickHandler;
@@ -26,7 +27,7 @@ public abstract class GUIButton extends GUIComponent implements ClickHandler {
 		if (enabled) {
 			boolean result = handlePress(button);
 			if (result) {
-				mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.ui_button_click, 1.0F));
 			}
 		}
 	}

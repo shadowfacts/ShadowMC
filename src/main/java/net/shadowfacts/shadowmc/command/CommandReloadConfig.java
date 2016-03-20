@@ -3,7 +3,7 @@ package net.shadowfacts.shadowmc.command;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.text.TextComponentString;
 import net.shadowfacts.shadowmc.config.ConfigManager;
 
 import java.util.ArrayList;
@@ -31,12 +31,12 @@ public class CommandReloadConfig implements SubCommand {
 
 		if (args[1].equals("all")) {
 			ConfigManager.instance.loadAll();
-			sender.addChatMessage(new ChatComponentText("Configs reloaded successfully, the game may need to be restarted for some changes to take effect."));
+			sender.addChatMessage(new TextComponentString("Configs reloaded successfully, the game may need to be restarted for some changes to take effect."));
 		} else if (ConfigManager.instance.isConfigLoaded(args[1])) {
 			ConfigManager.instance.load(args[1]);
-			sender.addChatMessage(new ChatComponentText("Config reloaded successfully, the game may need to be restarted for some changes to take effect."));
+			sender.addChatMessage(new TextComponentString("Config reloaded successfully, the game may need to be restarted for some changes to take effect."));
 		} else {
-			sender.addChatMessage(new ChatComponentText("That was not a valid config, use /shadow help reloadConfig for more information."));
+			sender.addChatMessage(new TextComponentString("That was not a valid config, use /shadow help reloadConfig for more information."));
 		}
 
 	}
@@ -50,7 +50,7 @@ public class CommandReloadConfig implements SubCommand {
 
 	@Override
 	public void handleHelpRequest(ICommandSender sender, String[] args) {
-		sender.addChatMessage(new ChatComponentText("Reloads one or all of the configs registered with the ShadowCore config manager. Use tab completion to view a list of registered configs."));
+		sender.addChatMessage(new TextComponentString("Reloads one or all of the configs registered with the ShadowCore config manager. Use tab completion to view a list of registered configs."));
 	}
 
 }
