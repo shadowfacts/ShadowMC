@@ -2,9 +2,13 @@ package net.shadowfacts.shadowmc.network;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.shadowfacts.shadowmc.ShadowMC;
 import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
 
 /**
@@ -12,7 +16,7 @@ import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-public class PacketRequestTEUpdate extends PacketBase<PacketRequestTEUpdate, PacketUpdateTE> {
+public class PacketRequestTEUpdate extends PacketBase<PacketRequestTEUpdate, IMessage> {
 
 	public int dim;
 	public BlockPos pos;
@@ -23,7 +27,11 @@ public class PacketRequestTEUpdate extends PacketBase<PacketRequestTEUpdate, Pac
 
 	@Override
 	public PacketUpdateTE onMessage(PacketRequestTEUpdate msg, MessageContext ctx) {
-		return new PacketUpdateTE(((BaseTileEntity)FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(msg.dim).getTileEntity(msg.pos)));
+		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+		server.addScheduledTask(() -> {
+			ShadowMC.network.sendToAllAround(new PacketUpdateTE((BaseTileEntity)server.worldServerForDimension(msg.dim).getTileEntity(pos)), new NetworkRegistry.TargetPoint(msg.dim, msg.pos.getX(), msg.pos.getY(), msg.pos.getZ(), 64));
+		});
+		return null;
 	}
 
 }
