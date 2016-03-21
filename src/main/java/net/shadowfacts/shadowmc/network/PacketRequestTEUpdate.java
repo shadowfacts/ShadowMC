@@ -28,8 +28,10 @@ public class PacketRequestTEUpdate extends PacketBase<PacketRequestTEUpdate, IMe
 	@Override
 	public PacketUpdateTE onMessage(PacketRequestTEUpdate msg, MessageContext ctx) {
 		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+		int dim = msg.dim;
+		BlockPos pos = msg.pos;
 		server.addScheduledTask(() -> {
-			ShadowMC.network.sendToAllAround(new PacketUpdateTE((BaseTileEntity)server.worldServerForDimension(msg.dim).getTileEntity(pos)), new NetworkRegistry.TargetPoint(msg.dim, msg.pos.getX(), msg.pos.getY(), msg.pos.getZ(), 64));
+			ShadowMC.network.sendToAllAround(new PacketUpdateTE((BaseTileEntity)server.worldServerForDimension(dim).getTileEntity(pos)), new NetworkRegistry.TargetPoint(dim, pos.getX(), pos.getY(), pos.getZ(), 64));
 		});
 		return null;
 	}

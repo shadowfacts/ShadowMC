@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameData;
 import net.shadowfacts.shadowlib.util.Pair;
+import net.shadowfacts.shadowmc.fluid.CreativeFluidTank;
 import net.shadowfacts.shadowmc.fluid.FluidTank;
 import net.shadowfacts.shadowmc.util.LogHelper;
 import net.shadowfacts.shadowmc.util.RedstoneMode;
@@ -53,6 +54,7 @@ public class AutoNBTSerializer {
 		registerSerializer(FluidStack.class, AutoNBTSerializer::serializeFluidStack, AutoNBTSerializer::deserializeFluidStack);
 		registerSerializer(Fluid.class, AutoNBTSerializer::serializeFluid, AutoNBTSerializer::deserializeFluid);
 		registerSerializer(FluidTank.class, AutoNBTSerializer::serializeFluidTank, AutoNBTSerializer::deserializeFluidTank);
+		registerSerializer(CreativeFluidTank.class, AutoNBTSerializer::serializeCreativeFluidTank, AutoNBTSerializer::deserializeCreativeFluidTank);
 	}
 
 	public static <T> void registerSerializer(Class<T> clazz, NBTSerializer<T> serializer, NBTDeserializer<T> deserializer) {
@@ -213,6 +215,16 @@ public class AutoNBTSerializer {
 
 	private static FluidTank deserializeFluidTank(NBTTagCompound tag, String name) {
 		return new FluidTank(0).readFromNBT(tag.getCompoundTag(name));
+	}
+
+	private static void serializeCreativeFluidTank(NBTTagCompound tag, String name, CreativeFluidTank val) {
+		NBTTagCompound tankTag = new NBTTagCompound();
+		val.writeToNBT(tankTag);
+		tag.setTag(name, tankTag);
+	}
+
+	private static CreativeFluidTank deserializeCreativeFluidTank(NBTTagCompound tag, String name) {
+		return (CreativeFluidTank)new CreativeFluidTank (0).readFromNBT(tag.getCompoundTag(name));
 	}
 
 }
