@@ -3,6 +3,7 @@ package net.shadowfacts.shadowmc.fluid;
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -120,6 +121,76 @@ public class EntityFluidTank extends FluidTank {
 	@Override
 	public int getFluidAmount() {
 		return watcher.getWatchableObjectInt(amountID);
+	}
+
+	@Override
+	public int fill(FluidStack resource, boolean doFill) {
+		if (resource == null) {
+			return 0;
+		}
+
+		if (!doFill) {
+			if (getFluid() == null) {
+				return Math.min(getCapacity(), resource.amount);
+			}
+
+			if (!getFluid().isFluidEqual(resource)) {
+				return 0;
+			}
+
+			return Math.min(getCapacity() - getFluidAmount(), resource.amount);
+		}
+
+		if (getFluid() == null) {
+			setFluid(new FluidStack(resource, Math.min(capacity, resource.amount)));
+
+			if (tile != null) {
+				FluidEvent.fireEvent(new FluidEvent.FluidFillingEvent(getFluid(), tile.getWorld(), tile.getPos(), this, getFluidAmount()));
+			}
+			return getFluidAmount();
+		}
+
+		if (!getFluid().isFluidEqual(resource)) {
+			return 0;
+		}
+		int filled = getCapacity() - getFluidAmount();
+
+		if (resource.amount < filled) {
+			setFluidAmount(getFluidAmount() + resource.amount);
+			filled = resource.amount;
+		} else {
+			setFluidAmount(capacity);
+		}
+
+		if (tile != null) {
+			FluidEvent.fireEvent(new FluidEvent.FluidFillingEvent(getFluid(), tile.getWorld(), tile.getPos(), this, filled));
+		}
+		return filled;
+	}
+
+	@Override
+	public FluidStack drain(int maxDrain, boolean doDrain) {
+		if (getFluid() == null) {
+			return null;
+		}
+
+		int drained = maxDrain;
+		if (getFluidAmount() < drained) {
+			drained = getFluidAmount();
+		}
+
+		FluidStack stack = new FluidStack(getFluid(), drained);
+		if (doDrain) {
+			setFluidAmount(getFluidAmount() - drained);
+			if (getFluidAmount() <= 0) {
+				setFluid(null);
+			}
+
+			if (tile != null) {
+				FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(getFluid(), tile.getWorld(), tile.getPos(), this, drained));
+			}
+		}
+		return stack;
 	}
 
 }
