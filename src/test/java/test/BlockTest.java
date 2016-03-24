@@ -21,7 +21,7 @@ public class BlockTest extends Block implements ITileEntityProvider {
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
-		player.openGui(ModTest.instance, 1, world, pos.getX(), pos.getY(), pos.getZ());
+		player.openGui(ModTest.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 

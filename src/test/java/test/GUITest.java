@@ -3,6 +3,7 @@ package test;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.shadowfacts.shadowmc.gui.component.GUITexturedVerticalBarIndiciator;
 import net.shadowfacts.shadowmc.gui.component.GUIVerticalBarIndicator;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonEnum;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButtonText;
@@ -19,7 +20,7 @@ public class GUITest extends MCBaseGUIContainer {
 	public GUITest(GuiContainerWrapper wrapper) {
 		super(wrapper);
 
-		addChild(new GUIVerticalBarIndicator(0, 30, 20, 100, this::getValue));
+		addChild(new GUITexturedVerticalBarIndiciator(0, 30, 20, 133, this::getValue));
 		addChild(new GUIButtonEnum<>(0, 0, 100, 20, RedstoneMode.ALWAYS, RedstoneMode::localize));
 	}
 
