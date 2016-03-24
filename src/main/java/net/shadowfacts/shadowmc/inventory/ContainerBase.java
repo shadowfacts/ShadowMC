@@ -31,11 +31,13 @@ public class ContainerBase extends Container {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (index < 9) {
-				if (!this.mergeItemStack(itemstack1, 9, inventorySlots.size(), true)) {
+			int containerSlots = inventorySlots.size() - player.inventory.mainInventory.length;
+
+			if (index < containerSlots) {
+				if (!this.mergeItemStack(itemstack1, containerSlots, inventorySlots.size(), true)) {
 					return null;
 				}
-			} else if (!this.mergeItemStack(itemstack1, 0, 9, false)) {
+			} else if (!this.mergeItemStack(itemstack1, 0, containerSlots, false)) {
 				return null;
 			}
 
