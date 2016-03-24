@@ -14,8 +14,8 @@ public class MCBaseGUIContainer extends BaseGUI {
 
 	protected GuiContainerWrapper wrapper;
 
-	private int guiLeft;
-	private int guiTop;
+	protected int guiLeft;
+	protected int guiTop;
 
 	public MCBaseGUIContainer(GuiContainerWrapper wrapper) {
 		super(0, 0, wrapper.width, wrapper.height);
@@ -30,6 +30,7 @@ public class MCBaseGUIContainer extends BaseGUI {
 		super.setInitialized(initialized);
 		guiLeft = (width - xSize) / 2;
 		guiTop = (height - ySize) / 2;
+		updatePosition(guiLeft, guiTop);
 	}
 
 	@Override
