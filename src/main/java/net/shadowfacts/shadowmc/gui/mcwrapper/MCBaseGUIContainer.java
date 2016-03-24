@@ -14,12 +14,30 @@ public class MCBaseGUIContainer extends BaseGUI {
 
 	protected GuiContainerWrapper wrapper;
 
+	private int guiLeft;
+	private int guiTop;
+
 	public MCBaseGUIContainer(GuiContainerWrapper wrapper) {
 		super(0, 0, wrapper.width, wrapper.height);
 		this.wrapper = wrapper;
 
 		keyHandlers.add(new ExitWindowKeyHandler(Keyboard.KEY_ESCAPE));
 		keyHandlers.add(new ExitWindowKeyHandler(Keyboard.KEY_E));
+	}
+
+	@Override
+	public void setInitialized(boolean initialized) {
+		super.setInitialized(initialized);
+		guiLeft = (width - xSize) / 2;
+		guiTop = (height - ySize) / 2;
+	}
+
+	@Override
+	public void drawTooltip(int x, int y) {
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(-guiLeft, -guiTop, 0);
+		super.drawTooltip(x, y);
+		GlStateManager.popMatrix();
 	}
 
 	@Override
