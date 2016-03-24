@@ -1,18 +1,24 @@
 package net.shadowfacts.shadowmc.gui.component;
 
+import com.google.common.collect.ImmutableList;
 import net.shadowfacts.shadowmc.util.Color;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
  * @author shadowfacts
  */
-public class GUITexturedVerticalBarIndiciator extends GUIVerticalBarIndicator {
+public class GUITexturedVerticalBarIndicator extends GUIVerticalBarIndicator {
 
-	public GUITexturedVerticalBarIndiciator(int x, int y, int width, int height, Supplier<Float> levelSupplier) {
-		super(x, y, width, height, levelSupplier);
+	public GUITexturedVerticalBarIndicator(int x, int y, int width, int height, Supplier<Float> levelSupplier, Supplier<List<String>> tooltipSupplier) {
+		super(x, y, width, height, levelSupplier, tooltipSupplier);
 		primaryColor = new Color(0x77FF0000);
 		secondaryColor = new Color(0xBB330000);
+	}
+
+	public GUITexturedVerticalBarIndicator(int x, int y, int width, int height, Supplier<Float> levelSupplier) {
+		super(x, y, width, height, levelSupplier, ImmutableList::of);
 	}
 
 	@Override

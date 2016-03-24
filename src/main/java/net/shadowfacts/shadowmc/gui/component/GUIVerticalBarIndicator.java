@@ -1,7 +1,9 @@
 package net.shadowfacts.shadowmc.gui.component;
 
+import com.google.common.collect.ImmutableList;
 import net.shadowfacts.shadowmc.util.Color;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -9,16 +11,20 @@ import java.util.function.Supplier;
  */
 public class GUIVerticalBarIndicator extends GUIComponent {
 
-//	protected float level; // percent filled
-
 	protected Supplier<Float> levelSupplier;
+	private Supplier<List<String>> tooltipSupplier;
 
 	protected Color primaryColor = Color.PURE_RED;
 	protected Color secondaryColor = Color.DARK_RED;
 
-	public GUIVerticalBarIndicator(int x, int y, int width, int height, Supplier<Float> levelSupplier) {
+	public GUIVerticalBarIndicator(int x, int y, int width, int height, Supplier<Float> levelSupplier, Supplier<List<String>> tooltipSupplier) {
 		super(x, y, width, height);
 		this.levelSupplier = levelSupplier;
+		this.tooltipSupplier = tooltipSupplier;
+	}
+
+	public GUIVerticalBarIndicator(int x, int y, int width, int height, Supplier<Float> levelSupplier) {
+		this(x, y, width, height, levelSupplier, ImmutableList::of);
 	}
 
 	@Override
@@ -37,6 +43,11 @@ public class GUIVerticalBarIndicator extends GUIComponent {
 	public GUIVerticalBarIndicator setSecondaryColor(Color secondaryColor) {
 		this.secondaryColor = secondaryColor;
 		return this;
+	}
+
+	@Override
+	public List<String> getTooltip() {
+		return tooltipSupplier.get();
 	}
 
 }
