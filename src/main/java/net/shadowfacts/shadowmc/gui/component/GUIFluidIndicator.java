@@ -31,28 +31,29 @@ public class GUIFluidIndicator extends GUIComponent {
 	public void draw(int mouseX, int mouseY) {
 		drawRect(x, y, width, height, borderColor);
 
-		float level = tank.getFluidAmount() / (float)tank.getCapacity();
-		int filled = Math.min((int)(level * height), height);
+		if (tank.getFluid() != null && tank.getFluidAmount() > 0) {
+			float level = tank.getFluidAmount() / (float) tank.getCapacity();
+			int filled = Math.min((int) (level * height), height);
 
-		bindTexture(TextureMap.locationBlocksTexture);
+			bindTexture(TextureMap.locationBlocksTexture);
 
-		TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(tank.getFluid().getFluid().getStill(tank.getFluid()).toString());
+			TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(tank.getFluid().getFluid().getStill(tank.getFluid()).toString());
 
-		int x = this.x + 2;
-		int y = this.y + (height - filled) - 2;
+			int x = this.x + 2;
+			int y = this.y + (height - filled) - 2;
 
-		float minU = sprite.getInterpolatedU(0);
-		float minV = sprite.getInterpolatedV(0);
-		float maxU = sprite.getInterpolatedU(16);
-		float maxV = sprite.getInterpolatedV(16);
+			float minU = sprite.getInterpolatedU(0);
+			float minV = sprite.getInterpolatedV(0);
+			float maxU = sprite.getInterpolatedU(16);
+			float maxV = sprite.getInterpolatedV(16);
 
-		for (int i = 0; i < filled / 16; i++) {
-			drawFluidQuad(x, y + (i * 16), 16, 16, minU, minV, maxU, maxV);
+			for (int i = 0; i < filled / 16; i++) {
+				drawFluidQuad(x, y + (i * 16), 16, 16, minU, minV, maxU, maxV);
+			}
+			if (filled % 16 != 0) {
+				drawFluidQuad(x, y + filled - (filled % 16), 16, filled % 16, minU, minV, maxU, sprite.getInterpolatedV(filled % 16));
+			}
 		}
-		if (filled % 16 != 0) {
-			drawFluidQuad(x, y + filled - (filled % 16), 16, filled % 16, minU, minV, maxU, sprite.getInterpolatedV(filled % 16));
-		}
-
 	}
 
 	private void drawFluidQuad(int x, int y, int width, int height, float minU, float minV, float maxU, float maxV) {
@@ -68,7 +69,11 @@ public class GUIFluidIndicator extends GUIComponent {
 
 	@Override
 	public List<String> getTooltip() {
-		return ImmutableList.of(String.format("%s %d / %d mB", tank.getFluid().getLocalizedName(), tank.getFluidAmount(), tank.getCapacity()));
+		if (tank.getFluid() != null && tank.getFluidAmount() > 0) {
+			return ImmutableList.of(String.format("%s %d / %d mB", tank.getFluid().getLocalizedName(), tank.getFluidAmount(), tank.getCapacity()));
+		} else {
+			return ImmutableList.of("Empty");
+		}
 	}
 
 }
