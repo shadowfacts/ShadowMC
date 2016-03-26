@@ -33,6 +33,7 @@ public class GUIFluidIndicator extends GUIComponent {
 
 		if (tank.getFluid() != null && tank.getFluidAmount() > 0) {
 			float level = tank.getFluidAmount() / (float) tank.getCapacity();
+			int height = this.height - 2;
 			int filled = Math.min((int) (level * height), height);
 
 			bindTexture(TextureMap.locationBlocksTexture);
