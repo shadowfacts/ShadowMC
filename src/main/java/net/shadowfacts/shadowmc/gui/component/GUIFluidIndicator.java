@@ -33,7 +33,6 @@ public class GUIFluidIndicator extends GUIComponent {
 
 		if (tank.getFluid() != null && tank.getFluidAmount() > 0) {
 			float level = tank.getFluidAmount() / (float) tank.getCapacity();
-			int height = this.height - 4;
 			int filled = Math.min((int) (level * height), height);
 
 			bindTexture(TextureMap.locationBlocksTexture);
@@ -41,7 +40,7 @@ public class GUIFluidIndicator extends GUIComponent {
 			TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(tank.getFluid().getFluid().getStill(tank.getFluid()).toString());
 
 			int x = this.x + 2;
-			int y = this.y + (height - filled) - 2;
+			int y = this.y + (height - filled) + 2;
 
 			float minU = sprite.getInterpolatedU(0);
 			float minV = sprite.getInterpolatedV(0);
