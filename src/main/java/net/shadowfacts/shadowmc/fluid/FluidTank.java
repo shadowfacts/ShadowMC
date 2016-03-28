@@ -1,8 +1,11 @@
 package net.shadowfacts.shadowmc.fluid;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.*;
+
+import java.io.IOException;
 
 /**
  * @author shadowfacts
@@ -45,6 +48,24 @@ public class FluidTank implements IFluidTank {
 		}
 		nbt.setInteger("Capacity", getCapacity());
 		return nbt;
+	}
+
+	public void writeToBuf(PacketBuffer buf) {
+		buf.writeInt(capacity);
+		if (fluid == null) {
+			buf.writeString("Empty");
+		} else {
+			buf.writeString("Fluid");
+			buf.writeNBTTagCompoundToBuffer(fluid.writeToNBT(new NBTTagCompound()));
+		}
+	}
+
+	public void readFromBuf(PacketBuffer buf) throws IOException {
+		setCapacity(buf.readInt());
+		String s = buf.readStringFromBuffer(5);
+		if (!s.equals("Empty")) {
+			fluid = FluidStack.loadFluidStackFromNBT(buf.readNBTTagCompoundFromBuffer());
+		}
 	}
 
 	public void setFluid(FluidStack fluid) {
