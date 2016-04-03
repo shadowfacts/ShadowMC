@@ -2,6 +2,7 @@ package test;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.shadowfacts.shadowmc.gui.component.GUIFluidIndicator;
+import net.shadowfacts.shadowmc.gui.component.textfield.GUIIntField;
 import net.shadowfacts.shadowmc.gui.mcwrapper.GuiScreenWrapper;
 import net.shadowfacts.shadowmc.gui.mcwrapper.MCBaseGUI;
 
@@ -14,6 +15,11 @@ public class GUITest extends MCBaseGUI {
 		super(wrapper);
 
 		addChild(new GUIFluidIndicator(0, 0, 100, te.tank));
+		addChild(new GUIIntField(0, 110, 150, 20, 150, 0, 200, this::valueChanged));
+	}
+
+	private void valueChanged(int i) {
+		System.out.println(i);
 	}
 
 	public static GuiScreen create(TileEntityTest te) {

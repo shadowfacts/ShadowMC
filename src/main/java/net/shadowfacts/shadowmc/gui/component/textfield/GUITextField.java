@@ -1,4 +1,4 @@
-package net.shadowfacts.shadowmc.gui.component;
+package net.shadowfacts.shadowmc.gui.component.textfield;
 
 import lombok.Getter;
 import net.minecraft.client.gui.Gui;
@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.MathHelper;
+import net.shadowfacts.shadowmc.gui.component.GUIComponent;
 import net.shadowfacts.shadowmc.gui.handler.ClickHandler;
 import net.shadowfacts.shadowmc.gui.handler.KeyHandler;
 import net.shadowfacts.shadowmc.util.Color;
@@ -21,7 +22,7 @@ import java.util.regex.Pattern;
 /**
  * @author shadowfacts
  */
-public class GUIComponentTextField extends GUIComponent implements ClickHandler, KeyHandler {
+public class GUITextField extends GUIComponent implements ClickHandler, KeyHandler {
 
 	@Getter
 	protected String text;
@@ -41,15 +42,19 @@ public class GUIComponentTextField extends GUIComponent implements ClickHandler,
 
 	protected boolean drawBackground = true;
 
-	public GUIComponentTextField(int x, int y, int width, int height, String text, Pattern validator, Consumer<String> textChangeHandler) {
+	public GUITextField(int x, int y, int width, int height, String text, Pattern validator, Consumer<String> textChangeHandler) {
 		super(x, y, width, height);
 		this.text = text;
 		this.validator = validator;
 		this.textChangeHandler = textChangeHandler;
 	}
 
-	public GUIComponentTextField(int x, int y, int width, int height, Consumer<String> textChangeHandler) {
+	public GUITextField(int x, int y, int width, int height, Consumer<String> textChangeHandler) {
 		this(x, y, width, height, "", Pattern.compile(".+"), textChangeHandler);
+	}
+
+	protected void handleChange() {
+		textChangeHandler.accept(text);
 	}
 
 	@Override
@@ -169,7 +174,7 @@ public class GUIComponentTextField extends GUIComponent implements ClickHandler,
 			text = s;
 			moveCursorBy(i - selectionEnd + l);
 
-			textChangeHandler.accept(text);
+			handleChange();
 		}
 	}
 
@@ -248,7 +253,7 @@ public class GUIComponentTextField extends GUIComponent implements ClickHandler,
 							} else {
 								deleteFromCursor(-1);
 							}
-							textChangeHandler.accept(text);
+							handleChange();
 						}
 						break;
 					case 199:
@@ -271,7 +276,7 @@ public class GUIComponentTextField extends GUIComponent implements ClickHandler,
 							moveCursorBy(-1);
 						}
 
-						textChangeHandler.accept(text);
+						handleChange();
 
 						break;
 					case 205:
@@ -387,7 +392,7 @@ public class GUIComponentTextField extends GUIComponent implements ClickHandler,
 		return i;
 	}
 
-	public GUIComponentTextField setDrawBackground(boolean drawBackground) {
+	public GUITextField setDrawBackground(boolean drawBackground) {
 		this.drawBackground = drawBackground;
 		return this;
 	}
