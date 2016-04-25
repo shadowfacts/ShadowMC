@@ -63,8 +63,10 @@ public class FluidTank implements IFluidTank {
 	public void readFromBuf(PacketBuffer buf) throws IOException {
 		setCapacity(buf.readInt());
 		String s = buf.readStringFromBuffer(5);
-		if (!s.equals("Empty")) {
-			fluid = FluidStack.loadFluidStackFromNBT(buf.readNBTTagCompoundFromBuffer());
+		if (s.equals("Empty")) {
+			setFluid(null);
+		} else {
+			setFluid(FluidStack.loadFluidStackFromNBT(buf.readNBTTagCompoundFromBuffer()));
 		}
 	}
 
