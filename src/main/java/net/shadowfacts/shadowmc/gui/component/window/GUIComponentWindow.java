@@ -78,7 +78,7 @@ public class GUIComponentWindow extends BaseGUI {
 	}
 
 	@Override
-	public void draw(int mouseX, int mouseY) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		if (!minimized) drawRect(x, y + 20, width, height - 20, mainColor);
 
 		drawRect(x, y, width, 20, titleBarColor);
@@ -89,9 +89,9 @@ public class GUIComponentWindow extends BaseGUI {
 					.filter(gui -> gui instanceof GUIButtonCloseWindow || gui instanceof GUIButtonMinimizeWindow)
 					.filter(AbstractGUI::isVisible)
 					.sorted((gui1, gui2) -> gui1.getZLevel() > gui2.getZLevel() ? -1 : gui1.getZLevel() < gui2.getZLevel() ? 1 : 0)
-					.forEach(gui -> gui.draw(mouseX, mouseY));
+					.forEach(gui -> gui.draw(mouseX, mouseY, partialTicks));
 		} else {
-			super.draw(mouseX, mouseY);
+			super.draw(mouseX, mouseY, partialTicks);
 		}
 	}
 

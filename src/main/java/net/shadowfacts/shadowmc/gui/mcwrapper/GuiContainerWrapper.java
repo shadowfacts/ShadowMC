@@ -99,7 +99,7 @@ public class GuiContainerWrapper extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		gui.draw(mouseX, mouseY);
+		gui.draw(mouseX, mouseY, partialTicks);
 	}
 
 }

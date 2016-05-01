@@ -30,7 +30,7 @@ public class GuiScreenWrapper extends GuiScreen {
 		} else {
 			drawBackground(0);
 		}
-		gui.draw(mouseX, mouseY);
+		gui.draw(mouseX, mouseY, partialTicks);
 		gui.drawTooltip(mouseX, mouseY);
 	}
 

@@ -103,11 +103,16 @@ public class BaseGUI extends AbstractGUI implements ClickHandler, KeyHandler, Mo
 
 	@Override
 	public void draw(int mouseX, int mouseY) {
+		// no-op, use 3 param version
+	}
+
+	@Override
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		if (initialized) {
 			children.stream()
 					.filter(AbstractGUI::isVisible)
 					.sorted((gui1, gui2) -> gui1.zLevel > gui2.zLevel ? -1 : gui1.zLevel < gui2.zLevel ? 1 : 0)
-					.forEach(gui -> gui.draw(mouseX, mouseY));
+					.forEach(gui -> gui.draw(mouseX, mouseY, partialTicks));
 		}
 	}
 
