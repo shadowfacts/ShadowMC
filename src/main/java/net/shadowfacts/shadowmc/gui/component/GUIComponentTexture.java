@@ -23,7 +23,7 @@ public class GUIComponentTexture extends GUIComponent {
 	}
 
 	@Override
-	public void draw(int mouseX, int mouseY) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		bindTexture(texture);
 		drawTexturedRect(x, y, u, v, width, height);
 	}

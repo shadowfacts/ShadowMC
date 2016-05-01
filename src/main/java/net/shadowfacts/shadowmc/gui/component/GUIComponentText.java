@@ -21,7 +21,7 @@ public class GUIComponentText extends GUIComponent {
 	}
 
 	@Override
-	public void draw(int mouseX, int mouseY) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		drawText(getText(), x, y, color);
 	}
 

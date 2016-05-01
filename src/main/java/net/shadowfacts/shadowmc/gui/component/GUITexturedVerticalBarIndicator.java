@@ -22,7 +22,7 @@ public class GUITexturedVerticalBarIndicator extends GUIVerticalBarIndicator {
 	}
 
 	@Override
-	public void draw(int mouseX, int mouseY) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		float level = levelSupplier.get();
 		int filled = Math.min((int)(level * height), height);
 		bindTexture(widgetTextures);

@@ -34,7 +34,7 @@ public abstract class GUIButton extends GUIComponent implements ClickHandler {
 	protected abstract boolean handlePress(MouseButton button);
 
 	@Override
-	public void draw(int mouseX, int mouseY) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		if (drawBackground) {
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);

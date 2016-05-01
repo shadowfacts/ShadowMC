@@ -102,11 +102,6 @@ public class BaseGUI extends AbstractGUI implements ClickHandler, KeyHandler, Mo
 	}
 
 	@Override
-	public void draw(int mouseX, int mouseY) {
-		// no-op, use 3 param version
-	}
-
-	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks) {
 		if (initialized) {
 			children.stream()

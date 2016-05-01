@@ -222,11 +222,7 @@ public abstract class AbstractGUI {
 
 	}
 
-	public abstract void draw(int mouseX, int mouseY);
-
-	public void draw(int mouseX, int mouseY, float partialTicks) {
-		draw(mouseX, mouseY);
-	}
+	public abstract void draw(int mouseX, int mouseY, float partialTicks);
 
 	public void drawTooltip(int x, int y) {
 		drawHoveringText(getTooltip(), x, y);

@@ -28,7 +28,7 @@ public class GUIVerticalBarIndicator extends GUIComponent {
 	}
 
 	@Override
-	public void draw(int mouseX, int mouseY) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		float level = levelSupplier.get();
 		int filled = Math.min((int)(level * height), height);
 		drawRect(x, y + (height - filled), width, filled, primaryColor);

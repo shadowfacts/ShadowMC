@@ -58,7 +58,7 @@ public class GUITextField extends GUIComponent implements ClickHandler, KeyHandl
 	}
 
 	@Override
-	public void draw(int mouseX, int mouseY) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		GlStateManager.disableDepth();
 		if (drawBackground) {
 			drawRect(x - 1, y - 1, width + 2, height + 2, new Color(-6250336), zLevel - 1);

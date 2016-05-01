@@ -28,7 +28,7 @@ public class GUIFluidIndicator extends GUIComponent {
 	}
 
 	@Override
-	public void draw(int mouseX, int mouseY) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		drawRect(x, y, width, height, borderColor);
 
 		if (tank.getFluid() != null && tank.getFluidAmount() > 0) {
