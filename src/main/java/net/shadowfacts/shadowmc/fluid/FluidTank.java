@@ -148,4 +148,5 @@ public class FluidTank implements IFluidTank {
 		}
 		return stack;
 	}
+
 }
