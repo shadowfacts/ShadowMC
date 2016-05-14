@@ -27,7 +27,7 @@ public abstract class GUIButton extends GUIComponent implements ClickHandler {
 		if (enabled) {
 			boolean result = handlePress(button);
 			if (result) {
-				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.ui_button_click, 1.0F));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 			}
 		}
 	}

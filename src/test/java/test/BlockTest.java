@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 public class BlockTest extends Block implements ITileEntityProvider {
 
 	public BlockTest() {
-		super(Material.rock);
+		super(Material.ROCK);
 	}
 
 	@Override

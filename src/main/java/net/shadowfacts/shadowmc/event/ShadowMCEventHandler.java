@@ -6,10 +6,11 @@ import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.shadowfacts.shadowmc.ShadowMC;
+import net.shadowfacts.shadowmc.ShadowMCConfig;
 import net.shadowfacts.shadowmc.achievement.AchievementProvider;
 import net.shadowfacts.shadowmc.anvil.AnvilManager;
 import net.shadowfacts.shadowmc.anvil.AnvilRecipe;
-import net.shadowfacts.shadowmc.config.ConfigManager;
 
 import java.util.Optional;
 
@@ -35,9 +36,8 @@ public class ShadowMCEventHandler {
 
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-		if (ConfigManager.instance.getModIdConfigNameMap().containsKey(event.getModID())) {
-			String name = ConfigManager.instance.getModIdConfigNameMap().get(event.getModID());
-			ConfigManager.instance.load(name);
+		if (event.getModID().toLowerCase().equals(ShadowMC.modId)) {
+			ShadowMCConfig.init(ShadowMCConfig.configFile);
 		}
 	}
 
