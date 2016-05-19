@@ -2,6 +2,7 @@ package test;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod;
@@ -34,7 +35,8 @@ public class ModTest {
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new TestGUIHandler());
 
 		blockTest = new BlockTest();
-		GameRegistry.registerBlock(blockTest, "blockTest");
+		GameRegistry.register(blockTest);
+		GameRegistry.register(new ItemBlock(blockTest).setRegistryName(blockTest.getRegistryName()));
 
 		GameRegistry.registerTileEntity(TileEntityTest.class, "tileEntity");
 	}

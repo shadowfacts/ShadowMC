@@ -25,10 +25,7 @@ public class PacketUpdateTE extends PacketBase<PacketUpdateTE, IMessage> {
 	public NBTTagCompound tag;
 
 	public PacketUpdateTE(BaseTileEntity te) {
-		this(te.getWorld().provider.getDimension(), te.getPos(), null);
-		NBTTagCompound tag = new NBTTagCompound();
-		te.writeToNBT(tag);
-		this.tag = tag;
+		this(te.getWorld().provider.getDimension(), te.getPos(), te.writeToNBT(new NBTTagCompound()));
 	}
 
 	@Override

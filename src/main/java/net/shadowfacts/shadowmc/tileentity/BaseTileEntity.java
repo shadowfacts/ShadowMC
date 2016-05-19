@@ -10,28 +10,25 @@ import net.shadowfacts.shadowmc.nbt.AutoNBTSerializer;
 import net.shadowfacts.shadowmc.network.PacketRequestTEUpdate;
 import net.shadowfacts.shadowmc.network.PacketUpdateTE;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author shadowfacts
  */
 public abstract class BaseTileEntity extends TileEntity {
 
 	@Override
-	public void writeToNBT(NBTTagCompound compound) {
-		super.writeToNBT(compound);
-		AutoNBTSerializer.serialize(getClass(), this, compound);
-		save(compound, true);
+	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+		super.writeToNBT(tag);
+		AutoNBTSerializer.serialize(getClass(), this, tag);
+		return tag;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound) {
-		super.readFromNBT(compound);
-		AutoNBTSerializer.deserialize(getClass(), this, compound);
-		load(compound, true);
+	public void readFromNBT(NBTTagCompound tag) {
+		super.readFromNBT(tag);
+		AutoNBTSerializer.deserialize(getClass(), this, tag);
 	}
-
-	public abstract NBTTagCompound save(NBTTagCompound tag, boolean saveInventory);
-
-	public abstract void load(NBTTagCompound tag, boolean loadInventory);
 
 	public void sync() {
 		if (getWorld().isRemote) {

@@ -15,20 +15,27 @@ import net.minecraft.world.World;
 /**
  * @author shadowfacts
  */
-public class BlockTest extends Block implements ITileEntityProvider {
+public class BlockTest extends Block {
 
 	public BlockTest() {
 		super(Material.ROCK);
+		setRegistryName("blockTest");
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		player.openGui(ModTest.instance, 1, world, pos.getX(), pos.getY(), pos.getZ());
+		player.openGui(ModTest.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityTest();
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
 	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state){
+		return super.createTileEntity(world, state);
+	}
+
 }

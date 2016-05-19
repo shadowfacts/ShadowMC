@@ -15,10 +15,11 @@ public class TileEntityTest extends TileEntity implements IInventory {
 
 	private ItemStack[] chestContents = new ItemStack[27];
 
-	public void readFromNBT(NBTTagCompound compound)
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		super.readFromNBT(compound);
-		NBTTagList nbttaglist = compound.getTagList("Items", 10);
+		super.readFromNBT(tag);
+		NBTTagList nbttaglist = tag.getTagList("Items", 10);
 		this.chestContents = new ItemStack[this.getSizeInventory()];
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
@@ -33,9 +34,10 @@ public class TileEntityTest extends TileEntity implements IInventory {
 		}
 	}
 
-	public void writeToNBT(NBTTagCompound compound)
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
-		super.writeToNBT(compound);
+		super.writeToNBT(tag);
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.chestContents.length; ++i)
@@ -49,7 +51,8 @@ public class TileEntityTest extends TileEntity implements IInventory {
 			}
 		}
 
-		compound.setTag("Items", nbttaglist);
+		tag.setTag("Items", nbttaglist);
+		return tag;
 	}
 
 	@Override
