@@ -37,7 +37,7 @@ public class ShadowMCEventHandler {
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (event.getModID().toLowerCase().equals(ShadowMC.modId)) {
-			ShadowMCConfig.init(ShadowMCConfig.configFile);
+			ShadowMCConfig.load();
 		}
 	}
 

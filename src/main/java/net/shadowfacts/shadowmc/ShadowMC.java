@@ -18,12 +18,12 @@ import java.io.File;
 /**
  * @author shadowfacts
  */
-@Mod(modid = ShadowMC.modId, name = ShadowMC.name, version = ShadowMC.versionString)
+@Mod(modid = ShadowMC.modId, name = ShadowMC.name, version = ShadowMC.version, acceptedMinecraftVersions = "[1.9.4]", guiFactory = "net.shadowfacts.shadowmc.GUIFactory")
 public class ShadowMC {
 
 	public static final String modId = "shadowmc";
 	public static final String name = "ShadowMC";
-	public static final String versionString = "3.1.0";
+	public static final String version = "@VERSION@";
 
 	public static final Logger log = LogManager.getLogger(name);
 
@@ -38,7 +38,8 @@ public class ShadowMC {
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		ForgeConfigAdapter.init();
-		ShadowMCConfig.init(new File(event.getModConfigurationDirectory(), name + ".cfg"));
+		ShadowMCConfig.init(event.getModConfigurationDirectory());
+		ShadowMCConfig.load();
 
 		proxy.preInit(event);
 

@@ -12,12 +12,13 @@ import java.io.File;
 @Config(name = "ShadowMC")
 public class ShadowMCConfig {
 
-	public static File configFile;
+	public static Configuration config;
 
-	public static void init(File configFile) {
-		ShadowMCConfig.configFile = configFile;
+	public static void init(File configDir) {
+		config = new Configuration(new File(configDir, "shadowfacts/ShadowMC.cfg"));
+	}
 
-		Configuration config = new Configuration(configFile);
+	public static void load() {
 		ConfigManager.load(ShadowMCConfig.class, Configuration.class, config);
 	}
 
