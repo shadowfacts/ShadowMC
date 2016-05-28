@@ -1,0 +1,21 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"down": "shadowmc:misc/minus",
+			"up": "shadowmc:misc/plus",
+			"north": "shadowmc:misc/minus",
+			"south": "shadowmc:misc/plus",
+			"west": "shadowmc:misc/minus",
+			"east": "shadowmc:misc/plus"
+		}
+	},
+	"variants": {
+		"normal": {
+			"model": "minecraft:cube"
+		},
+		"inventory": {
+			"model": "minecraft:cube"
+		}
+	}
+}

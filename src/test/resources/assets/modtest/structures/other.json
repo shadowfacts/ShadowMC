@@ -31,7 +31,7 @@
 				{
 					"id": "minecraft:grass",
 					"properties": {
-						"snowy": "true"
+						"snowy": "false"
 					},
 					"lootId": "",
 					"inventory": []

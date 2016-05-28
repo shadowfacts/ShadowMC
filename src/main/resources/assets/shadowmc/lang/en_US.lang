@@ -7,3 +7,7 @@ redstone.pulse=Pulse
 
 # Config
 shadowmc.config.gui.title=ShadowMC Configuration
+shadowmc.config.gui.category.dev=Dev
+
+# Blocks
+tile.structureCreator.name=Structure Creator

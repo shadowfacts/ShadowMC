@@ -22,7 +22,10 @@ import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author shadowfacts
@@ -40,7 +43,7 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 		int ySize = (int)(box.maxY - box.minY);
 		int zSize = (int)(box.maxZ - box.minZ);
 
-		BlockInfo[][][] blocks = new BlockInfo[ySize][xSize][zSize];
+		blocks = new BlockInfo[ySize][xSize][zSize];
 
 		for (int x = 0; x < xSize; x++) {
 			for (int y = 0; y < ySize; y++) {
@@ -53,6 +56,7 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 				}
 			}
 		}
+
 	}
 
 	public int xSize() {
