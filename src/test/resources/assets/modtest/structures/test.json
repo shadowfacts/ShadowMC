@@ -1,0 +1,39 @@
+{
+	"blocks": [
+		[
+			[
+				{
+					"id": "minecraft:chest",
+					"properties": {
+						"facing": "south"
+					},
+					"lootId": "minecraft:chests/simple_dungeon",
+					"inventory": [
+						{
+							"item": "minecraft:diamond",
+							"amount": 3,
+							"slot": 0
+						}
+					]
+				},
+				{
+					"id": "minecraft:furnace",
+					"properties": {
+						"facing": "south"
+					},
+					"inventory": [
+						{
+							"item": "minecraft:iron_ore",
+							"amount": 7,
+							"slot": 0
+						}
+					]
+				},
+				{
+					"id": "minecraft:diamond_block",
+					"properties": {}
+				}
+			]
+		]
+	]
+}

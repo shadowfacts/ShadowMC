@@ -21,6 +21,8 @@ public class CommandHandler extends CommandBase {
 	static {
 		registerSubCommand(CommandKillAll.instance);
 		registerSubCommand(CommandHelp.instance);
+		registerSubCommand(CommandGenStructure.instance);
+		registerSubCommand(CommandReloadStructures.instance);
 	}
 	
 	
