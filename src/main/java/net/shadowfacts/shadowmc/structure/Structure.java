@@ -75,15 +75,19 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 		return blocks[y][x][z];
 	}
 
-	public void generate(World world, BlockPos basePos) {
+	public void generate(World world, BlockPos basePos, int flags) {
 		for (int x = 0; x < xSize(); x++) {
 			for (int y = 0; y < ySize(); y++) {
 				for (int z = 0; z < zSize(); z++) {
 					BlockInfo block = get(x, y, z);
-					block.load(world, basePos.add(x, y, z));
+					block.load(world, basePos.add(x, y, z), flags);
 				}
 			}
 		}
+	}
+
+	public void generate(World world, BlockPos basePos) {
+		generate(world, basePos, 3);
 	}
 
 	@Override
@@ -142,10 +146,10 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 			this.inventory = inventory.toArray(new InventoryEntry[inventory.size()]);
 		}
 
-		private void load(World world, BlockPos pos) {
+		private void load(World world, BlockPos pos, int flags) {
 //			Block/State
 			IBlockState state = id.isEmpty() ? Blocks.AIR.getDefaultState() : createState();
-			world.setBlockState(pos, state);
+			world.setBlockState(pos, state, flags);
 
 
 			TileEntity te = world.getTileEntity(pos);
