@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.shadowfacts.shadowmc.command.CommandHandler;
 import net.shadowfacts.shadowmc.config.ForgeConfigAdapter;
 import net.shadowfacts.shadowmc.event.ShadowMCEventHandler;
@@ -57,14 +58,19 @@ public class ShadowMC {
 			itemStructureCreator = (ItemBlock)GameRegistry.register(new ItemBlock(structureCreator).setRegistryName(structureCreator.getRegistryName()));
 			GameRegistry.registerTileEntity(TileEntityStructureCreator.class, structureCreator.getRegistryName().toString());
 			if (event.getSide() == Side.CLIENT) {
-				ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStructureCreator.class, new TESRStructureCreator());
-				ModelLoader.setCustomModelResourceLocation(itemStructureCreator, 0, new ModelResourceLocation("shadowmc:structureCreator", "inventory"));
+				preInitClient();
 			}
 		}
 
 		proxy.preInit(event);
 
 		MinecraftForge.EVENT_BUS.register(new ShadowMCEventHandler());
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void preInitClient() {
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStructureCreator.class, new TESRStructureCreator());
+		ModelLoader.setCustomModelResourceLocation(itemStructureCreator, 0, new ModelResourceLocation("shadowmc:structureCreator", "inventory"));
 	}
 
 	@Mod.EventHandler

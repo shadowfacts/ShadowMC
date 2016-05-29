@@ -30,7 +30,7 @@ minecraft {
 
 	mappings = mcp_mappings
 
-	replaceIn "shadowmc/ShadowMC.java"
+	replaceIn "ShadowMC.java"
 	replace '@VERSION@', mod_version
 }
 
