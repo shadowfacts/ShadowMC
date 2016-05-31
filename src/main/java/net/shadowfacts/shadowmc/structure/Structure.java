@@ -16,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
@@ -88,6 +89,17 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 
 	public void generate(World world, BlockPos basePos) {
 		generate(world, basePos, 3);
+	}
+
+	public void generate(ChunkPrimer primer) {
+		for (int x = 0; x < xSize(); x++) {
+			for (int y = 0; y < ySize(); y++) {
+				for (int z = 0; z < zSize(); z++) {
+					BlockInfo block = get(x, y, z);
+					primer.setBlockState(x, y, z, block.createState());
+				}
+			}
+		}
 	}
 
 	@Override
