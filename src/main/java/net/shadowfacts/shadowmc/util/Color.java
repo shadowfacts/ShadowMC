@@ -33,6 +33,8 @@ public class Color {
 	public static final Color PURE_GREEN = new Color(0xFF00FF00);
 	public static final Color PURE_BLUE = new Color(0xFF0000FF);
 
+	public static final Color TRANSPARENT = new Color(0x00000000);
+
 	private float alpha = 1;
 	private float red;
 	private float green;

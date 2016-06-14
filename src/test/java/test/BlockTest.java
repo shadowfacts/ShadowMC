@@ -35,7 +35,7 @@ public class BlockTest extends Block {
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state){
-		return super.createTileEntity(world, state);
+		return new TileEntityTest();
 	}
 
 }

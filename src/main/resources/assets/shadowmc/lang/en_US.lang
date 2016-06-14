@@ -11,3 +11,5 @@ shadowmc.config.gui.category.dev=Dev
 
 # Blocks
 tile.structureCreator.name=Structure Creator
+
+shadowmc.gui.empty=Empty

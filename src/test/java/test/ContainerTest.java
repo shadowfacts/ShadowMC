@@ -14,7 +14,7 @@ public class ContainerTest extends Container {
 	private IInventory lowerChestInventory;
 	private int numRows;
 
-	public ContainerTest(EntityPlayer player, IInventory chestInventory)
+	public ContainerTest(EntityPlayer player, TileEntityTest chestInventory)
 	{
 		this.lowerChestInventory = chestInventory;
 		this.numRows = chestInventory.getSizeInventory() / 9;

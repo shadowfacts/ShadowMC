@@ -6,14 +6,29 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.shadowfacts.shadowmc.fluid.FluidTank;
 
 /**
  * @author shadowfacts
  */
-public class TileEntityTest extends TileEntity implements IInventory {
+public class TileEntityTest extends TileEntity implements IInventory, ITickable {
 
 	private ItemStack[] chestContents = new ItemStack[27];
+
+	public FluidTank tank = new FluidTank(new FluidStack(FluidRegistry.WATER, 250), 5000);
+
+	@Override
+	public void update() {
+		if (tank.getFluidAmount() < tank.getCapacity()) {
+			tank.setFluid(new FluidStack(FluidRegistry.WATER, tank.getFluidAmount() + 250));
+		} else {
+			tank.setFluid(new FluidStack(FluidRegistry.WATER, 250));
+		}
+	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
