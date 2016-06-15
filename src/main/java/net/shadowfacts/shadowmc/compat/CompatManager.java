@@ -5,6 +5,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.shadowfacts.shadowmc.util.LogHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -16,7 +18,7 @@ import java.util.List;
  */
 public class CompatManager {
 
-	private LogHelper log;
+	private Logger log;
 
 	private List<Class> modules = new ArrayList<>();
 
@@ -24,7 +26,7 @@ public class CompatManager {
 	 * @param owner The ID of the owner, typically the mod ID
 	 */
 	public CompatManager(String owner) {
-		log = new LogHelper(owner + "|Compat");
+		log = LogManager.getLogger(owner + "|Compat");
 	}
 
 	public boolean registerModule(Class clazz) {
@@ -65,7 +67,7 @@ public class CompatManager {
 		for (Class clazz : modules) {
 			for (Method m : clazz.getDeclaredMethods()) {
 				if (Modifier.isStatic(m.getModifiers()) &&
-						m.isAnnotationPresent(Compat.PreInit.class)) {
+						m.isAnnotationPresent(Compat.Init.class)) {
 					try {
 						m.invoke(null, event);
 					} catch (ReflectiveOperationException e) {
@@ -82,7 +84,7 @@ public class CompatManager {
 		for (Class clazz : modules) {
 			for (Method m : clazz.getDeclaredMethods()) {
 				if (Modifier.isStatic(m.getModifiers()) &&
-						m.isAnnotationPresent(Compat.PreInit.class)) {
+						m.isAnnotationPresent(Compat.PostInit.class)) {
 					try {
 						m.invoke(null, event);
 					} catch (ReflectiveOperationException e) {
