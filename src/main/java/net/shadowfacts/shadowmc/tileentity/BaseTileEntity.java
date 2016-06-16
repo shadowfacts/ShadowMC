@@ -2,15 +2,17 @@ package net.shadowfacts.shadowmc.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import net.shadowfacts.shadowmc.ShadowMC;
+import net.shadowfacts.shadowmc.capability.CapHelper;
+import net.shadowfacts.shadowmc.capability.CapHolder;
 import net.shadowfacts.shadowmc.nbt.AutoNBTSerializer;
-import net.shadowfacts.shadowmc.network.PacketRequestTEUpdate;
 import net.shadowfacts.shadowmc.network.PacketUpdateTE;
 
-import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 /**
  * @author shadowfacts
@@ -36,6 +38,16 @@ public abstract class BaseTileEntity extends TileEntity {
 		} else {
 			ShadowMC.network.sendToAllAround(new PacketUpdateTE(this), new NetworkRegistry.TargetPoint(worldObj.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
 		}
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		return CapHelper.hasCapability(capability, facing, this) || super.hasCapability(capability, facing);
+	}
+
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		return CapHelper.getCapability(capability, facing, this, (capability1, enumFacing) -> (T)super.getCapability(capability1, enumFacing));
 	}
 
 }
