@@ -47,7 +47,7 @@ public abstract class BaseTileEntity extends TileEntity {
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		return CapHelper.getCapability(capability, facing, this, (capability1, enumFacing) -> (T)super.getCapability(capability1, enumFacing));
+		return (T)CapHelper.getCapability(capability, facing, this, (capability1, enumFacing) -> (T)super.getCapability(capability1, enumFacing));
 	}
 
 }

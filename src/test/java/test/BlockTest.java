@@ -24,7 +24,7 @@ public class BlockTest extends Block {
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		player.openGui(ModTest.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+//		player.openGui(ModTest.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 

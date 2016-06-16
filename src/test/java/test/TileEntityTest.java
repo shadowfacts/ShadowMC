@@ -10,12 +10,18 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.shadowfacts.shadowmc.capability.CapHolder;
 import net.shadowfacts.shadowmc.fluid.FluidTank;
+import net.shadowfacts.shadowmc.oxygen.impl.OxygenTank;
+import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
 
 /**
  * @author shadowfacts
  */
-public class TileEntityTest extends TileEntity implements IInventory, ITickable {
+public class TileEntityTest extends BaseTileEntity implements IInventory, ITickable {
+
+	@CapHolder(capabilities = {"net.shadowfacts.shadowmc.oxygen.OxygenHandler"})
+	private OxygenTank oxygen= new OxygenTank(1000, 50, null);
 
 	private ItemStack[] chestContents = new ItemStack[27];
 

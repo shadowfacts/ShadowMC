@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -13,9 +14,16 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.shadowfacts.shadowmc.capability.Storage;
 import net.shadowfacts.shadowmc.command.CommandHandler;
 import net.shadowfacts.shadowmc.config.ForgeConfigAdapter;
 import net.shadowfacts.shadowmc.event.ShadowMCEventHandler;
+import net.shadowfacts.shadowmc.oxygen.OxygenHandler;
+import net.shadowfacts.shadowmc.oxygen.OxygenProvider;
+import net.shadowfacts.shadowmc.oxygen.OxygenReceiver;
+import net.shadowfacts.shadowmc.oxygen.impl.OxygenHandlerImpl;
+import net.shadowfacts.shadowmc.oxygen.impl.OxygenProviderImpl;
+import net.shadowfacts.shadowmc.oxygen.impl.OxygenReceiverImpl;
 import net.shadowfacts.shadowmc.proxy.CommonProxy;
 import net.shadowfacts.shadowmc.structure.creator.BlockStructureCreator;
 import net.shadowfacts.shadowmc.structure.creator.TESRStructureCreator;
@@ -64,6 +72,8 @@ public class ShadowMC {
 
 		proxy.preInit(event);
 
+		registerCapabilities();
+
 		MinecraftForge.EVENT_BUS.register(new ShadowMCEventHandler());
 	}
 
@@ -76,6 +86,12 @@ public class ShadowMC {
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
 		event.registerServerCommand(CommandHandler.instance);
+	}
+
+	private void registerCapabilities() {
+		CapabilityManager.INSTANCE.register(OxygenHandler.class, new Storage<>(), OxygenHandlerImpl.class);
+		CapabilityManager.INSTANCE.register(OxygenReceiver.class, new Storage<>(), OxygenReceiverImpl.class);
+		CapabilityManager.INSTANCE.register(OxygenProvider.class, new Storage<>(), OxygenProviderImpl.class);
 	}
 
 }
