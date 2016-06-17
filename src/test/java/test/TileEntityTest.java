@@ -5,13 +5,13 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.shadowfacts.shadowmc.capability.CapHolder;
 import net.shadowfacts.shadowmc.fluid.FluidTank;
+import net.shadowfacts.shadowmc.oxygen.OxygenHandler;
 import net.shadowfacts.shadowmc.oxygen.impl.OxygenTank;
 import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
 
@@ -20,7 +20,7 @@ import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
  */
 public class TileEntityTest extends BaseTileEntity implements IInventory, ITickable {
 
-	@CapHolder(capabilities = {"net.shadowfacts.shadowmc.oxygen.OxygenHandler"})
+	@CapHolder(capabilities = {OxygenHandler.class})
 	private OxygenTank oxygen= new OxygenTank(1000, 50, null);
 
 	private ItemStack[] chestContents = new ItemStack[27];

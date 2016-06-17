@@ -11,6 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.shadowfacts.shadowmc.oxygen.OxygenCaps;
 
 /**
  * @author shadowfacts
@@ -25,6 +26,9 @@ public class BlockTest extends Block {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 //		player.openGui(ModTest.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+		TileEntity te = world.getTileEntity(pos);
+		System.out.println(te.hasCapability(OxygenCaps.HANDLER, EnumFacing.NORTH));
+		System.out.println(te.getCapability(OxygenCaps.HANDLER, EnumFacing.NORTH));
 		return true;
 	}
 

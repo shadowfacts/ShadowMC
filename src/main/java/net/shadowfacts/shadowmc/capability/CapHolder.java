@@ -17,7 +17,7 @@ public @interface CapHolder {
 	/**
 	 * @return Names of all capabilities this field should be used for
 	 */
-	String[] capabilities();
+	Class<?>[] capabilities();
 
 
 	/**

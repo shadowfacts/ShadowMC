@@ -7,12 +7,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.shadowfacts.shadowmc.ShadowMC;
 import net.shadowfacts.shadowmc.capability.CapHelper;
-import net.shadowfacts.shadowmc.capability.CapHolder;
 import net.shadowfacts.shadowmc.nbt.AutoNBTSerializer;
 import net.shadowfacts.shadowmc.network.PacketUpdateTE;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 /**
  * @author shadowfacts
@@ -42,12 +38,12 @@ public abstract class BaseTileEntity extends TileEntity {
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		return CapHelper.hasCapability(capability, facing, this) || super.hasCapability(capability, facing);
+		return CapHelper.hasCapability(capability, facing, getClass(), this) || super.hasCapability(capability, facing);
 	}
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		return (T)CapHelper.getCapability(capability, facing, this, (capability1, enumFacing) -> (T)super.getCapability(capability1, enumFacing));
+		return (T)CapHelper.getCapability(capability, facing, getClass(), this, (capability1, enumFacing) -> (T)super.getCapability(capability1, enumFacing));
 	}
 
 }
