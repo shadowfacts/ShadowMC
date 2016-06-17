@@ -17,6 +17,9 @@ public class ShadowMCConfig {
 	@Config.Prop(category = "dev", description = "Enable the structure creator block (only for mod/pack devs)")
 	public static boolean enableStructureCreator = false;
 
+	@Config.Prop(description = "Enable the iron nugget (will only be created if no other iron nugget is present)")
+	public static boolean enableNuggetIron = true;
+
 	public static void init(File configDir) {
 		config = new Configuration(new File(configDir, "shadowfacts/ShadowMC.cfg"));
 	}

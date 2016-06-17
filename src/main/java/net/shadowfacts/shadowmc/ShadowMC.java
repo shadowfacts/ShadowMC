@@ -1,8 +1,8 @@
 package net.shadowfacts.shadowmc;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -14,10 +14,12 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import net.shadowfacts.shadowmc.capability.Storage;
 import net.shadowfacts.shadowmc.command.CommandHandler;
 import net.shadowfacts.shadowmc.config.ForgeConfigAdapter;
 import net.shadowfacts.shadowmc.event.ShadowMCEventHandler;
+import net.shadowfacts.shadowmc.item.ItemOreDict;
 import net.shadowfacts.shadowmc.oxygen.OxygenHandler;
 import net.shadowfacts.shadowmc.oxygen.OxygenProvider;
 import net.shadowfacts.shadowmc.oxygen.OxygenReceiver;
@@ -52,8 +54,8 @@ public class ShadowMC {
 	public static SimpleNetworkWrapper network;
 
 //	Content
-	public static BlockStructureCreator structureCreator;
-	public static ItemBlock itemStructureCreator;
+	public static ShadowItems items = new ShadowItems();
+	public static ShadowBlocks blocks = new ShadowBlocks();
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -61,13 +63,13 @@ public class ShadowMC {
 		ShadowMCConfig.init(event.getModConfigurationDirectory());
 		ShadowMCConfig.load();
 
-		if (ShadowMCConfig.enableStructureCreator) {
-			structureCreator = GameRegistry.register(new BlockStructureCreator());
-			itemStructureCreator = (ItemBlock)GameRegistry.register(new ItemBlock(structureCreator).setRegistryName(structureCreator.getRegistryName()));
-			GameRegistry.registerTileEntity(TileEntityStructureCreator.class, structureCreator.getRegistryName().toString());
-			if (event.getSide() == Side.CLIENT) {
-				preInitClient();
-			}
+		items.init();
+		blocks.init();
+
+		ShadowRecipes.init();
+
+		if (event.getSide() == Side.CLIENT) {
+			preInitClient();
 		}
 
 		proxy.preInit(event);
@@ -77,15 +79,16 @@ public class ShadowMC {
 		MinecraftForge.EVENT_BUS.register(new ShadowMCEventHandler());
 	}
 
-	@SideOnly(Side.CLIENT)
-	private void preInitClient() {
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStructureCreator.class, new TESRStructureCreator());
-		ModelLoader.setCustomModelResourceLocation(itemStructureCreator, 0, new ModelResourceLocation("shadowmc:structureCreator", "inventory"));
-	}
-
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
 		event.registerServerCommand(CommandHandler.instance);
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void preInitClient() {
+		if (ShadowMCConfig.enableStructureCreator) {
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStructureCreator.class, new TESRStructureCreator());
+		}
 	}
 
 	private void registerCapabilities() {
