@@ -2,14 +2,10 @@ package net.shadowfacts.shadowmc.capability;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.shadowfacts.shadowlib.util.Pair;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiFunction;
 
 /**
@@ -17,11 +13,11 @@ import java.util.function.BiFunction;
  */
 public class CapHelper {
 
-	private static final List<Object> searched = new ArrayList<>();
+	private static final Set<Class<?>> searched = new HashSet<>();
 	private static final Map<String, Map<EnumFacing, Map<Class<?>, Field>>> caps = new HashMap<>();
 
 	public static boolean hasCapability(Capability<?> capability, EnumFacing facing, Class<?> clazz, Object object) {
-		if (!searched.contains(object)) {
+		if (!searched.contains(clazz)) {
 			search(clazz);
 		}
 		if (caps.containsKey(capability.getName())) {
@@ -35,7 +31,7 @@ public class CapHelper {
 	}
 
 	public static <T> T getCapability(Capability<T> capability, EnumFacing facing, Class<?> clazz, Object object, BiFunction<Capability, EnumFacing, T> defaultFunc) {
-		if (!searched.contains(object)) {
+		if (!searched.contains(clazz)) {
 			search(clazz);
 		}
 
