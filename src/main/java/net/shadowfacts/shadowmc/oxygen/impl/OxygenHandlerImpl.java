@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowmc.oxygen.impl;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.nbt.NBTTagCompound;
 import net.shadowfacts.shadowmc.oxygen.OxygenHandler;
 
@@ -10,6 +11,7 @@ import net.shadowfacts.shadowmc.oxygen.OxygenHandler;
  * @author shadowfacts
  */
 @Getter
+@Setter
 public class OxygenHandlerImpl implements OxygenHandler {
 
 	protected int capacity;
@@ -46,6 +48,12 @@ public class OxygenHandlerImpl implements OxygenHandler {
 		capacity = tag.getInteger("Capacity");
 		stored = tag.getInteger("Stored");
 		transferRate = tag.getInteger("TransferRate");
+	}
+
+	public void load(OxygenHandler other) {
+		capacity = other.getCapacity();
+		stored = other.getStored();
+		transferRate = other.getTransferRate();
 	}
 
 }
