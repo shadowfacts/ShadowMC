@@ -13,3 +13,5 @@ shadowmc.config.gui.category.dev=Dev
 tile.structureCreator.name=Structure Creator
 
 shadowmc.gui.empty=Empty
+
+shadowmc.oxygen.level=Oxygen: %d / %d
