@@ -1,8 +1,7 @@
 package net.shadowfacts.shadowmc.item;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.model.ModelLoader;
+import net.shadowfacts.shadowmc.ShadowMC;
 
 /**
  * @author shadowfacts
@@ -21,7 +20,7 @@ public class ItemBase extends Item implements ItemModelProvider {
 
 	@Override
 	public void initItemModel() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+		ShadowMC.proxy.registerItemModel(this, 0, getRegistryName());
 	}
 
 }
