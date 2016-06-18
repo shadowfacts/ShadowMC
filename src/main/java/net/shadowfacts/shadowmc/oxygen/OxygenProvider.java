@@ -15,6 +15,6 @@ public interface OxygenProvider extends OxygenHandler {
 	 * @param simulate If {@code true}, doesn't perform this operation, just returns the result.
 	 * @return The actual amount of stored extracted.
 	 */
-	int extract(int amount, boolean simulate);
+	float extract(float amount, boolean simulate);
 
 }

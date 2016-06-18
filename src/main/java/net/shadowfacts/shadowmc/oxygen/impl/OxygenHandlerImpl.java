@@ -14,9 +14,9 @@ import net.shadowfacts.shadowmc.oxygen.OxygenHandler;
 @Setter
 public class OxygenHandlerImpl implements OxygenHandler {
 
-	protected int capacity;
-	protected int stored;
-	protected int transferRate;
+	protected float capacity;
+	protected float stored;
+	protected float transferRate;
 
 	/**
 	 * Default no-args constructor, used by Forge.
@@ -29,7 +29,7 @@ public class OxygenHandlerImpl implements OxygenHandler {
 	 * @param capacity The maximum amount of oxygen that can be stored.
 	 * @param transferRate The maximum amount of oxygen that can be transferred in 1 operation
 	 */
-	public OxygenHandlerImpl(int capacity, int transferRate) {
+	public OxygenHandlerImpl(float capacity, float transferRate) {
 		this.capacity = capacity;
 		this.transferRate = transferRate;
 	}
@@ -37,17 +37,17 @@ public class OxygenHandlerImpl implements OxygenHandler {
 	@Override
 	public NBTTagCompound serializeNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("Capacity", capacity);
-		tag.setInteger("Stored", stored);
-		tag.setInteger("TransferRate", transferRate);
+		tag.setFloat("Capacity", capacity);
+		tag.setFloat("Stored", stored);
+		tag.setFloat("TransferRate", transferRate);
 		return tag;
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag) {
-		capacity = tag.getInteger("Capacity");
-		stored = tag.getInteger("Stored");
-		transferRate = tag.getInteger("TransferRate");
+		capacity = tag.getFloat("Capacity");
+		stored = tag.getFloat("Stored");
+		transferRate = tag.getFloat("TransferRate");
 	}
 
 	public void load(OxygenHandler other) {

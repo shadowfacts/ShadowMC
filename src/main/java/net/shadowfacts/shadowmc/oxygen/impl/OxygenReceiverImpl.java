@@ -20,13 +20,13 @@ public class OxygenReceiverImpl extends OxygenHandlerImpl implements OxygenRecei
 	 * @param capacity The maximum amount of oxygen that can be stored
 	 * @param transferRate The maximum amount of oxygen that can be transferred in 1 operation
 	 */
-	public OxygenReceiverImpl(int capacity, int transferRate) {
+	public OxygenReceiverImpl(float capacity, float transferRate) {
 		super(capacity, transferRate);
 	}
 
 	@Override
-	public int receive(int amount, boolean simulate) {
-		int received = Math.min(capacity - stored, Math.min(transferRate, amount));
+	public float receive(float amount, boolean simulate) {
+		float received = Math.min(capacity - stored, Math.min(transferRate, amount));
 
 		if (!simulate) stored += received;
 

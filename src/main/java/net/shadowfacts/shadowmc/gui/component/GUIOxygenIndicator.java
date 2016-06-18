@@ -11,7 +11,7 @@ public class GUIOxygenIndicator extends GUIVerticalBarIndicator {
 
 	public GUIOxygenIndicator(int x, int y, int width, int height, OxygenHandler handler) {
 		super(x, y, width, height, () -> {
-			return handler.getStored() / (float)handler.getCapacity();
+			return handler.getStored() / handler.getCapacity();
 		}, () -> {
 			return ImmutableList.of(I18n.format("shadowmc.oxygen.level", handler.getStored(), handler.getCapacity()));
 		});

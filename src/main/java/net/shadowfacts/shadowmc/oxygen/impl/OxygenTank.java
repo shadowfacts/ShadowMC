@@ -17,14 +17,14 @@ public class OxygenTank extends OxygenHandlerImpl implements OxygenProvider, Oxy
 	 * @param transferRate The maximum amount of oxygen that can be transferred in 1 operation
 	 * @param updateHandler A handler that is called whenever a change in the amount of oxygen occurs
 	 */
-	public OxygenTank(int capacity, int transferRate, Consumer<OxygenTank> updateHandler) {
+	public OxygenTank(float capacity, float transferRate, Consumer<OxygenTank> updateHandler) {
 		super(capacity, transferRate);
 		this.updateHandler = updateHandler;
 	}
 
 	@Override
-	public int receive(int amount, boolean simulate) {
-		int received = Math.min(capacity - stored, Math.min(transferRate, amount));
+	public float receive(float amount, boolean simulate) {
+		float received = Math.min(capacity - stored, Math.min(transferRate, amount));
 
 		if (!simulate) {
 			stored += received;
@@ -35,8 +35,8 @@ public class OxygenTank extends OxygenHandlerImpl implements OxygenProvider, Oxy
 	}
 
 	@Override
-	public int extract(int amount, boolean simulate) {
-		int extracted = Math.min(stored, Math.min(transferRate, amount));
+	public float extract(float amount, boolean simulate) {
+		float extracted = Math.min(stored, Math.min(transferRate, amount));
 
 		if (!simulate) {
 			stored -= extracted;

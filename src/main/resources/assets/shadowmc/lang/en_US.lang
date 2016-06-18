@@ -19,4 +19,4 @@ item.nuggetIron.name=Iron Nugget
 # Misc
 shadowmc.gui.empty=Empty
 
-shadowmc.oxygen.level=Oxygen: %d / %d
+shadowmc.oxygen.level=Oxygen: %f / %f

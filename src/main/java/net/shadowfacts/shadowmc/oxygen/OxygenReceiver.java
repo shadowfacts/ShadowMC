@@ -15,6 +15,6 @@ public interface OxygenReceiver extends OxygenHandler {
 	 * @param simulate If {@code true}, doesn't perform this operation, just returns the result.
 	 * @return The actual amount of stored received.
 	 */
-	int receive(int amount, boolean simulate);
+	float receive(float amount, boolean simulate);
 
 }

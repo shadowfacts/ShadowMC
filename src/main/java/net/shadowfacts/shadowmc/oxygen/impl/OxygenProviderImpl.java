@@ -20,13 +20,13 @@ public class OxygenProviderImpl extends OxygenHandlerImpl implements OxygenProvi
 	 * @param capacity The maximum amount of oxygen that can be stored
 	 * @param transferRate The maximum amount of oxygen that can be transferred in 1 operation
 	 */
-	public OxygenProviderImpl(int capacity, int transferRate) {
+	public OxygenProviderImpl(float capacity, float transferRate) {
 		super(capacity, transferRate);
 	}
 
 	@Override
-	public int extract(int amount, boolean simulate) {
-		int extracted = Math.min(stored, Math.min(transferRate, amount));
+	public float extract(float amount, boolean simulate) {
+		float extracted = Math.min(stored, Math.min(transferRate, amount));
 
 		if (!simulate) stored -= extracted;
 

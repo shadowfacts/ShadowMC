@@ -15,7 +15,7 @@ public class OxygenTankProvider implements ICapabilitySerializable<NBTTagCompoun
 
 	private OxygenTank tank;
 
-	public OxygenTankProvider(int capacity, int transferRate) {
+	public OxygenTankProvider(float capacity, float transferRate) {
 		tank = new OxygenTank(capacity, transferRate, null);
 	}
 

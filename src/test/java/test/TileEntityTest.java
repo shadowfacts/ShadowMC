@@ -20,12 +20,16 @@ import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
  */
 public class TileEntityTest extends BaseTileEntity implements IInventory, ITickable {
 
-	@CapHolder(capabilities = {OxygenHandler.class})
-	private OxygenTank oxygen= new OxygenTank(1000, 50, null);
+	@CapHolder(capabilities = OxygenHandler.class)
+	private OxygenTank oxygen = new OxygenTank(1000, 50, null);
 
 	private ItemStack[] chestContents = new ItemStack[27];
 
 	public FluidTank tank = new FluidTank(new FluidStack(FluidRegistry.WATER, 250), 5000);
+
+	public TileEntityTest() {
+		oxygen.receive(33.3f, false);
+	}
 
 	@Override
 	public void update() {

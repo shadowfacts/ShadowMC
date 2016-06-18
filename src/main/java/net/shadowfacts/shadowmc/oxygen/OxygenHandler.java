@@ -15,17 +15,17 @@ public interface OxygenHandler extends INBTSerializable<NBTTagCompound> {
 	/**
 	 * @return The maximum amount of oxygen that this handler can store
 	 */
-	int getCapacity();
+	float getCapacity();
 
 	/**
 	 * @return The current amount of oxygen stored
 	 */
-	int getStored();
+	float getStored();
 
 	/**
 	 * @return The maximum amount of oxygen that can be transfered in 1 operation
 	 */
-	int getTransferRate();
+	float getTransferRate();
 
 }
 
