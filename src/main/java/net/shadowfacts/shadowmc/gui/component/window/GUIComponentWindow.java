@@ -3,7 +3,6 @@ package net.shadowfacts.shadowmc.gui.component.window;
 import net.shadowfacts.shadowmc.gui.AbstractGUI;
 import net.shadowfacts.shadowmc.gui.BaseGUI;
 import net.shadowfacts.shadowmc.gui.component.button.GUIButton;
-import net.shadowfacts.shadowmc.gui.handler.ClickHandler;
 import net.shadowfacts.shadowmc.util.Color;
 import net.shadowfacts.shadowmc.util.MouseButton;
 

@@ -11,8 +11,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-import javax.annotation.Nullable;
-
 /**
  * @author shadowfacts
  */

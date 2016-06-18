@@ -3,7 +3,6 @@ package net.shadowfacts.shadowmc.gui.mcwrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.shadowfacts.shadowmc.util.MouseButton;
-import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
 import java.util.List;

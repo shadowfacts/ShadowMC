@@ -5,7 +5,10 @@ import net.minecraftforge.common.capabilities.Capability;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.BiFunction;
 
 /**

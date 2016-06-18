@@ -4,7 +4,6 @@ import lombok.Getter;
 import net.shadowfacts.shadowlib.util.EnumUtils;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 

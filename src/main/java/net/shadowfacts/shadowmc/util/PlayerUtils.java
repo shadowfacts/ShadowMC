@@ -1,7 +1,6 @@
 package net.shadowfacts.shadowmc.util;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
 
 /**

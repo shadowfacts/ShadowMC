@@ -3,7 +3,6 @@ package net.shadowfacts.shadowmc.gui.component.button;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.ResourceLocation;
 import net.shadowfacts.shadowmc.gui.component.GUIComponent;
 import net.shadowfacts.shadowmc.gui.handler.ClickHandler;
 import net.shadowfacts.shadowmc.util.MouseButton;

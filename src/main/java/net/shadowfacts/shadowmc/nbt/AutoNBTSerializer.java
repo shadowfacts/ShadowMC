@@ -20,7 +20,9 @@ import net.shadowfacts.shadowmc.util.LogHelper;
 import net.shadowfacts.shadowmc.util.RedstoneMode;
 
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author shadowfacts
