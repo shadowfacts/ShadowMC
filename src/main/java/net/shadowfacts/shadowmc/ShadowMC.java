@@ -29,7 +29,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * @author shadowfacts
  */
-@Mod(modid = ShadowMC.modId, name = ShadowMC.name, version = ShadowMC.version, acceptedMinecraftVersions = "[1.9.4]", guiFactory = "net.shadowfacts.shadowmc.GUIFactory")
+@Mod(modid = ShadowMC.modId, name = ShadowMC.name, version = ShadowMC.version, acceptedMinecraftVersions = "[1.10.2]", guiFactory = "net.shadowfacts.shadowmc.GUIFactory")
 public class ShadowMC {
 
 	public static final String modId = "shadowmc";

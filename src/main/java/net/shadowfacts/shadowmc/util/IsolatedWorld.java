@@ -51,11 +51,6 @@ public class IsolatedWorld implements IBlockAccess {
 	}
 
 	@Override
-	public boolean extendedLevelsInChunkCache() {
-		return world.extendedLevelsInChunkCache();
-	}
-
-	@Override
 	public int getStrongPower(BlockPos pos, EnumFacing direction) {
 		return this.pos.equals(pos) ? world.getStrongPower(pos, direction) : 0;
 	}

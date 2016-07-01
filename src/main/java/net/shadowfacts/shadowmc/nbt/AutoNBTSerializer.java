@@ -176,19 +176,19 @@ public class AutoNBTSerializer {
 	}
 
 	private static void serializeBlock(NBTTagCompound tag, String name, Block val) {
-		tag.setString(name, GameData.getBlockRegistry().getNameForObject(val).toString());
+		tag.setString(name, Block.REGISTRY.getNameForObject(val).toString());
 	}
 
 	private static Block deserializeBlock(NBTTagCompound tag, String name) {
-		return GameData.getBlockRegistry().getObject(new ResourceLocation(tag.getString(name)));
+		return Block.REGISTRY.getObject(new ResourceLocation(tag.getString(name)));
 	}
 
 	private static void serializeItem(NBTTagCompound tag, String name, Item val) {
-		tag.setString(name, GameData.getItemRegistry().getNameForObject(val).toString());
+		tag.setString(name, Item.REGISTRY.getNameForObject(val).toString());
 	}
 
 	private static Item deserializeItem(NBTTagCompound tag, String name) {
-		return GameData.getItemRegistry().getObject(new ResourceLocation(tag.getString(name)));
+		return Item.REGISTRY.getObject(new ResourceLocation(tag.getString(name)));
 	}
 
 	private static void serializeFluidStack(NBTTagCompound tag, String name, FluidStack val) {

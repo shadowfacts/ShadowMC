@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowmc.util;
 
 import com.google.gson.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameData;
@@ -51,14 +52,14 @@ public class ItemStackUtils implements JsonSerializer<ItemStack>, JsonDeserializ
 		int metadata = obj.get("metadata") != null ? obj.get("metadata").getAsInt() : 0;
 		int stackSize = obj.get("stackSize") != null ? obj.get("stackSize").getAsInt() : 0;
 
-		return new ItemStack(GameRegistry.findItem(modId, name), stackSize, metadata);
+		return new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(modId, name)), stackSize, metadata);
 	}
 
 	@Override
 	public JsonElement serialize(ItemStack src, Type typeOfSrc, JsonSerializationContext context) {
 		JsonObject obj = new JsonObject();
 
-		ResourceLocation id = GameData.getItemRegistry().getNameForObject(src.getItem());
+		ResourceLocation id = Item.REGISTRY.getNameForObject(src.getItem());
 
 		obj.add("name", context.serialize(id.getResourceDomain()));
 		obj.add("modId", context.serialize(id.getResourcePath()));
