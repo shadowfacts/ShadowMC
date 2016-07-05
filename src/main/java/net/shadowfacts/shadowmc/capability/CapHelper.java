@@ -39,9 +39,17 @@ public class CapHelper {
 		}
 
 		try {
-			Field f = caps.get(capability.getName()).get(facing).get(clazz);
-			f.setAccessible(true);
-			return (T)f.get(object);
+			if (caps.containsKey(capability.getName())) {
+				Map<EnumFacing, Map<Class<?>, Field>> map = caps.get(capability.getName());
+				if (map.containsKey(facing)) {
+					Map<Class<?>, Field> map2 = map.get(facing);
+					if (map2.containsKey(clazz)) {
+						Field f = map2.get(clazz);
+						f.setAccessible(true);
+						return (T)f.get(object);
+					}
+				}
+			}
 		} catch (ReflectiveOperationException e) {
 			e.printStackTrace();
 		}
