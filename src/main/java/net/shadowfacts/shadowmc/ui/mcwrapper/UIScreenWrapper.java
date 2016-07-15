@@ -57,6 +57,8 @@ public class UIScreenWrapper extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super.drawScreen(mouseX, mouseY, partialTicks);
+
 		children.forEach(e -> e.draw(mouseX, mouseY));
 		children.forEach(e -> e.drawTooltip(mouseX, mouseY));
 	}
@@ -73,6 +75,8 @@ public class UIScreenWrapper extends GuiScreen {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		super.mouseClicked(mouseX, mouseY, mouseButton);
+
 		MouseButton button = MouseButton.get(mouseButton);
 		children.stream()
 				.filter(e -> e instanceof UIMouseInteractable)
@@ -113,6 +117,8 @@ public class UIScreenWrapper extends GuiScreen {
 
 	@Override
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
+		super.keyTyped(typedChar, keyCode);
+
 		keyHandlers.forEach(handler -> handler.keyPress(keyCode, typedChar));
 		children.stream()
 				.filter(e -> e instanceof UIKeyInteractable)
