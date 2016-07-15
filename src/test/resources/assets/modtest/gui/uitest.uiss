@@ -1,0 +1,29 @@
+#title0 {
+	text-color: tomato !important
+}
+
+#list {
+	scrollbar-width: 2
+	scrollbar-primary-color: mediumslateblue !important
+	scrollbar-secondary-color: slateblue !important
+}
+
+//@include modtest:includetest
+//
+//#title0 {
+//	text-color: #FF0000 !important
+//}
+//
+//#title1 {
+//	text-color: #0000FF !important
+//	text-underline: false !important
+//}
+//
+//#list {
+//	scrollbar-primary-color: #00FF00
+//	scrollbar-secondary-color: #00AA00
+//}
+//
+//label {
+//	text-color: #FF00FF !important
+//}

@@ -1,0 +1,37 @@
+#top-panel
+{
+	vertical-layout: top
+}
+
+#list
+{
+	vertical-layout: top
+	horizontal-layout: left
+	margin-top: 5
+	margin-left: 5
+}
+
+.list-stack
+{
+	vertical-layout: top
+	horizontal-layout: left
+	margin-left: 24
+}
+
+.list-stack-view
+{
+	horizontal-layout: right
+	stack-spacing: 7
+}
+
+.list-title
+{
+	horizontal-layout: right
+	text-underline: true
+	text-color: #373737
+}
+
+.list-subtext
+{
+	horizontal-layout: right
+}
