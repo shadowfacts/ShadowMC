@@ -53,6 +53,14 @@ public class UIAttribute<T> {
 	public static final UIAttribute<Color> SCROLLBAR_PRIMARY_COLOR = new UIAttribute<>("scrollbar-primary-color", new Color(0xC0C0C0), ColorFactory.INSTANCE);
 	public static final UIAttribute<Color> SCROLLBAR_SCEONDARY_COLOR = new UIAttribute<>("scrollbar-secondary-color", new Color(0x808080), ColorFactory.INSTANCE);
 
+	public static final UIAttribute<Color> TEXTFIELD_ENABLED_COLOR = new UIAttribute<>("textfield-enabled-color", new Color(14737632), ColorFactory.INSTANCE);
+	public static final UIAttribute<Color> TEXTFIELD_DISABLED_COLOR = new UIAttribute<>("textfield-disabled-color", new Color(7368816), ColorFactory.INSTANCE);
+	public static final UIAttribute<Color> TEXTFIELD_BACKGROUND_COLOR = new UIAttribute<>("textfield-background-color", Color.BLACK, ColorFactory.INSTANCE);
+	public static final UIAttribute<Color> TEXTFIELD_BORDER_COLOR = new UIAttribute<>("textfield-border-color", new Color(-6250336), ColorFactory.INSTANCE);
+	public static final UIAttribute<Integer> TEXTFIELD_BORDER_WIDTH = new UIAttribute<>("textfield-border-width", 1, IntegerFactory.INSTANCE);
+	public static final UIAttribute<Color> TEXTFIELD_CURSOR_COLOR = new UIAttribute<>("textfield-cursor-color", new Color(-3092272), ColorFactory.INSTANCE);
+	public static final UIAttribute<Color> TEXTFIELD_SELECTION_COLOR = new UIAttribute<>("textfield-selection-color", Color.BLUE, ColorFactory.INSTANCE);
+
 	@Getter
 	private final T defaultVal;
 

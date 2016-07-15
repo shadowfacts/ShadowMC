@@ -14,6 +14,7 @@ import net.shadowfacts.shadowmc.ui.UIDimensions;
 import net.shadowfacts.shadowmc.ui.UIKeyInteractable;
 import net.shadowfacts.shadowmc.ui.UIMouseInteractable;
 import net.shadowfacts.shadowmc.ui.element.UIElementBase;
+import net.shadowfacts.shadowmc.ui.style.UIAttribute;
 import net.shadowfacts.shadowmc.ui.util.UIHelper;
 import net.shadowfacts.shadowmc.util.MouseButton;
 import org.lwjgl.opengl.GL11;
@@ -37,9 +38,6 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 	protected int cursorCounter;
 	protected int selectionEnd;
 	protected int lineScrollOffset;
-
-	protected Color enabledColor = new Color(14737632);
-	protected Color disabledColor = new Color(7368816);
 
 	protected int maxStringLength = 32;
 
@@ -78,11 +76,12 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 	public void draw(int mouseX, int mouseY) {
 		GlStateManager.disableDepth();
 		if (drawBackground) {
-			UIHelper.drawRect(x - 1, y - 1, dimensions.width + 2, dimensions.height + 2, new Color(-6250336), -1);
-			UIHelper.drawRect(x, y, dimensions.width, dimensions.height, Color.BLACK, -1);
+			int borderWidth = getStyle(UIAttribute.TEXTFIELD_BORDER_WIDTH);
+			UIHelper.drawRect(x - borderWidth, y - borderWidth, dimensions.width + borderWidth * 2, dimensions.height + borderWidth * 2, getStyle(UIAttribute.TEXTFIELD_CURSOR_COLOR), -1);
+			UIHelper.drawRect(x, y, dimensions.width, dimensions.height, getStyle(UIAttribute.TEXTFIELD_BACKGROUND_COLOR), -1);
 		}
 
-		Color color = enabled ? enabledColor : disabledColor;
+		Color color = enabled ? getStyle(UIAttribute.TEXTFIELD_ENABLED_COLOR) : getStyle(UIAttribute.TEXTFIELD_DISABLED_COLOR);
 
 		int j = cursorPos - lineScrollOffset;
 		int k = selectionEnd - lineScrollOffset;
@@ -115,7 +114,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 
 		if (flag1) {
 			if (flag2) {
-				Gui.drawRect(k1, i1 - 1, k1 + 1, i1 + 1 + mc.fontRendererObj.FONT_HEIGHT, -3092272);
+				Gui.drawRect(k1, i1 - 1, k1 + 1, i1 + 1 + mc.fontRendererObj.FONT_HEIGHT, UIHelper.toARGB(getStyle(UIAttribute.TEXTFIELD_CURSOR_COLOR)));
 			} else {
 				mc.fontRendererObj.drawStringWithShadow("_", k1, i1, UIHelper.toARGB(color));
 			}
@@ -149,10 +148,11 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 
 		Tessellator tessellator = Tessellator.getInstance();
 		VertexBuffer buffer = tessellator.getBuffer();
-		GlStateManager.color(0, 0, 255, 255);
+		Color selectionColor = getStyle(UIAttribute.TEXTFIELD_SELECTION_COLOR);
+		GlStateManager.color(selectionColor.getRed(), selectionColor.getGreen(), selectionColor.getBlue(), 255);
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableColorLogic();
-		GlStateManager.colorLogicOp(5387);
+		GlStateManager.colorLogicOp(GL11.GL_OR_REVERSE);
 		buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 		buffer.pos(p1, p4, 0).endVertex();
 		buffer.pos(p3, p4, 0).endVertex();
