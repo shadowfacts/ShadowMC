@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.ui.element.button;
 
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import net.shadowfacts.shadowmc.ui.UIDimensions;
 import net.shadowfacts.shadowmc.ui.style.UIAttribute;
@@ -31,7 +30,7 @@ public class UIButtonText extends UIButtonBase {
 	}
 
 	@Override
-	protected void drawButton(int x, int y, UIDimensions dimensions, int mouseX, int mouseY) {
+	protected void drawButton(int mouseX, int mouseY) {
 		UIHelper.drawCenteredText(UIHelper.styleText(text, this), x, y, x + dimensions.width, y + dimensions.height, getStyle(UIAttribute.TEXT_COLOR), getStyle(UIAttribute.TEXT_SHADOW));
 	}
 

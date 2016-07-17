@@ -36,7 +36,7 @@ public abstract class UIButtonBase extends UIElementBase implements UIMouseInter
 
 	protected abstract boolean handlePress(int mouseX, int mouseY, MouseButton button);
 
-	protected abstract void drawButton(int x, int y, UIDimensions dimensions, int mouseX, int mouseY);
+	protected abstract void drawButton(int mouseX, int mouseY);
 
 	@Override
 	public void mouseClickDown(int mouseX, int mouseY, MouseButton button) {
@@ -85,7 +85,7 @@ public abstract class UIButtonBase extends UIElementBase implements UIMouseInter
 
 			GlStateManager.disableBlend();
 		}
-		drawButton(x, y, dimensions, mouseX, mouseY);
+		drawButton(mouseX, mouseY);
 	}
 
 	@Override

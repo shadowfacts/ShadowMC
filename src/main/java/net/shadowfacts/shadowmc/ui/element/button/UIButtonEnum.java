@@ -34,8 +34,13 @@ public class UIButtonEnum<E extends Enum> extends UIButtonText {
 	}
 
 	private boolean handleClick(UIButtonText button, MouseButton mouseButton) {
-		setValue(EnumUtils.getNextValue(value));
-		if (clickHandler != null) clickHandler.accept(this);
+		if (mouseButton == MouseButton.LEFT) {
+			setValue(EnumUtils.getNextValue(value));
+			if (clickHandler != null) clickHandler.accept(this);
+		} else if (mouseButton == MouseButton.RIGHT) {
+			setValue(EnumUtils.getPreviousValue(value));
+			if (clickHandler != null) clickHandler.accept(this);
+		}
 		return true;
 	}
 

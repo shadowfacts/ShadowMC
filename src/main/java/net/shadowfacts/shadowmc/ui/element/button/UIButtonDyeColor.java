@@ -34,8 +34,13 @@ public class UIButtonDyeColor extends UIButtonBase {
 
 	@Override
 	protected boolean handlePress(int mouseX, int mouseY, MouseButton button) {
-		color = EnumUtils.getNextValue(color);
-		handler.accept(color);
+		if (button == MouseButton.LEFT) {
+			color = EnumUtils.getNextValue(color);
+			handler.accept(color);
+		} else if (button == MouseButton.RIGHT) {
+			color = EnumUtils.getPreviousValue(color);
+			handler.accept(color);
+		}
 		return true;
 	}
 
@@ -45,7 +50,7 @@ public class UIButtonDyeColor extends UIButtonBase {
 	}
 
 	@Override
-	protected void drawButton(int x, int y, UIDimensions dimensions, int mouseX, int mouseY) {
+	protected void drawButton(int mouseX, int mouseY) {
 		UIHelper.drawRect(x + 4, y + 4, dimensions.width - 8, dimensions.height - 8, new Color(color.getMapColor().colorValue));
 	}
 

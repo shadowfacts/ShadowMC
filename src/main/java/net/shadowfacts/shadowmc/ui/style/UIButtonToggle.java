@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.ui.style;
 
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import net.shadowfacts.shadowmc.ui.UIDimensions;
 import net.shadowfacts.shadowmc.ui.element.button.UIButtonBase;
@@ -41,7 +40,7 @@ public class UIButtonToggle extends UIButtonBase {
 	}
 
 	@Override
-	protected void drawButton(int x, int y, UIDimensions dimensions, int mouseX, int mouseY) {
+	protected void drawButton(int mouseX, int mouseY) {
 		UIHelper.bindTexture(TEXTURE);
 		int u;
 		if (state) {

@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.ui.element.button;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import net.shadowfacts.shadowlib.util.EnumUtils;
@@ -33,13 +32,18 @@ public class UIButtonRedstoneMode extends UIButtonBase {
 
 	@Override
 	protected boolean handlePress(int mouseX, int mouseY, MouseButton button) {
-		mode = EnumUtils.getNextValue(mode);
-		callback.accept(mode);
+		if (button == MouseButton.LEFT) {
+			mode = EnumUtils.getNextValue(mode);
+			callback.accept(mode);
+		} else if (button == MouseButton.RIGHT) {
+			mode = EnumUtils.getPreviousValue(mode);
+			callback.accept(mode);
+		}
 		return true;
 	}
 
 	@Override
-	protected void drawButton(int x, int y, UIDimensions dimensions, int mouseX, int mouseY) {
+	protected void drawButton(int mouseX, int mouseY) {
 		UIHelper.bindTexture(TEXTURE);
 		int u;
 		switch (mode) {
