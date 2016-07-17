@@ -14,16 +14,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.shadowmc.gui.GUIBuilder;
 import net.shadowfacts.shadowmc.gui.component.GUIComponent;
 import net.shadowfacts.shadowmc.gui.component.GUIComponentTexture;
+import net.shadowfacts.shadowmc.inventory.ContainerPlayerInv;
 import net.shadowfacts.shadowmc.structure.StructureManager;
-import net.shadowfacts.shadowmc.ui.element.UILabel;
 import net.shadowfacts.shadowmc.ui.element.button.*;
 import net.shadowfacts.shadowmc.ui.element.view.UIFixedView;
-import net.shadowfacts.shadowmc.ui.element.view.UIStackView;
 import net.shadowfacts.shadowmc.ui.mcwrapper.UIContainerWrapper;
-import net.shadowfacts.shadowmc.ui.mcwrapper.UIScreenWrapper;
 import net.shadowfacts.shadowmc.ui.style.*;
-
-import java.awt.Color;
 
 /**
  * @author shadowfacts
@@ -70,7 +66,7 @@ public class ModTest {
 					return new ContainerTest(player, (TileEntityTest) world.getTileEntity(new BlockPos(x, y, z)));
 				case 2:
 				case 3:
-					return new ContainerPlayerInv(player.inventory);
+					return new ContainerPlayerInv(new BlockPos(x, y, z), player.inventory);
 				default:
 					return null;
 			}
@@ -91,7 +87,7 @@ public class ModTest {
 					top.add(btn);
 					view.add(top);
 
-					return new UIContainerWrapper(new ContainerPlayerInv(player.inventory)).add(view).layout();
+					return new UIContainerWrapper(new ContainerPlayerInv(new BlockPos(x, y, z), player.inventory)).add(view).layout();
 				case 3:
 					return UIContainerTest.create(player.inventory);
 				default:

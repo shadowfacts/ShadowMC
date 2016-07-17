@@ -6,13 +6,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.shadowfacts.shadowmc.inventory.ContainerPlayerInv;
 import net.shadowfacts.shadowmc.ui.element.UILabel;
 import net.shadowfacts.shadowmc.ui.element.UIItemStack;
 import net.shadowfacts.shadowmc.ui.element.button.UIImage;
 import net.shadowfacts.shadowmc.ui.element.view.UIFixedView;
 import net.shadowfacts.shadowmc.ui.element.view.UIListView;
 import net.shadowfacts.shadowmc.ui.element.view.UIStackView;
-import net.shadowfacts.shadowmc.ui.mcwrapper.UIContainerWrapper;
 import net.shadowfacts.shadowmc.ui.util.UIBuilder;
 
 import java.awt.Color;
@@ -82,7 +82,7 @@ public class UIContainerTest {
 
 		view.add(topPanel);
 
-		return new UIBuilder().add(view).style("modtest:uitest").createContainer(new ContainerPlayerInv(playerInv));
+		return new UIBuilder().add(view).style("modtest:uitest").createContainer(new ContainerPlayerInv(playerInv.player.getPosition(), playerInv));
 	}
 
 }
