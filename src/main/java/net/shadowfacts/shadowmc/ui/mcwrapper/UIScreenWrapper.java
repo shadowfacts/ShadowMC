@@ -1,5 +1,6 @@
 package net.shadowfacts.shadowmc.ui.mcwrapper;
 
+import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -22,6 +23,7 @@ import java.util.Set;
  */
 public class UIScreenWrapper extends GuiScreen {
 
+	@Setter
 	private Set<UIKeyInteractable> keyHandlers = new LinkedHashSet<>();
 	private Set<UIElement> children = new LinkedHashSet<>();
 

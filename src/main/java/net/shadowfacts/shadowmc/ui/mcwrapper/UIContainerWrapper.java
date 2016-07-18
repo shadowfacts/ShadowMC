@@ -1,5 +1,6 @@
 package net.shadowfacts.shadowmc.ui.mcwrapper;
 
+import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -23,6 +24,8 @@ import java.util.Set;
  */
 public class UIContainerWrapper extends GuiContainer {
 
+	@Setter
+	private Set<UIKeyInteractable> keyHandlers = new LinkedHashSet<>();
 	private Set<UIElement> children = new LinkedHashSet<>();
 
 	public UIContainerWrapper(Container container) {
@@ -120,6 +123,7 @@ public class UIContainerWrapper extends GuiContainer {
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		super.keyTyped(typedChar, keyCode);
 
+		keyHandlers.forEach(handler -> handler.keyPress(keyCode, typedChar));
 		children.stream()
 				.filter(e -> e instanceof UIKeyInteractable)
 				.map(e -> (UIKeyInteractable)e)
