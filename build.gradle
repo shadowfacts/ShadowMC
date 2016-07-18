@@ -64,7 +64,7 @@ dependencies {
 shadowJar {
 	classifier = ""
 	dependencies {
-		include(dependency("net.shadowfacts:ShadowLib:1.8.0"))
+		include(dependency("net.shadowfacts:ShadowLib:1.8.1"))
 		include(dependency("net.shadowfacts:ShadowConfig:2.0.0"))
 	}
 	exclude "test/*"
