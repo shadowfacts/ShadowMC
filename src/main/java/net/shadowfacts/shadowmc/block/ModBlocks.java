@@ -34,6 +34,8 @@ public abstract class ModBlocks {
 		}
 		if (block instanceof BlockTE) {
 			GameRegistry.registerTileEntity(((BlockTE<?>)block).getTileEntityClass(), ((BlockBase)block).name);
+		} else if (block instanceof TileEntityProvider) {
+			GameRegistry.registerTileEntity(((TileEntityProvider<?>)block).getTileEntityClass(), block.getRegistryName().toString());
 		}
 
 		return block;

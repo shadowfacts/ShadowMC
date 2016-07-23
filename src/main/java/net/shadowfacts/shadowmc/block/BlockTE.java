@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 /**
  * @author shadowfacts
  */
-public abstract class BlockTE<TE extends TileEntity> extends BlockBase {
+public abstract class BlockTE<TE extends TileEntity> extends BlockBase implements TileEntityProvider<TE> {
 
 	public BlockTE(Material material, String name) {
 		super(material, name);
@@ -25,22 +25,11 @@ public abstract class BlockTE<TE extends TileEntity> extends BlockBase {
 
 	@Nonnull
 	@Override
-	public abstract TE createTileEntity(World world, IBlockState state);
-
-	public abstract Class<TE> getTileEntityClass();
-
-	@SuppressWarnings("unchecked")
-	public TE getTileEntity(IBlockAccess world, BlockPos pos) {
-		TileEntity te = world.getTileEntity(pos);
-		if (te != null) {
-			if (getTileEntityClass().isAssignableFrom(te.getClass())) {
-				return (TE)te;
-			} else {
-				throw new IllegalArgumentException(String.format("Invalid TileEntity type at %s, expected %s got %s", pos, getTileEntityClass().getName(), te.getClass().getName()));
-			}
-		} else {
-			throw new IllegalArgumentException(String.format("No TileEntity at position %s", pos));
-		}
+	public TE createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+		return createTileEntity();
 	}
+
+	@Override
+	public abstract Class<TE> getTileEntityClass();
 
 }
