@@ -17,14 +17,15 @@ import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
  */
 public class TileEntityStructureCreator extends BaseTileEntity {
 
+	private static final int COPIED_ID = 796512;
+	private static final int SIZE_ID = 796513;
+
 	@AutoSerializeNBT
 	private int xSize = 3;
 	@AutoSerializeNBT
 	private int ySize = 3;
 	@AutoSerializeNBT
 	private int zSize = 3;
-
-	private boolean firstTick = true;
 
 	@Override
 	public void onLoad() {
@@ -34,17 +35,19 @@ public class TileEntityStructureCreator extends BaseTileEntity {
 	}
 
 	void handleActivated(EntityPlayer player, EnumFacing side) {
-		if (!worldObj.isRemote) {
-			if (player.isSneaking()) {
+		if (player.isSneaking()) {
+			if (worldObj.isRemote) {
 				DesktopUtils.copyToClipboard(StructureManager.INSTANCE.toJson(new Structure(worldObj, getBox())));
-				player.addChatComponentMessage(new TextComponentString("Copied structure JSON to clipboard"));
-			} else {
+				ShadowMC.proxy.sendSpamlessMessage(player, new TextComponentString("Copied structure JSON to clipboard"), COPIED_ID);
+			}
+		} else {
+			if (!worldObj.isRemote) {
 				xSize += side.getFrontOffsetX();
 				ySize += side.getFrontOffsetY();
 				zSize += side.getFrontOffsetZ();
 				markDirty();
 				sync();
-				player.addChatComponentMessage(new TextComponentString(String.format("%dx%dx%d", xSize, ySize, zSize)));
+				ShadowMC.proxy.sendSpamlessMessage(player, new TextComponentString(String.format("%dx%dx%d", xSize, ySize, zSize)), SIZE_ID);
 			}
 		}
 	}

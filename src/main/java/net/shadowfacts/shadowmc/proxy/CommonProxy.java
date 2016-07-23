@@ -1,13 +1,17 @@
 package net.shadowfacts.shadowmc.proxy;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.shadowfacts.shadowmc.ShadowMC;
 import net.shadowfacts.shadowmc.network.PacketRequestTEUpdate;
+import net.shadowfacts.shadowmc.network.PacketSpamlessMessage;
 import net.shadowfacts.shadowmc.network.PacketSpawnItem;
 import net.shadowfacts.shadowmc.network.PacketUpdateTE;
 
@@ -26,14 +30,25 @@ public class CommonProxy {
 		ShadowMC.network.registerMessage(PacketRequestTEUpdate.class, PacketRequestTEUpdate.class, 1, Side.SERVER);
 		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 2, Side.CLIENT);
 		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 2, Side.SERVER);
+		ShadowMC.network.registerMessage(PacketSpamlessMessage.class, PacketSpamlessMessage.class, 3, Side.CLIENT);
 	}
 
 	public World getClientWorld() {
 		return null;
 	}
 
+	public EntityPlayer getClientPLayer() {
+		return null;
+	}
+
 	public void registerItemModel(Item item, int meta, ResourceLocation id) {
 
+	}
+
+	public void sendSpamlessMessage(EntityPlayer player, ITextComponent msg, int id) {
+		if (player instanceof EntityPlayerMP) {
+			ShadowMC.network.sendTo(new PacketSpamlessMessage(msg, id), (EntityPlayerMP)player);
+		}
 	}
 
 }
