@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -22,11 +24,13 @@ import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * @author shadowfacts
@@ -38,6 +42,8 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 	private ResourceLocation registryName;
 
 	private BlockInfo[][][] blocks;
+
+	private EntityInfo[] entities;
 
 	public Structure(World world, AxisAlignedBB box) {
 		int xSize = (int)(box.maxX - box.minX);
@@ -58,6 +64,12 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 			}
 		}
 
+		List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, box);
+		this.entities = new EntityInfo[entities.size()];
+		BlockPos structureOrigin = new BlockPos(box.minX, box.minY, box.minZ);
+		for (int i = 0; i < entities.size(); i++) {
+			this.entities[i] = new EntityInfo(entities.get(i), structureOrigin);
+		}
 	}
 
 	public int xSize() {
@@ -84,6 +96,9 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 					block.load(world, basePos.add(x, y, z), flags);
 				}
 			}
+		}
+		for (EntityInfo e : entities) {
+			e.spawn(world, basePos);
 		}
 	}
 
@@ -266,6 +281,42 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 			int meta = bits.length > 2 ? Integer.parseInt(bits[2]) : 0;
 			return new ItemStack(item, amount, meta);
 		}
+	}
+
+	@NoArgsConstructor
+	public static class EntityInfo {
+		private String id;
+		private double[] pos;
+		private String spawnHandler;
+
+		public EntityInfo(Entity entity, BlockPos structureOrigin) {
+			id = EntityList.getEntityString(entity);
+			pos = new double[3];
+			pos[0] = entity.posX - structureOrigin.getX();
+			pos[1] = entity.posY - structureOrigin.getY();
+			pos[2] = entity.posZ - structureOrigin.getZ();
+			spawnHandler = "";
+		}
+
+		public void spawn(World world, BlockPos structureOrigin) {
+			Entity entity = EntityList.createEntityByName(id, world);
+			entity.setLocationAndAngles(pos[0] + structureOrigin.getX(), pos[1] + structureOrigin.getY(), pos[2] + structureOrigin.getZ(), 0, 0);
+			world.spawnEntityInWorld(entity);
+			if (spawnHandler != null && !spawnHandler.isEmpty()) {
+				try {
+					Class<?> clazz = Class.forName(spawnHandler);
+					if (Consumer.class.isAssignableFrom(clazz)) {
+						Method m = clazz.getMethod("accept", Object.class);
+						m.invoke(clazz.newInstance(), entity);
+					} else {
+						throw new RuntimeException("Invalid entity spawn handler class that wasn't a java.util.function.Consumer");
+					}
+				} catch (ReflectiveOperationException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+
 	}
 
 }

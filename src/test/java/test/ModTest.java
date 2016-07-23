@@ -1,6 +1,7 @@
 package test;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
@@ -20,6 +21,8 @@ import net.shadowfacts.shadowmc.ui.element.button.*;
 import net.shadowfacts.shadowmc.ui.element.view.UIFixedView;
 import net.shadowfacts.shadowmc.ui.mcwrapper.UIContainerWrapper;
 import net.shadowfacts.shadowmc.ui.style.*;
+
+import java.util.function.Consumer;
 
 /**
  * @author shadowfacts
@@ -48,7 +51,6 @@ public class ModTest {
 		GameRegistry.registerTileEntity(TileEntityTest.class, "tileEntity");
 
 		StructureManager.INSTANCE.register(new ResourceLocation(modId, "test"));
-		StructureManager.INSTANCE.registerReloadHandler(new ResourceLocation(modId, "test"), StructureManager.INSTANCE::load);
 	}
 
 	private static GuiScreen create1() {
@@ -93,6 +95,13 @@ public class ModTest {
 				default:
 					return null;
 			}
+		}
+	}
+
+	public static class CowSpawnHandler implements Consumer<EntityCow> {
+		@Override
+		public void accept(EntityCow cow) {
+			System.out.println(String.format("Cow position: (%f, %f, %f)", cow.posX, cow.posY, cow.posZ));
 		}
 	}
 

@@ -28,7 +28,9 @@ public class StructureManager implements IForgeRegistry<Structure> {
 	private Map<ResourceLocation, IStructureReloadHandler> reloadHandlerMap = new HashMap<>();
 
 	public Structure register(ResourceLocation name) {
-		return register(name, getClass().getResourceAsStream(String.format("/assets/%s/structures/%s.json", name.getResourceDomain(), name.getResourcePath())));
+		Structure structure = register(name, getClass().getResourceAsStream(String.format("/assets/%s/structures/%s.json", name.getResourceDomain(), name.getResourcePath())));
+		registerReloadHandler(name, this::load);
+		return structure;
 	}
 
 	public Structure register(ResourceLocation name, InputStream in) {
