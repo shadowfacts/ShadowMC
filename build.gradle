@@ -57,7 +57,8 @@ repositories {
 dependencies {
 	compile group: "net.shadowfacts", name: "ShadowLib", version: shadowlib_version
 	compile group: "net.shadowfacts", name: "ShadowConfig", version: shadowconfig_version
-	
+	compile group: "net.shadowfacts", name: "Mirror", version: mirror_version
+
 	compile group: "org.projectlombok", name: "lombok", version: lombok_version
 }
 
@@ -65,7 +66,8 @@ shadowJar {
 	classifier = ""
 	dependencies {
 		include(dependency("net.shadowfacts:ShadowLib:1.8.1"))
-		include(dependency("net.shadowfacts:ShadowConfig:2.0.0"))
+		include(dependency("net.shadowfacts:ShadowConfig:2.1.0"))
+		include(dependency("net.shadowfacts:Mirror:1.0.2"))
 	}
 	exclude "test/*"
 }

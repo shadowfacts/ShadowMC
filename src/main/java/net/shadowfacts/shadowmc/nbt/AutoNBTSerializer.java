@@ -12,15 +12,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.registry.GameData;
+import net.shadowfacts.mirror.Mirror;
+import net.shadowfacts.mirror.MirrorClass;
 import net.shadowfacts.shadowlib.util.Pair;
 import net.shadowfacts.shadowmc.fluid.CreativeFluidTank;
 import net.shadowfacts.shadowmc.fluid.FluidTank;
 import net.shadowfacts.shadowmc.util.LogHelper;
 import net.shadowfacts.shadowmc.util.RedstoneMode;
 
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ import java.util.Map;
  */
 public class AutoNBTSerializer {
 
-	private static Map<Class, Pair> serializers = new HashMap<>();
+	private static Map<MirrorClass, Pair> serializers = new HashMap<>();
 
 	private static LogHelper log = new LogHelper("ShadowMC|AutoNBT");
 
@@ -59,20 +58,24 @@ public class AutoNBTSerializer {
 		registerSerializer(CreativeFluidTank.class, AutoNBTSerializer::serializeCreativeFluidTank, AutoNBTSerializer::deserializeCreativeFluidTank);
 	}
 
-	public static <T> void registerSerializer(Class<T> clazz, NBTSerializer<T> serializer, NBTDeserializer<T> deserializer) {
+	public static <T> void registerSerializer(MirrorClass<T> clazz, NBTSerializer<T> serializer, NBTDeserializer<T> deserializer) {
 		serializers.put(clazz, new Pair<>(serializer, deserializer));
 	}
 
+	public static <T> void registerSerializer(Class<T> clazz, NBTSerializer<T> serializer, NBTDeserializer<T> deserializer) {
+		registerSerializer(Mirror.of(clazz), serializer, deserializer);
+	}
+
 	@SuppressWarnings("unchecked")
-	public static <T> Pair<NBTSerializer<T>, NBTDeserializer<T>> getSerializersFor(Class<T> clazz) {
+	public static <T> Pair<NBTSerializer<T>, NBTDeserializer<T>> getSerializersFor(MirrorClass<T> clazz) {
 		return serializers.get(clazz);
 	}
 
-	public static <T> NBTSerializer<T> getSerializerFor(Class<T> clazz) {
+	public static <T> NBTSerializer<T> getSerializerFor(MirrorClass<T> clazz) {
 		return getSerializersFor(clazz).getLeft();
 	}
 
-	public static <T> NBTDeserializer<T> getDeserializerFor(Class<T> clazz) {
+	public static <T> NBTDeserializer<T> getDeserializerFor(MirrorClass<T> clazz) {
 		return getSerializersFor(clazz).getRight();
 	}
 
@@ -81,19 +84,17 @@ public class AutoNBTSerializer {
 	}
 
 	public static NBTTagCompound serialize(Class<?> clazz, Object instance, NBTTagCompound tag) {
-		Arrays.stream(clazz.getDeclaredFields())
-				.filter(f -> !Modifier.isStatic(f.getModifiers()))
-				.filter(f -> f.isAnnotationPresent(AutoSerializeNBT.class) || clazz.isAnnotationPresent(AutoSerializeNBT.class))
+		Mirror.of(clazz)
+				.declaredFields()
+				.isNotStatic()
+				.filter(f -> f.hasAnnotation(AutoSerializeNBT.class) || f.declaringClass().hasAnnotation(AutoSerializeNBT.class))
 				.forEach(f -> {
 					try {
-						NBTSerializer serializer = getSerializerFor(f.getType());
-
+						NBTSerializer serializer = getSerializerFor(f.type());
 						f.setAccessible(true);
-
-						serializer.serialize(tag, f.getName(), f.get(instance));
-
-					} catch (ReflectiveOperationException e) {
-						log.error("Couldn't serialize %s in %s", f.getName(), clazz.getName());
+						serializer.serialize(tag, f.name(), f.get(instance));
+					} catch (Exception e) {
+						log.error("Couldn't serialize %s in %s", f.name(), clazz.getName());
 						e.printStackTrace();
 					}
 				});
@@ -101,19 +102,17 @@ public class AutoNBTSerializer {
 	}
 
 	public static void deserialize(Class<?> clazz, Object instance, NBTTagCompound tag) {
-		Arrays.stream(clazz.getDeclaredFields())
-				.filter(f -> !Modifier.isStatic(f.getModifiers()))
-				.filter(f -> f.isAnnotationPresent(AutoSerializeNBT.class) || clazz.isAnnotationPresent(AutoSerializeNBT.class))
+		Mirror.of(clazz)
+				.declaredFields()
+				.isNotStatic()
+				.filter(f -> f.hasAnnotation(AutoSerializeNBT.class) || f.declaringClass().hasAnnotation(AutoSerializeNBT.class))
 				.forEach(f -> {
 					try {
-						NBTDeserializer deserializer = getDeserializerFor(f.getType());
-
+						NBTDeserializer deserializer = getDeserializerFor(f.type());
 						f.setAccessible(true);
-
-						f.set(instance, deserializer.deserialize(tag, f.getName()));
-					} catch (ReflectiveOperationException e) {
-						log.error("Couldn't deserialize %s in %s", f.getName(), clazz.getName());
-						e.printStackTrace();
+						f.set(instance, deserializer.deserialize(tag, f.name()));
+					} catch (Exception e) {
+						log.error("Couldn't deserialize %s in %s", f.name(), clazz.getName());
 					}
 				});
 	}

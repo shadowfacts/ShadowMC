@@ -8,10 +8,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.shadowfacts.mirror.Mirror;
+import net.shadowfacts.mirror.MirrorClass;
+import net.shadowfacts.mirror.MirrorField;
 import net.shadowfacts.shadowlib.util.Pair;
 import net.shadowfacts.shadowmc.util.Vector3d;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +23,7 @@ import java.util.Map;
  */
 public abstract class PacketBase<REQ extends PacketBase, REPLY extends IMessage> implements IMessage, IMessageHandler<REQ, REPLY> {
 
-	private static Map<Class<?>, Pair<Reader, Writer>> handlers = new HashMap<>();
+	private static Map<MirrorClass<?>, Pair<Reader, Writer>> handlers = new HashMap<>();
 
 	static {
 		addHandlers(byte.class, PacketBuffer::readByte, (b, buf) -> buf.writeByte(b));
@@ -47,11 +49,10 @@ public abstract class PacketBase<REQ extends PacketBase, REPLY extends IMessage>
 	public void fromBytes(ByteBuf buf) {
 		PacketBuffer packetBuf = new PacketBuffer(buf);
 		try {
-			for (Field f : getClass().getDeclaredFields()) {
-				if (accepts(f)) {
-					read(f, packetBuf);
-				}
-			}
+			Mirror.of(getClass())
+					.declaredFields()
+					.filter(PacketBase::accepts)
+					.forEach(f -> read(f, packetBuf));
 		} catch (Exception e) {
 			throw new RuntimeException("Couldn't read packet " + getClass().getName(), e);
 		}
@@ -61,40 +62,38 @@ public abstract class PacketBase<REQ extends PacketBase, REPLY extends IMessage>
 	public void toBytes(ByteBuf buf) {
 		PacketBuffer packetBuf = new PacketBuffer(buf);
 		try {
-			for (Field f : getClass().getDeclaredFields()) {
-				if (accepts(f)) {
-					write(f, packetBuf);
-				}
-			}
+			Mirror.of(getClass())
+					.declaredFields()
+					.filter(PacketBase::accepts)
+					.forEach(f -> write(f, packetBuf));
 		} catch (Exception e) {
-			throw new RuntimeException("Couldnt' write packet " + getClass().getName(), e);
+			throw new RuntimeException("Couldn't write packet " + getClass().getName(), e);
 		}
 	}
 
-	private void read(Field f, PacketBuffer buf) throws IllegalAccessException {
+	private void read(MirrorField f, PacketBuffer buf) {
 		f.set(this, getHandlers(f).getLeft().read(buf));
 	}
 
-	private void write(Field f, PacketBuffer buf) throws IllegalAccessException {
+	private void write(MirrorField f, PacketBuffer buf) {
 		getHandlers(f).getRight().write(f.get(this), buf);
 	}
 
-	private static boolean accepts(Field f) {
-		int modifiers = f.getModifiers();
-		return !Modifier.isFinal(modifiers) && !Modifier.isStatic(modifiers) && !Modifier.isTransient(modifiers) &&
-				handlers.containsKey(f.getType());
+	private static boolean accepts(MirrorField f) {
+		return !f.isFinal() && !f.isStatic() && !f.hasModifier(Modifier.TRANSIENT) &&
+				handlers.containsKey(f.type());
 	}
 
-	public static Pair<Reader, Writer> getHandlers(Field f) {
-		return getHandlers(f.getType());
+	public static Pair<Reader, Writer> getHandlers(MirrorField f) {
+		return getHandlers(f.type());
 	}
 
-	public static Pair<Reader, Writer> getHandlers(Class<?> type) {
+	public static Pair<Reader, Writer> getHandlers(MirrorClass<?> type) {
 		return handlers.get(type);
 	}
 
 	public static <T> void addHandlers(Class<T> type, Reader<T> reader, Writer<T> writer) {
-		handlers.put(type, new Pair<>(reader, writer));
+		handlers.put(Mirror.of(type), new Pair<>(reader, writer));
 	}
 
 	@FunctionalInterface
