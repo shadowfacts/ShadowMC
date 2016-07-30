@@ -19,8 +19,8 @@ import java.util.Optional;
  */
 public class RecipeManager<M, R extends Recipe<M>> {
 
-	private final Class<R> recipeClass;
-	private final List<R> recipes = new ArrayList<>();
+	protected final Class<R> recipeClass;
+	protected final List<R> recipes = new ArrayList<>();
 
 	public RecipeManager(Class<R> recipeClass) {
 		this.recipeClass = recipeClass;
