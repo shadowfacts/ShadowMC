@@ -17,6 +17,8 @@ public abstract class Recipe<M> {
 
 	public abstract List<ItemStack> getInputs();
 
+	public abstract ItemStack getOutput(M machine);
+
 	public abstract void fromXML(Element e);
 
 	public static String getAttr(Element e, String attr) {
