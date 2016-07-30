@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author shadowfacts
  */
-public abstract class Recipe<M extends RecipeMachine> {
+public abstract class Recipe<M> {
 
 	public abstract boolean matches(M machine);
 

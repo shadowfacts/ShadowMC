@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * @author shadowfacts
  */
-public class RecipeManager<M extends RecipeMachine, R extends Recipe<M>> {
+public class RecipeManager<M, R extends Recipe<M>> {
 
 	private final Class<R> recipeClass;
 	private final List<R> recipes = new ArrayList<>();
