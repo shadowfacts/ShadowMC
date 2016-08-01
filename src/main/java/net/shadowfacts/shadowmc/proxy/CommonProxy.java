@@ -6,10 +6,12 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.shadowfacts.shadowmc.ShadowMC;
+import net.shadowfacts.shadowmc.flair.FlairManager;
 import net.shadowfacts.shadowmc.network.PacketRequestTEUpdate;
 import net.shadowfacts.shadowmc.network.PacketSpamlessMessage;
 import net.shadowfacts.shadowmc.network.PacketSpawnItem;
@@ -23,6 +25,10 @@ public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent event) {
 		ShadowMC.network = NetworkRegistry.INSTANCE.newSimpleChannel(ShadowMC.modId);
 		registerPackets();
+	}
+
+	public void init(FMLInitializationEvent event) {
+		FlairManager.initClient();
 	}
 
 	private void registerPackets() {
@@ -50,5 +56,4 @@ public class CommonProxy {
 			ShadowMC.network.sendTo(new PacketSpamlessMessage(msg, id), (EntityPlayerMP)player);
 		}
 	}
-
 }

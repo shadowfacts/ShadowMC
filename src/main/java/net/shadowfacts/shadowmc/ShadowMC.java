@@ -5,6 +5,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -14,6 +15,7 @@ import net.shadowfacts.shadowmc.capability.Storage;
 import net.shadowfacts.shadowmc.command.CommandHandler;
 import net.shadowfacts.shadowmc.config.ForgeConfigAdapter;
 import net.shadowfacts.shadowmc.event.ShadowMCEventHandler;
+import net.shadowfacts.shadowmc.flair.FlairManager;
 import net.shadowfacts.shadowmc.oxygen.OxygenHandler;
 import net.shadowfacts.shadowmc.oxygen.OxygenProvider;
 import net.shadowfacts.shadowmc.oxygen.OxygenReceiver;
@@ -70,6 +72,12 @@ public class ShadowMC {
 		registerCapabilities();
 
 		MinecraftForge.EVENT_BUS.register(new ShadowMCEventHandler());
+	}
+
+	@Mod.EventHandler
+	public void init(FMLInitializationEvent event) {
+		FlairManager.initCommon();
+		proxy.init(event);
 	}
 
 	@Mod.EventHandler
