@@ -1,0 +1,23 @@
+#top {
+	vertical-layout: top
+}
+
+#left {
+	horizontal-layout: left
+}
+
+stack {
+	orientation: vertical
+	stack-spacing: 5
+}
+
+#horizontalStack {
+	horizontal-layout: left
+	orientation: horizontal !important
+	margin-left: 10
+}
+
+#copy {
+	horizontal-layout: right
+	margin-right: 12
+}

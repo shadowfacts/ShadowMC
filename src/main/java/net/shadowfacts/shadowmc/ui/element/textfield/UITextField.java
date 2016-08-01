@@ -28,11 +28,12 @@ import java.util.regex.Pattern;
  */
 public class UITextField extends UIElementBase implements UIMouseInteractable, UIKeyInteractable {
 
-	@Getter
+	@Getter @Setter
 	protected String text;
 	protected Pattern validator;
 	protected Consumer<String> textChangeHandler;
 	protected boolean focused;
+	@Setter
 	protected boolean enabled = true;
 	protected int cursorPos;
 	protected int cursorCounter;

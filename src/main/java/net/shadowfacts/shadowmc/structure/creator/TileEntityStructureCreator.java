@@ -17,15 +17,14 @@ import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
  */
 public class TileEntityStructureCreator extends BaseTileEntity {
 
-	private static final int COPIED_ID = 796512;
 	private static final int SIZE_ID = 796513;
 
 	@AutoSerializeNBT
-	private int xSize = 3;
+	int xSize = 3;
 	@AutoSerializeNBT
-	private int ySize = 3;
+	int ySize = 3;
 	@AutoSerializeNBT
-	private int zSize = 3;
+	int zSize = 3;
 
 	@Override
 	public void onLoad() {
@@ -36,10 +35,7 @@ public class TileEntityStructureCreator extends BaseTileEntity {
 
 	void handleActivated(EntityPlayer player, EnumFacing side) {
 		if (player.isSneaking()) {
-			if (worldObj.isRemote) {
-				DesktopUtils.copyToClipboard(StructureManager.INSTANCE.toJson(new Structure(worldObj, getBox())));
-				ShadowMC.proxy.sendSpamlessMessage(player, new TextComponentString("Copied structure JSON to clipboard"), COPIED_ID);
-			}
+			player.openGui(ShadowMC.instance, 0, player.worldObj, pos.getX(), pos.getY(), pos.getZ());
 		} else {
 			if (!worldObj.isRemote) {
 				xSize += side.getFrontOffsetX();
