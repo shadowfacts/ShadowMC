@@ -2,6 +2,7 @@ package net.shadowfacts.shadowmc.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.shadowmc.item.ItemModelProvider;
 import net.shadowfacts.shadowmc.item.OreDictItem;
@@ -26,7 +27,7 @@ public abstract class ModBlocks {
 			GameRegistry.register(itemBlock);
 		}
 
-		if (block instanceof ItemModelProvider) {
+		if (FMLCommonHandler.instance().getSide().isClient() && block instanceof ItemModelProvider) {
 			((ItemModelProvider)block).initItemModel();
 		}
 		if (block instanceof OreDictItem) {

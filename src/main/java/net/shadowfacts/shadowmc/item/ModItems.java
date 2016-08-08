@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowmc.item;
 
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -13,7 +14,7 @@ public abstract class ModItems {
 	protected <T extends Item> T register(T item) {
 		GameRegistry.register(item);
 
-		if (item instanceof ItemModelProvider) {
+		if (FMLCommonHandler.instance().getSide().isClient() && item instanceof ItemModelProvider) {
 			((ItemModelProvider)item).initItemModel();
 		}
 		if (item instanceof OreDictItem) {
