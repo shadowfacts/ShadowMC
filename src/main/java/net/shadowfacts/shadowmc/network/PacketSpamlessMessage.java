@@ -20,7 +20,7 @@ public class PacketSpamlessMessage extends PacketBase<PacketSpamlessMessage, IMe
 
 	@Override
 	public IMessage onMessage(PacketSpamlessMessage message, MessageContext ctx) {
-		ShadowMC.proxy.sendSpamlessMessage(Minecraft.getMinecraft().thePlayer, message.msg, message.id);
+		ShadowMC.proxy.sendSpamlessMessage(ShadowMC.proxy.getClientPLayer(), message.msg, message.id);
 		return null;
 	}
 
