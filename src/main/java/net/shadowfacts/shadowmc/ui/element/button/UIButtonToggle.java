@@ -1,8 +1,7 @@
-package net.shadowfacts.shadowmc.ui.style;
+package net.shadowfacts.shadowmc.ui.element.button;
 
 import lombok.Setter;
 import net.shadowfacts.shadowmc.ui.UIDimensions;
-import net.shadowfacts.shadowmc.ui.element.button.UIButtonBase;
 import net.shadowfacts.shadowmc.ui.util.UIHelper;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
