@@ -27,6 +27,8 @@ public class UIContainerWrapper extends GuiContainer {
 	@Setter
 	private Set<UIKeyInteractable> keyHandlers = new LinkedHashSet<>();
 	private Set<UIElement> children = new LinkedHashSet<>();
+	@Setter
+	private Runnable updateHandler;
 
 	public UIContainerWrapper(Container container) {
 		super(container);
@@ -70,6 +72,10 @@ public class UIContainerWrapper extends GuiContainer {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
+
+		if (updateHandler != null) {
+			updateHandler.run();
+		}
 
 		children.stream()
 				.filter(e -> e instanceof ITickable)

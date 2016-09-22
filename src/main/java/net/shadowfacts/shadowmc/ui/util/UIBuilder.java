@@ -22,6 +22,7 @@ public class UIBuilder {
 
 	private final Set<UIElement> children = new LinkedHashSet<>();
 	private final Set<UIKeyInteractable> keyHandlers = new LinkedHashSet<>();
+	private Runnable updateHandler;
 
 	public UIBuilder() {
 		keyHandlers.add((keyCode, keyChar) -> {
@@ -56,11 +57,17 @@ public class UIBuilder {
 		return this;
 	}
 
+	public UIBuilder setUpdateHandler(Runnable updateHandler) {
+		this.updateHandler = updateHandler;
+		return this;
+	}
+
 	public GuiScreen createScreen() {
 		UIScreenWrapper wrapper = new UIScreenWrapper();
 		children.forEach(wrapper::add);
 		wrapper.layout();
 		wrapper.setKeyHandlers(keyHandlers);
+		wrapper.setUpdateHandler(updateHandler);
 		return wrapper;
 	}
 
@@ -69,6 +76,7 @@ public class UIBuilder {
 		children.forEach(wrapper::add);
 		wrapper.layout();
 		wrapper.setKeyHandlers(keyHandlers);
+		wrapper.setUpdateHandler(updateHandler);
 		return wrapper;
 	}
 
