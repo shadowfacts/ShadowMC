@@ -14,7 +14,6 @@ import net.shadowfacts.shadowmc.ShadowMC;
 import net.shadowfacts.shadowmc.flair.FlairManager;
 import net.shadowfacts.shadowmc.network.PacketRequestTEUpdate;
 import net.shadowfacts.shadowmc.network.PacketSpamlessMessage;
-import net.shadowfacts.shadowmc.network.PacketSpawnItem;
 import net.shadowfacts.shadowmc.network.PacketUpdateTE;
 
 /**
@@ -32,11 +31,10 @@ public class CommonProxy {
 	}
 
 	private void registerPackets() {
-		ShadowMC.network.registerMessage(PacketSpawnItem.class, PacketSpawnItem.class, 0, Side.SERVER);
-		ShadowMC.network.registerMessage(PacketRequestTEUpdate.class, PacketRequestTEUpdate.class, 1, Side.SERVER);
-		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 2, Side.CLIENT);
-		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 2, Side.SERVER);
-		ShadowMC.network.registerMessage(PacketSpamlessMessage.class, PacketSpamlessMessage.class, 3, Side.CLIENT);
+		ShadowMC.network.registerMessage(PacketRequestTEUpdate.class, PacketRequestTEUpdate.class, 0, Side.SERVER);
+		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 1, Side.CLIENT);
+		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 1, Side.SERVER);
+		ShadowMC.network.registerMessage(PacketSpamlessMessage.class, PacketSpamlessMessage.class, 2, Side.CLIENT);
 	}
 
 	public World getClientWorld() {
