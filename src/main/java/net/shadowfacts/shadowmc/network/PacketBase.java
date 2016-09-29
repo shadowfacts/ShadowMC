@@ -72,10 +72,12 @@ public abstract class PacketBase<REQ extends PacketBase, REPLY extends IMessage>
 	}
 
 	private void read(MirrorField f, PacketBuffer buf) {
+		f.setAccessible(true);
 		f.set(this, getHandlers(f).getLeft().read(buf));
 	}
 
 	private void write(MirrorField f, PacketBuffer buf) {
+		f.setAccessible(true);
 		getHandlers(f).getRight().write(f.get(this), buf);
 	}
 
