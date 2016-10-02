@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -14,6 +15,7 @@ import net.shadowfacts.mirror.MirrorField;
 import net.shadowfacts.shadowlib.util.Pair;
 import net.shadowfacts.shadowmc.util.Vector3d;
 
+import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +39,13 @@ public abstract class PacketBase<REQ extends PacketBase, REPLY extends IMessage>
 		addHandlers(NBTTagCompound.class, ByteBufUtils::readTag, (tag, buf) -> ByteBufUtils.writeTag(buf, tag));
 		addHandlers(ItemStack.class, ByteBufUtils::readItemStack, (stack, buf) -> ByteBufUtils.writeItemStack(buf, stack));
 		addHandlers(BlockPos.class, PacketBuffer::readBlockPos, (pos, buf) -> buf.writeBlockPos(pos));
+		addHandlers(ITextComponent.class, buf -> {
+			try {
+				return buf.readTextComponent();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}, (component, buf) -> buf.writeTextComponent(component));
 
 		addHandlers(Vector3d.class, buf -> new Vector3d(buf.readDouble(), buf.readDouble(), buf.readDouble()), (vec, buf) -> {
 			buf.writeDouble(vec.x);
