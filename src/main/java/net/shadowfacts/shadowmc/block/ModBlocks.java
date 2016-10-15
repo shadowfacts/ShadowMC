@@ -24,6 +24,10 @@ public abstract class ModBlocks {
 		GameRegistry.register(block);
 
 		if (itemBlock != null) {
+			if (block instanceof SubtypeBlock) {
+				itemBlock.setHasSubtypes(true);
+			}
+
 			GameRegistry.register(itemBlock);
 		}
 
