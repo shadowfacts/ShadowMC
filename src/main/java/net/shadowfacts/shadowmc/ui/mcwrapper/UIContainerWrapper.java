@@ -29,6 +29,8 @@ public class UIContainerWrapper extends GuiContainer {
 	private Set<UIElement> children = new LinkedHashSet<>();
 	@Setter
 	private Runnable updateHandler;
+	@Setter
+	private Runnable closeHandler;
 
 	public UIContainerWrapper(Container container) {
 		super(container);
@@ -54,6 +56,15 @@ public class UIContainerWrapper extends GuiContainer {
 		}
 
 		return this;
+	}
+
+	@Override
+	public void onGuiClosed() {
+		super.onGuiClosed();
+
+		if (closeHandler != null) {
+			closeHandler.run();
+		}
 	}
 
 	@Override

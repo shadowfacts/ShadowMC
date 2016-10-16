@@ -28,6 +28,8 @@ public class UIScreenWrapper extends GuiScreen {
 	private Set<UIElement> children = new LinkedHashSet<>();
 	@Setter
 	private Runnable updateHandler;
+	@Setter
+	private Runnable closeHandler;
 
 	public UIScreenWrapper() {
 		keyHandlers.add((keyCode, keyChar) -> {
@@ -57,6 +59,15 @@ public class UIScreenWrapper extends GuiScreen {
 		}
 
 		return this;
+	}
+
+	@Override
+	public void onGuiClosed() {
+		super.onGuiClosed();
+
+		if (closeHandler != null) {
+			closeHandler.run();
+		}
 	}
 
 	@Override
