@@ -78,7 +78,9 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 		GlStateManager.disableDepth();
 		if (drawBackground) {
 			int borderWidth = getStyle(UIAttribute.TEXTFIELD_BORDER_WIDTH);
-			UIHelper.drawRect(x - borderWidth, y - borderWidth, dimensions.width + borderWidth * 2, dimensions.height + borderWidth * 2, getStyle(UIAttribute.TEXTFIELD_CURSOR_COLOR), -1);
+			if (borderWidth > 0) {
+				UIHelper.drawRect(x - borderWidth, y - borderWidth, dimensions.width + borderWidth * 2, dimensions.height + borderWidth * 2, getStyle(UIAttribute.TEXTFIELD_CURSOR_COLOR), -1);
+			}
 			UIHelper.drawRect(x, y, dimensions.width, dimensions.height, getStyle(UIAttribute.TEXTFIELD_BACKGROUND_COLOR), -1);
 		}
 
@@ -126,6 +128,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 			drawCursorVertical(k1, i1 - 1, l1 - 1, i1 + 1 + mc.fontRendererObj.FONT_HEIGHT);
 		}
 		GlStateManager.enableDepth();
+		GlStateManager.color(1, 1, 1, 1);
 	}
 
 	@Override
