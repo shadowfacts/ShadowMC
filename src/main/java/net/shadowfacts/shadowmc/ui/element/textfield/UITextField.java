@@ -70,7 +70,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 
 	@Override
 	public UIDimensions getPreferredDimensions() {
-		return new UIDimensions(preferredWidth, 20);
+		return new UIDimensions(preferredWidth, drawBackground ? 20 : 12);
 	}
 
 	@Override
