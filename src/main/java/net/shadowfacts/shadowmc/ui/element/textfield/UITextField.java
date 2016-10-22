@@ -97,9 +97,11 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 
 		k = Math.min(k, s.length());
 
+		boolean shadow = getStyle(UIAttribute.TEXTFIELD_SHADOW);
+
 		if (s.length() > 0) {
 			String s1 = flag ? s.substring(0, j) : s;
-			j1 = mc.fontRendererObj.drawStringWithShadow(s1, l, i1, UIHelper.toARGB(color));
+			j1 = mc.fontRendererObj.drawString(s1, l, i1, UIHelper.toARGB(color), shadow);
 		}
 
 		boolean flag2 = cursorCounter < text.length() || text.length() >= maxStringLength;
@@ -112,14 +114,14 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 		}
 
 		if (s.length() > 0 && flag && j < s.length()) {
-			j1 = mc.fontRendererObj.drawStringWithShadow(s.substring(j), j1, i1, UIHelper.toARGB(color));
+			j1 = mc.fontRendererObj.drawString(s.substring(j), j1, i1, UIHelper.toARGB(color), shadow);
 		}
 
 		if (flag1) {
 			if (flag2) {
 				Gui.drawRect(k1, i1 - 1, k1 + 1, i1 + 1 + mc.fontRendererObj.FONT_HEIGHT, UIHelper.toARGB(getStyle(UIAttribute.TEXTFIELD_CURSOR_COLOR)));
 			} else {
-				mc.fontRendererObj.drawStringWithShadow("_", k1, i1, UIHelper.toARGB(color));
+				mc.fontRendererObj.drawString("_", k1, i1, UIHelper.toARGB(color), shadow);
 			}
 		}
 

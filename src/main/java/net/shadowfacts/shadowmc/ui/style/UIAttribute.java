@@ -60,6 +60,7 @@ public class UIAttribute<T> {
 	public static final UIAttribute<Integer> TEXTFIELD_BORDER_WIDTH = new UIAttribute<>("textfield-border-width", 1, IntegerFactory.INSTANCE);
 	public static final UIAttribute<Color> TEXTFIELD_CURSOR_COLOR = new UIAttribute<>("textfield-cursor-color", new Color(-3092272), ColorFactory.INSTANCE);
 	public static final UIAttribute<Color> TEXTFIELD_SELECTION_COLOR = new UIAttribute<>("textfield-selection-color", Color.BLUE, ColorFactory.INSTANCE);
+	public static final UIAttribute<Boolean> TEXTFIELD_SHADOW = new UIAttribute<>("textfield-shadow", true, BooleanFactory.INSTANCE);
 
 	@Getter
 	private final T defaultVal;
