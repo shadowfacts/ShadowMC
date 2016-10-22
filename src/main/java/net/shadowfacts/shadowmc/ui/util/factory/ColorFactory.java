@@ -18,6 +18,9 @@ public class ColorFactory implements ValueFactory<Color> {
 	private static final Map<String, Color> keywords = new HashMap<>();
 
 	static {
+//		Other
+		keywords.put("transparent", new Color(0, 0, 0, 0));
+
 //		Level 1
 		keywords.put("black", new Color(0x000000));
 		keywords.put("silver", new Color(0xC0C0C0));
