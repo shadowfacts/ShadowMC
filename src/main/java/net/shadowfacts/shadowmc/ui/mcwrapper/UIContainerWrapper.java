@@ -31,6 +31,8 @@ public class UIContainerWrapper extends GuiContainer {
 	private Runnable updateHandler;
 	@Setter
 	private Runnable closeHandler;
+	@Setter
+	private boolean pausesGame;
 
 	public UIContainerWrapper(Container container) {
 		super(container);
@@ -56,6 +58,11 @@ public class UIContainerWrapper extends GuiContainer {
 		}
 
 		return this;
+	}
+
+	@Override
+	public boolean doesGuiPauseGame() {
+		return pausesGame;
 	}
 
 	@Override

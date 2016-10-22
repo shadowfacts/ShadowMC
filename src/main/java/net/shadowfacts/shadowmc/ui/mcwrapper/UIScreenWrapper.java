@@ -30,6 +30,8 @@ public class UIScreenWrapper extends GuiScreen {
 	private Runnable updateHandler;
 	@Setter
 	private Runnable closeHandler;
+	@Setter
+	private boolean pausesGame;
 
 	public UIScreenWrapper() {
 		keyHandlers.add((keyCode, keyChar) -> {
@@ -59,6 +61,11 @@ public class UIScreenWrapper extends GuiScreen {
 		}
 
 		return this;
+	}
+
+	@Override
+	public boolean doesGuiPauseGame() {
+		return pausesGame;
 	}
 
 	@Override

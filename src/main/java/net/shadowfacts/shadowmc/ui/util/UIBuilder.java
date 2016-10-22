@@ -24,6 +24,7 @@ public class UIBuilder {
 	private final Set<UIKeyInteractable> keyHandlers = new LinkedHashSet<>();
 	private Runnable updateHandler;
 	private Runnable closeHandler;
+	private Boolean pausesGame;
 
 	public UIBuilder() {
 		keyHandlers.add((keyCode, keyChar) -> {
@@ -68,6 +69,11 @@ public class UIBuilder {
 		return this;
 	}
 
+	public UIBuilder setPausesGame(boolean pausesGame) {
+		this.pausesGame = pausesGame;
+		return this;
+	}
+
 	public GuiScreen createScreen() {
 		UIScreenWrapper wrapper = new UIScreenWrapper();
 		children.forEach(wrapper::add);
@@ -75,6 +81,7 @@ public class UIBuilder {
 		wrapper.setKeyHandlers(keyHandlers);
 		wrapper.setUpdateHandler(updateHandler);
 		wrapper.setCloseHandler(closeHandler);
+		wrapper.setPausesGame(pausesGame != null ? pausesGame : true);
 		return wrapper;
 	}
 
@@ -85,6 +92,7 @@ public class UIBuilder {
 		wrapper.setKeyHandlers(keyHandlers);
 		wrapper.setUpdateHandler(updateHandler);
 		wrapper.setCloseHandler(closeHandler);
+		wrapper.setPausesGame(pausesGame != null ? pausesGame : false);
 		return wrapper;
 	}
 
