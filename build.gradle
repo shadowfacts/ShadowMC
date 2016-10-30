@@ -7,7 +7,8 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+		classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
 	}
 }
 
@@ -18,6 +19,7 @@ plugins {
 }
 
 apply plugin: "net.minecraftforge.gradle.forge"
+apply plugin: "kotlin"
 
 version = minecraft_version + "-" + mod_version
 
@@ -60,14 +62,22 @@ dependencies {
 	compile group: "net.shadowfacts", name: "Mirror", version: mirror_version
 
 	compile group: "org.projectlombok", name: "lombok", version: lombok_version
+
+	compile group: "org.jetbrains.kotlin", name: "kotlin-stdlib", version: kotlin_version
+	compile group: "org.jetbrains.kotlin", name: "kotlin-reflect", version: kotlin_version
+	compile group: "org.jetbrains.kotlin", name: "kotlin-runtime", version: kotlin_version
 }
 
 shadowJar {
 	classifier = ""
 	dependencies {
-		include(dependency("net.shadowfacts:ShadowLib:1.8.1"))
-		include(dependency("net.shadowfacts:ShadowConfig:2.1.0"))
-		include(dependency("net.shadowfacts:Mirror:1.0.2"))
+		include(dependency("net.shadowfacts:ShadowLib:${shadowlib_version}"))
+		include(dependency("net.shadowfacts:ShadowConfig:${shadowconfig_version}"))
+		include(dependency("net.shadowfacts:Mirror:${mirror_version}"))
+
+		include(dependency("org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"))
+		include(dependency("org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"))
+		include(dependency("org.jetbrains.kotlin:kotlin-runtime:${kotlin_version}"))
 	}
 	exclude "test/*"
 }
