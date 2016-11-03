@@ -21,6 +21,7 @@ import net.shadowfacts.shadowmc.ui.element.button.*;
 import net.shadowfacts.shadowmc.ui.element.view.UIFixedView;
 import net.shadowfacts.shadowmc.ui.mcwrapper.UIContainerWrapper;
 import net.shadowfacts.shadowmc.ui.style.*;
+import test.ui.dsl.UIDSLTestKt;
 
 import java.util.function.Consumer;
 
@@ -68,6 +69,7 @@ public class ModTest {
 					return new ContainerTest(player, (TileEntityTest) world.getTileEntity(new BlockPos(x, y, z)));
 				case 2:
 				case 3:
+				case 4:
 					return new ContainerPlayerInv(new BlockPos(x, y, z), player.inventory);
 				default:
 					return null;
@@ -92,6 +94,8 @@ public class ModTest {
 					return new UIContainerWrapper(new ContainerPlayerInv(new BlockPos(x, y, z), player.inventory)).add(view).layout();
 				case 3:
 					return UIContainerTest.create(player.inventory);
+				case 4:
+					return UIDSLTestKt.createGui(player);
 				default:
 					return null;
 			}

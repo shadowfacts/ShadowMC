@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.ui.element;
 
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

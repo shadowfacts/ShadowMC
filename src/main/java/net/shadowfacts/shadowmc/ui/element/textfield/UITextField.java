@@ -199,7 +199,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 			s = s + text.substring(j);
 		}
 
-		if (validator.matcher(s).matches()) {
+		if (validator == null || validator.matcher(s).matches()) {
 			text = s;
 			moveCursorBy(i - selectionEnd + l);
 

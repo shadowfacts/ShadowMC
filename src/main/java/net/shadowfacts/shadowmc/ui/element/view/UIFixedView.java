@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.ui.element.view;
 
-import lombok.AllArgsConstructor;
 import net.shadowfacts.shadowmc.ui.UIDimensions;
 import net.shadowfacts.shadowmc.ui.UIElement;
 import net.shadowfacts.shadowmc.ui.style.UIAttribute;

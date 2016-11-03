@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.ui.element;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.resources.I18n;
 import net.shadowfacts.shadowmc.oxygen.OxygenHandler;
 

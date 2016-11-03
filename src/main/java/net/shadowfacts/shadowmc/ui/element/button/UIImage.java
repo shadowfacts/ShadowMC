@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author shadowfacts
  */
+// TODO: Move me to ui.element in 4.0.0
 public class UIImage extends UIElementBase {
 
 	private ResourceLocation texture;

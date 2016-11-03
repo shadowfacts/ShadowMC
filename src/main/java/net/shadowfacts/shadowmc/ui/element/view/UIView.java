@@ -8,6 +8,7 @@ import net.shadowfacts.shadowmc.ui.element.UIElementBase;
 import net.shadowfacts.shadowmc.ui.util.UIHelper;
 import net.shadowfacts.shadowmc.util.MouseButton;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -26,6 +27,12 @@ public abstract class UIView extends UIElementBase implements UIMouseInteractabl
 	public void add(UIElement element) {
 		element.setParent(this);
 		children.add(element);
+	}
+
+	public void addAll(Collection<UIElement> elements) {
+		for (UIElement element : elements) {
+			add(element);
+		}
 	}
 
 	@Override

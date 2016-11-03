@@ -1,0 +1,7 @@
+#top {
+	vertical-layout: top
+}
+
+#label {
+	text-bold: true
+}
