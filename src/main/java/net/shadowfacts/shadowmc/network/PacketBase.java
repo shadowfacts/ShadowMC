@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author shadowfacts
@@ -46,12 +48,16 @@ public abstract class PacketBase<REQ extends PacketBase, REPLY extends IMessage>
 				throw new RuntimeException(e);
 			}
 		}, (component, buf) -> buf.writeTextComponent(component));
-
 		addHandlers(Vector3d.class, buf -> new Vector3d(buf.readDouble(), buf.readDouble(), buf.readDouble()), (vec, buf) -> {
 			buf.writeDouble(vec.x);
 			buf.writeDouble(vec.y);
 			buf.writeDouble(vec.z);
 		});
+		addHandlers(UUID.class, buf -> new UUID(buf.readLong(), buf.readLong()), (val, buf) -> {
+			buf.writeLong(val.getMostSignificantBits());
+			buf.writeLong(val.getLeastSignificantBits());
+		});
+		addHandlers(EnumHand.class, buf -> buf.readBoolean() ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND, (val, buf) -> buf.writeBoolean(val == EnumHand.MAIN_HAND));
 	}
 
 	@Override
