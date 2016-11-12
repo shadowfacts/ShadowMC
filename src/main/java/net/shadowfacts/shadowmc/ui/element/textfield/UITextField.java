@@ -17,6 +17,7 @@ import net.shadowfacts.shadowmc.ui.element.UIElementBase;
 import net.shadowfacts.shadowmc.ui.style.UIAttribute;
 import net.shadowfacts.shadowmc.ui.util.UIHelper;
 import net.shadowfacts.shadowmc.util.MouseButton;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
@@ -56,7 +57,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 	}
 
 	public UITextField(Consumer<String> textChangeHandler, String id, String... classes) {
-		this("", Pattern.compile(".+"), textChangeHandler, id, classes);
+		this("", Pattern.compile("^|.+"), textChangeHandler, id, classes);
 	}
 
 	protected void handleChange() {
@@ -275,7 +276,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 				}
 			} else {
 				switch (keyCode) {
-					case 14:
+					case Keyboard.KEY_BACK:
 						if (enabled) {
 							if (GuiScreen.isCtrlKeyDown()) {
 								deleteWords(-1);
@@ -285,14 +286,14 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 							handleChange();
 						}
 						break;
-					case 199:
+					case Keyboard.KEY_HOME:
 						if (GuiScreen.isShiftKeyDown()) {
 							setSelectionPos(0);
 						} else {
 							cursorPos = 0;
 						}
 						break;
-					case 203:
+					case Keyboard.KEY_LEFT:
 						if (GuiScreen.isShiftKeyDown()) {
 							if (GuiScreen.isCtrlKeyDown()) {
 								setSelectionPos(getNthWordFromPos(-1, selectionEnd));
@@ -308,7 +309,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 						handleChange();
 
 						break;
-					case 205:
+					case Keyboard.KEY_RIGHT:
 						if (GuiScreen.isShiftKeyDown()) {
 							if (GuiScreen.isCtrlKeyDown()) {
 								setSelectionPos(getNthWordFromPos(1, selectionEnd));
@@ -321,14 +322,14 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 							moveCursorBy(1);
 						}
 						break;
-					case 207:
+					case Keyboard.KEY_END:
 						if (GuiScreen.isShiftKeyDown()) {
 							setSelectionPos(text.length());
 						} else {
 							setCursorPos(text.length());
 						}
 						break;
-					case 211:
+					case Keyboard.KEY_DELETE:
 						if (enabled) {
 							if (GuiScreen.isCtrlKeyDown()) {
 								deleteWords(1);
