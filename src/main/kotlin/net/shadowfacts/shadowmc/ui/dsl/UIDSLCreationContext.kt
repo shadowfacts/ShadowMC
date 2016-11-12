@@ -34,6 +34,10 @@ abstract class CreationContext<out T> {
 	var id: String = ""
 	var classes: MutableList<String> = mutableListOf()
 
+	fun addClass(clazz: String) {
+		classes.add(clazz)
+	}
+
 	abstract internal fun create(): T
 }
 
