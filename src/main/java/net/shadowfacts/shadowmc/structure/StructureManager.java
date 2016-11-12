@@ -88,6 +88,13 @@ public class StructureManager implements IForgeRegistry<Structure> {
 	}
 
 	@Override
+	public void registerAll(Structure... values) {
+		for (Structure structure : values) {
+			register(structure);
+		}
+	}
+
+	@Override
 	public boolean containsKey(ResourceLocation key) {
 		return map.containsKey(key);
 	}
