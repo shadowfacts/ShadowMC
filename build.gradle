@@ -60,12 +60,8 @@ dependencies {
 	compile group: "net.shadowfacts", name: "ShadowLib", version: shadowlib_version
 	compile group: "net.shadowfacts", name: "ShadowConfig", version: shadowconfig_version
 	compile group: "net.shadowfacts", name: "Mirror", version: mirror_version
-
+	compile group: "net.shadowfacts", name: "Forgelin", version: forgelin_version
 	compile group: "org.projectlombok", name: "lombok", version: lombok_version
-
-	compile group: "org.jetbrains.kotlin", name: "kotlin-stdlib", version: kotlin_version
-	compile group: "org.jetbrains.kotlin", name: "kotlin-reflect", version: kotlin_version
-	compile group: "org.jetbrains.kotlin", name: "kotlin-runtime", version: kotlin_version
 }
 
 shadowJar {
@@ -74,10 +70,6 @@ shadowJar {
 		include(dependency("net.shadowfacts:ShadowLib:${shadowlib_version}"))
 		include(dependency("net.shadowfacts:ShadowConfig:${shadowconfig_version}"))
 		include(dependency("net.shadowfacts:Mirror:${mirror_version}"))
-
-		include(dependency("org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"))
-		include(dependency("org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"))
-		include(dependency("org.jetbrains.kotlin:kotlin-runtime:${kotlin_version}"))
 	}
 	exclude "test/*"
 }
