@@ -20,7 +20,7 @@ public class TESRStructureCreator extends TileEntitySpecialRenderer<TileEntitySt
 
 		Tessellator tessellator = Tessellator.getInstance();
 
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayer player = Minecraft.getMinecraft().player;
 		double playerX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
 		double playerY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
 		double playerZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;

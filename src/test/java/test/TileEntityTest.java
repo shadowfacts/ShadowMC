@@ -2,10 +2,12 @@ package test;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -23,7 +25,7 @@ public class TileEntityTest extends BaseTileEntity implements IInventory, ITicka
 	@CapHolder(capabilities = OxygenHandler.class)
 	private OxygenTank oxygen = new OxygenTank(1000, 50, null);
 
-	private ItemStack[] chestContents = new ItemStack[27];
+	private NonNullList<ItemStack> chestContents = NonNullList.withSize(27, ItemStack.EMPTY);
 
 	public FluidTank tank = new FluidTank(new FluidStack(FluidRegistry.WATER, 250), 5000);
 
@@ -44,72 +46,58 @@ public class TileEntityTest extends BaseTileEntity implements IInventory, ITicka
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		NBTTagList nbttaglist = tag.getTagList("Items", 10);
-		this.chestContents = new ItemStack[this.getSizeInventory()];
 
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		{
-			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-			int j = nbttagcompound.getByte("Slot") & 255;
-
-			if (j >= 0 && j < this.chestContents.length)
-			{
-				this.chestContents[j] = ItemStack.loadItemStackFromNBT(nbttagcompound);
-			}
-		}
+		chestContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+		ItemStackHelper.loadAllItems(tag, chestContents);
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		NBTTagList nbttaglist = new NBTTagList();
+		ItemStackHelper.saveAllItems(tag, chestContents);
 
-		for (int i = 0; i < this.chestContents.length; ++i)
-		{
-			if (this.chestContents[i] != null)
-			{
-				NBTTagCompound nbttagcompound = new NBTTagCompound();
-				nbttagcompound.setByte("Slot", (byte)i);
-				this.chestContents[i].writeToNBT(nbttagcompound);
-				nbttaglist.appendTag(nbttagcompound);
-			}
-		}
-
-		tag.setTag("Items", nbttaglist);
 		return tag;
 	}
 
 	@Override
 	public int getSizeInventory() {
-		return chestContents.length;
+		return chestContents.size();
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return !chestContents.stream()
+				.filter(it -> !it.isEmpty())
+				.findFirst()
+				.isPresent();
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int index)
 	{
-		return this.chestContents[index];
+		return this.chestContents.get(index);
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count)
 	{
-		if (this.chestContents[index] != null)
+		if (!this.chestContents.get(index).isEmpty())
 		{
-			if (this.chestContents[index].stackSize <= count)
+			if (this.chestContents.get(index).getCount() <= count)
 			{
-				ItemStack itemstack1 = this.chestContents[index];
-				this.chestContents[index] = null;
+				ItemStack itemstack1 = this.chestContents.get(index);
+				this.chestContents.set(index, ItemStack.EMPTY);
 				this.markDirty();
 				return itemstack1;
 			}
 			else
 			{
-				ItemStack itemstack = this.chestContents[index].splitStack(count);
+				ItemStack itemstack = this.chestContents.get(index).splitStack(count);
 
-				if (this.chestContents[index].stackSize == 0)
+				if (this.chestContents.get(index).getCount() == 0)
 				{
-					this.chestContents[index] = null;
+					this.chestContents.set(index, ItemStack.EMPTY);
 				}
 
 				this.markDirty();
@@ -125,10 +113,10 @@ public class TileEntityTest extends BaseTileEntity implements IInventory, ITicka
 	@Override
 	public ItemStack removeStackFromSlot(int index)
 	{
-		if (this.chestContents[index] != null)
+		if (!this.chestContents.get(index).isEmpty())
 		{
-			ItemStack itemstack = this.chestContents[index];
-			this.chestContents[index] = null;
+			ItemStack itemstack = this.chestContents.get(index);
+			this.chestContents.set(index, ItemStack.EMPTY);
 			return itemstack;
 		}
 		else
@@ -140,11 +128,11 @@ public class TileEntityTest extends BaseTileEntity implements IInventory, ITicka
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack)
 	{
-		this.chestContents[index] = stack;
+		this.chestContents.set(index, stack);
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
+		if (!stack.isEmpty() && stack.getCount() > this.getInventoryStackLimit())
 		{
-			stack.stackSize = this.getInventoryStackLimit();
+			stack.setCount(this.getInventoryStackLimit());
 		}
 
 		this.markDirty();
@@ -156,9 +144,8 @@ public class TileEntityTest extends BaseTileEntity implements IInventory, ITicka
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player)
-	{
-		return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -210,4 +197,6 @@ public class TileEntityTest extends BaseTileEntity implements IInventory, ITicka
 	public ITextComponent getDisplayName() {
 		return null;
 	}
+
+
 }

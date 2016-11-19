@@ -12,9 +12,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.shadowfacts.shadowmc.gui.GUIBuilder;
-import net.shadowfacts.shadowmc.gui.component.GUIComponent;
-import net.shadowfacts.shadowmc.gui.component.GUIComponentTexture;
 import net.shadowfacts.shadowmc.inventory.ContainerPlayerInv;
 import net.shadowfacts.shadowmc.structure.StructureManager;
 import net.shadowfacts.shadowmc.ui.element.button.*;
@@ -54,12 +51,6 @@ public class ModTest {
 		StructureManager.INSTANCE.register(new ResourceLocation(modId, "test"));
 	}
 
-	private static GuiScreen create1() {
-		return new GUIBuilder()
-				.addComponent(new GUIComponentTexture(0, 0, 256, 256, GUIComponent.widgetTextures))
-				.wrap();
-	}
-
 	public static class TestGUIHandler implements IGuiHandler {
 
 		@Override
@@ -79,10 +70,6 @@ public class ModTest {
 		@Override
 		public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 			switch (ID) {
-				case 0:
-					return GUITest.create(player, (TileEntityTest)world.getTileEntity(new BlockPos(x, y, z)));
-				case 1:
-					return create1();
 				case 2:
 					UIFixedView view = new UIFixedView(176, 166, "root");
 					UIFixedView top = new UIFixedView(176, 166 / 2, "top");

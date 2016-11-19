@@ -32,7 +32,7 @@ public abstract class BaseTileEntity extends TileEntity {
 		if (getWorld().isRemote) {
 			ShadowMC.network.sendToServer(new PacketUpdateTE(this));
 		} else {
-			ShadowMC.network.sendToAllAround(new PacketUpdateTE(this), new NetworkRegistry.TargetPoint(worldObj.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
+			ShadowMC.network.sendToAllAround(new PacketUpdateTE(this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
 		}
 	}
 

@@ -1,52 +1,53 @@
 package net.shadowfacts.shadowmc.command;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.command.WrongUsageException;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandHelp implements SubCommand {
-	public static CommandHelp instance = new CommandHelp();
+/**
+ * @author shadowfacts
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class CommandHelp extends ShadowCommand {
+
+	public static final CommandHelp INSTANCE = new CommandHelp();
 
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "help";
 	}
 
 	@Override
-	public void handleCommand(ICommandSender sender, String[] args) throws CommandException {
-		if (args.length != 0) {
-			if (args.length == 1) {
-				StringBuilder output = new StringBuilder();
-				List<String> commandList = new ArrayList<>(CommandHandler.getCommandList());
-
-				commandList.stream()
-						.map(s -> TextFormatting.YELLOW + "/shadow " + s + TextFormatting.WHITE + ", ")
-						.forEach(output::append);
-
-				output.delete(output.length() - 2, output.length()); // remove the last 2 characters (the ending ", ")
-
-				sender.addChatMessage(new TextComponentString(output.toString()));
-			} else if (args.length > 1) {
-				CommandHandler.commands.get(args[1]).handleHelpRequest(sender, args);
-			}
-		}
-	}
-	
-	@Override
-	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
-		if (args.length == 2) {
-			return new ArrayList<>(CommandHandler.commands.keySet());
-		}
-		return null;
+	public String getUsage(ICommandSender sender) {
+		return "/shadow help <command>";
 	}
 
 	@Override
-	public void handleHelpRequest(ICommandSender sender, String[] args) {
-		sender.addChatMessage(new TextComponentString("Help info about all " + TextFormatting.YELLOW + "/shadow" + TextFormatting.WHITE + " commands."));
+	protected void addHelpMessage(ICommandSender sender) {
+		sender.sendMessage(new TextComponentString(String.format("Help info about all %s/shadow%s commands.", TextFormatting.YELLOW, TextFormatting.WHITE)));
 	}
-			
+
+	@Override
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+		if (args.length < 1) {
+			throw new WrongUsageException(getUsage(sender));
+		}
+
+		CommandShadow.INSTANCE.getCommand(args[0]).handleHelp(sender);
+	}
+
+	@Override
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
+		return new ArrayList<>(CommandShadow.INSTANCE.getCommandMap().keySet());
+	}
 }

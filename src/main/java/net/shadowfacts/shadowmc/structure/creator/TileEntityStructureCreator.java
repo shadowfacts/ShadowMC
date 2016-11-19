@@ -28,16 +28,16 @@ public class TileEntityStructureCreator extends BaseTileEntity {
 
 	@Override
 	public void onLoad() {
-		if (worldObj.isRemote) {
+		if (world.isRemote) {
 			ShadowMC.network.sendToServer(new PacketRequestTEUpdate(this));
 		}
 	}
 
 	void handleActivated(EntityPlayer player, EnumFacing side) {
 		if (player.isSneaking()) {
-			player.openGui(ShadowMC.instance, 0, player.worldObj, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(ShadowMC.instance, 0, player.world, pos.getX(), pos.getY(), pos.getZ());
 		} else {
-			if (!worldObj.isRemote) {
+			if (!world.isRemote) {
 				xSize += side.getFrontOffsetX();
 				ySize += side.getFrontOffsetY();
 				zSize += side.getFrontOffsetZ();

@@ -19,7 +19,7 @@ public class EntityUtils {
 		Vec3d eyePos = entity.getPositionEyes(0);
 		Vec3d lookVec = entity.getLook(0);
 		Vec3d vec = eyePos.addVector(lookVec.xCoord * distance, lookVec.yCoord * distance, lookVec.zCoord * distance);
-		return entity.worldObj.rayTraceBlocks(eyePos, vec, false, false, true);
+		return entity.world.rayTraceBlocks(eyePos, vec, false, false, true);
 	}
 
 }

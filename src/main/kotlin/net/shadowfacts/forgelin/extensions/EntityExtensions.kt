@@ -10,5 +10,5 @@ fun Entity.rayTrace(distance: Double): RayTraceResult? {
 	val eyePos = getPositionEyes(0f)
 	val lookVec = getLook(0f)
 	val vec = eyePos.addVector(lookVec.xCoord * distance, lookVec.yCoord * distance, lookVec.zCoord * distance)
-	return worldObj.rayTraceBlocks(eyePos, vec, false, false, true)
+	return world.rayTraceBlocks(eyePos, vec, false, false, true)
 }

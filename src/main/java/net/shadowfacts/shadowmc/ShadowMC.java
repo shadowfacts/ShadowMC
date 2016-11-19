@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.shadowfacts.shadowmc.capability.Storage;
-import net.shadowfacts.shadowmc.command.CommandHandler;
+import net.shadowfacts.shadowmc.command.CommandShadow;
 import net.shadowfacts.shadowmc.config.ForgeConfigAdapter;
 import net.shadowfacts.shadowmc.event.ShadowMCEventHandler;
 import net.shadowfacts.shadowmc.flair.FlairManager;
@@ -32,7 +32,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * @author shadowfacts
  */
-@Mod(modid = ShadowMC.modId, name = ShadowMC.name, version = ShadowMC.version, acceptedMinecraftVersions = "[1.10.2]", guiFactory = "net.shadowfacts.shadowmc.GUIFactory")
+@Mod(modid = ShadowMC.modId, name = ShadowMC.name, version = ShadowMC.version, guiFactory = "net.shadowfacts.shadowmc.GUIFactory")
 public class ShadowMC {
 
 	public static final String modId = "shadowmc";
@@ -85,7 +85,7 @@ public class ShadowMC {
 
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
-		event.registerServerCommand(CommandHandler.instance);
+		event.registerServerCommand(CommandShadow.INSTANCE);
 	}
 
 	@SideOnly(Side.CLIENT)

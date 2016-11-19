@@ -214,7 +214,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 
 	protected void setCursorPos(int pos) {
 		cursorPos = pos;
-		cursorPos = MathHelper.clamp_int(cursorPos, 0, text.length());
+		cursorPos = MathHelper.clamp(cursorPos, 0, text.length());
 		setSelectionPos(cursorPos);
 	}
 
@@ -240,7 +240,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 			lineScrollOffset -= lineScrollOffset - pos;
 		}
 
-		lineScrollOffset = MathHelper.clamp_int(lineScrollOffset, 0, i);
+		lineScrollOffset = MathHelper.clamp(lineScrollOffset, 0, i);
 	}
 
 	@Override

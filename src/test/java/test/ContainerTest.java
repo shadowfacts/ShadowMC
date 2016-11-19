@@ -43,9 +43,9 @@ public class ContainerTest extends Container {
 		}
 	}
 
-	public boolean canInteractWith(EntityPlayer playerIn)
+	public boolean canInteractWith(EntityPlayer player)
 	{
-		return this.lowerChestInventory.isUseableByPlayer(playerIn);
+		return this.lowerChestInventory.isUsableByPlayer(player);
 	}
 
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
@@ -70,9 +70,9 @@ public class ContainerTest extends Container {
 				return null;
 			}
 
-			if (itemstack1.stackSize == 0)
+			if (itemstack1.getCount() == 0)
 			{
-				slot.putStack((ItemStack)null);
+				slot.putStack(null);
 			}
 			else
 			{

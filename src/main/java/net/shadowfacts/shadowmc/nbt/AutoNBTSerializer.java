@@ -126,7 +126,9 @@ public class AutoNBTSerializer {
 	}
 
 	private static ItemStack deserializeItemStack(NBTTagCompound tag, String name) {
-		return tag.hasKey(name) ? ItemStack.loadItemStackFromNBT(tag.getCompoundTag(name)) : null;
+//		TODO: fixme
+		return null;
+//		return tag.hasKey(name) ? ItemStack.loadItemStackFromNBT(tag.getCompoundTag(name)) : null;
 	}
 
 	private static void serializeItemStackArray(NBTTagCompound tag, String name, ItemStack[] val) {
@@ -144,7 +146,8 @@ public class AutoNBTSerializer {
 		ItemStack[] stacks = new ItemStack[tagList.tagCount()];
 
 		for (int i = 0; i < tagList.tagCount(); i++) {
-			stacks[i] = ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(i));
+//			TODO: fixme
+//			stacks[i] = ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(i));
 		}
 
 		return stacks;

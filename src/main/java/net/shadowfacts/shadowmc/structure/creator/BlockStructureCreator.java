@@ -19,12 +19,12 @@ import javax.annotation.Nullable;
 public class BlockStructureCreator extends BlockTE<TileEntityStructureCreator> {
 
 	public BlockStructureCreator() {
-		super(Material.ROCK, "structureCreator");
+		super(Material.ROCK, "structure_creator");
 		setBlockUnbreakable();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		getTileEntity(world, pos).handleActivated(player, side);
 		return true;
 	}

@@ -9,7 +9,7 @@ import net.shadowfacts.shadowmc.ShadowMC
  * @author shadowfacts
  */
 fun EntityPlayer.sendChatMsg(msg: String) {
-	addChatComponentMessage(TextComponentString(msg))
+	sendMessage(TextComponentString(msg))
 }
 
 fun EntityPlayer.sendChatMsg(msg: String, vararg params: Any) {

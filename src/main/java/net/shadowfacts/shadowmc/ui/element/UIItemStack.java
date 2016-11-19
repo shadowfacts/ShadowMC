@@ -74,7 +74,7 @@ public class UIItemStack extends UIElementBase {
 	@Override
 	public void drawTooltip(int mouseX, int mouseY) {
 		if (tooltip && UIHelper.isWithinBounds(mouseX, mouseY, this)) {
-			UIHelper.drawHoveringText(stack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips), mouseX, mouseY);
+			UIHelper.drawHoveringText(stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips), mouseX, mouseY);
 		}
 	}
 

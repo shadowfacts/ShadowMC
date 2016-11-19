@@ -16,7 +16,7 @@ public class ShadowItems extends ModItems {
 	@Override
 	public void init() {
 		if (ShadowMCConfig.enableNuggetIron && !OreDictionary.doesOreNameExist("nuggetIron")) {
-			nuggetIron = register((ItemOreDict)new ItemOreDict("nuggetIron").setCreativeTab(CreativeTabs.MATERIALS));
+			nuggetIron = register((ItemOreDict)new ItemOreDict("nugget_iron", "nuggetIron").setCreativeTab(CreativeTabs.MATERIALS));
 		}
 	}
 

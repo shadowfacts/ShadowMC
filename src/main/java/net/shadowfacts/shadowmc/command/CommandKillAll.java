@@ -1,29 +1,44 @@
 package net.shadowfacts.shadowmc.command;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * @author shadowfacts
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class CommandKillAll extends ShadowCommand {
 
-public class CommandKillAll implements SubCommand {
-
-	public static CommandKillAll instance = new CommandKillAll();
+	public static final CommandKillAll INSTANCE = new CommandKillAll();
 
 	@Override
-	public String getCommandName() {
-	    return "killall";
+	public String getName() {
+		return "killall";
 	}
 
 	@Override
-	public void handleCommand(ICommandSender sender, String[] args) throws CommandException {
+	public String getUsage(ICommandSender sender) {
+		return "/shadow killall <range>";
+	}
+
+	@Override
+	protected void addHelpMessage(ICommandSender sender) {
+		sender.sendMessage(new TextComponentString("Kills all mobs within a specified range."));
+	}
+
+	@Override
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		World world = sender.getEntityWorld();
 		BlockPos pos = sender.getPosition();
 		if (!pos.equals(new BlockPos(0, 0, 0))) {
@@ -32,27 +47,15 @@ public class CommandKillAll implements SubCommand {
 				try {
 					range = Integer.parseInt(args[0]);
 				} catch (NumberFormatException e) {
-					throw new WrongUsageException("Range must be an integer!");
+					throw new WrongUsageException(getUsage(sender));
 				}
 			} else {
-				throw new WrongUsageException("Incorrect number of arguments, see /shadow help killall for more info");
+				throw new WrongUsageException(getUsage(sender));
 			}
 
-
 			world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range))
-					.stream()
 					.forEach(Entity::setDead);
 		}
-	}
-
-	@Override
-	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
-		return new ArrayList<>();
-	}
-
-	@Override
-	public void handleHelpRequest(ICommandSender sender, String[] args) {
-		sender.addChatMessage(new TextComponentString("Kills all mobs within a specified range."));
 	}
 
 }

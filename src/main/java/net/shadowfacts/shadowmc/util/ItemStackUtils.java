@@ -64,7 +64,7 @@ public class ItemStackUtils implements JsonSerializer<ItemStack>, JsonDeserializ
 		obj.add("name", context.serialize(id.getResourceDomain()));
 		obj.add("modId", context.serialize(id.getResourcePath()));
 		obj.add("metadata", context.serialize(src.getItemDamage()));
-		obj.add("stackSize", context.serialize(src.stackSize));
+		obj.add("stackSize", context.serialize(src.getCount()));
 
 		return obj;
 	}

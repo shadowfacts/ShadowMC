@@ -145,7 +145,7 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 			id = Block.REGISTRY.getNameForObject(state.getBlock()).toString();
 
 			properties = new HashMap<>();
-			for (IProperty prop : state.getPropertyNames()) {
+			for (IProperty prop : state.getPropertyKeys()) {
 				properties.put(prop.getName(), prop.getName(state.getValue(prop)));
 			}
 
@@ -272,7 +272,7 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 				id += ":" + meta;
 			}
 			item = id;
-			amount = stack.stackSize;
+			amount = stack.getCount();
 		}
 
 		private ItemStack getStack() {
@@ -299,9 +299,9 @@ public class Structure implements IForgeRegistryEntry<Structure> {
 		}
 
 		public void spawn(World world, BlockPos structureOrigin) {
-			Entity entity = EntityList.createEntityByName(id, world);
+			Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(id), world);
 			entity.setLocationAndAngles(pos[0] + structureOrigin.getX(), pos[1] + structureOrigin.getY(), pos[2] + structureOrigin.getZ(), 0, 0);
-			world.spawnEntityInWorld(entity);
+			world.spawnEntity(entity);
 			if (spawnHandler != null && !spawnHandler.isEmpty()) {
 				try {
 					Class<?> clazz = Class.forName(spawnHandler);
