@@ -24,10 +24,9 @@ public class ContainerBase extends Container {
 		return player.getDistanceSq((double) pos.getX() + .5d, (double) pos.getY() + .5d, (double) pos.getZ() + .5d) <= 64;
 	}
 
-	@Nullable
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
-		ItemStack itemstack = null;
+		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(index);
 
 		if (slot != null && slot.getHasStack()) {
@@ -45,7 +44,7 @@ public class ContainerBase extends Container {
 			}
 
 			if (itemstack1.getCount() == 0) {
-				slot.putStack(null);
+				slot.putStack(ItemStack.EMPTY);
 			} else {
 				slot.onSlotChanged();
 			}
@@ -75,7 +74,7 @@ public class ContainerBase extends Container {
 				ItemStack itemstack = slot.getStack();
 
 				if (slot.isItemValid(stack)) {
-					if (itemstack != null && itemstack.getItem() == stack.getItem() && (!stack.getHasSubtypes() || stack.getMetadata() == itemstack.getMetadata()) && ItemStack.areItemStackTagsEqual(stack, itemstack)) {
+					if (!itemstack.isEmpty() && itemstack.getItem() == stack.getItem() && (!stack.getHasSubtypes() || stack.getMetadata() == itemstack.getMetadata()) && ItemStack.areItemStackTagsEqual(stack, itemstack)) {
 						int j = itemstack.getCount() + stack.getCount();
 
 						if (j <= stack.getMaxStackSize()) {
@@ -112,7 +111,7 @@ public class ContainerBase extends Container {
 				ItemStack itemstack1 = slot1.getStack();
 
 				// Forge: Make sure to respect isItemValid in the slot.
-				if (itemstack1 == null && slot1.isItemValid(stack)) {
+				if (itemstack1.isEmpty() && slot1.isItemValid(stack)) {
 					slot1.putStack(stack.copy());
 					slot1.onSlotChanged();
 					stack.setCount(0);
