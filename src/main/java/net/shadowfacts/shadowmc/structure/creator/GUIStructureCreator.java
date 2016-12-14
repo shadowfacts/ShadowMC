@@ -113,7 +113,7 @@ public class GUIStructureCreator {
 
 		root.add(top);
 
-		return new UIBuilder().add(root).style(ShadowMC.modId + ":structureCreator").createContainer(new ContainerPlayerInv(pos, inventory));
+		return new UIBuilder().add(root).style(ShadowMC.modId + ":structurecreator").createContainer(new ContainerPlayerInv(pos, inventory));
 	}
 
 }
