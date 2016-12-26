@@ -1,5 +1,5 @@
-# ShadowAPI
-ShadowAPI is a library for Minecraft Forge that provides utilites commonly used throughout my mods.
+# ShadowMC
+ShadowMC is a library for Minecraft Forge that provides utilites commonly used throughout my mods.
 
 ## Usage
 1. To the `repositories` block of your `build.gradle` add this:

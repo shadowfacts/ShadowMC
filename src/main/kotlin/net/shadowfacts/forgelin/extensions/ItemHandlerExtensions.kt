@@ -2,86 +2,131 @@ package net.shadowfacts.forgelin.extensions
 
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.items.IItemHandlerModifiable
+import java.util.*
 
 /**
  * @author shadowfacts
  */
-operator fun IItemHandler.get(slot: Int): ItemStack? {
+operator fun IItemHandler.get(slot: Int): ItemStack {
 	return getStackInSlot(slot)
 }
 
-fun IItemHandler.forEach(action: (ItemStack?) -> Unit) {
-	for (i in 0.until(slots)) {
-		action(this[i])
+operator fun IItemHandlerModifiable.set(slot: Int, stack: ItemStack) {
+	setStackInSlot(slot, stack)
+}
+
+operator fun IItemHandler.iterator(): Iterator<ItemStack> {
+	return object: Iterator<ItemStack> {
+		private var index = 0
+
+		override fun next(): ItemStack {
+			return this@iterator[index++]
+		}
+
+		override fun hasNext(): Boolean {
+			return index < this@iterator.slots
+		}
 	}
 }
 
-fun IItemHandler.forEachIndexed(action: (Int, ItemStack?) -> Unit) {
-	for (i in 0.until(slots)) {
-		action(i, this[i])
+val IItemHandler.isEmpty: Boolean
+	get() {
+		forEach {
+			if (!it.isEmpty) {
+				return false
+			}
+		}
+		return true
 	}
+
+inline fun IItemHandler.forEach(action: (ItemStack) -> Unit) {
+	for (stack in this) action(stack)
 }
 
-fun IItemHandler.filter(predicate: (ItemStack?) -> Boolean): List<ItemStack?> {
-	val list = mutableListOf<ItemStack?>()
+inline fun IItemHandler.forEachIndexed(action: (Int, ItemStack) -> Unit) {
+	var index = 0
+	for (stack in this) action(index++, stack)
+}
+
+inline fun <C: MutableCollection<ItemStack>> IItemHandler.filterIndexedTo(destination: C, predicate: (Int, ItemStack) -> Boolean): C {
+	forEachIndexed { i, stack ->
+		if (predicate(i, stack)) destination.add(stack)
+	}
+	return destination
+}
+
+inline fun IItemHandler.filterIndexed(predicate: (Int, ItemStack) -> Boolean): List<ItemStack> {
+	return filterIndexedTo(ArrayList(), predicate)
+}
+
+inline fun <C: MutableCollection<ItemStack>> IItemHandler.filterTo(destination: C, predicate: (ItemStack) -> Boolean): C {
+	forEach {
+		if (predicate(it)) destination.add(it)
+	}
+	return destination
+}
+
+inline fun IItemHandler.filter(predicate: (ItemStack) -> Boolean): List<ItemStack> {
+	return filterTo(ArrayList(), predicate)
+}
+
+inline fun IItemHandler.first(predicate: (ItemStack) -> Boolean): ItemStack {
 	forEach {
 		if (predicate(it)) {
-			list.add(it)
+			return it
 		}
 	}
-	return list
+	throw NoSuchElementException("IItemHandler contains no element matching predicate")
 }
 
-fun IItemHandler.filterIndexed(predicate: (Int, ItemStack?) -> Boolean): List<ItemStack?> {
-	val list = mutableListOf<ItemStack?>()
-	forEachIndexed { i, it ->
-		if (predicate(i, it)) {
-			list.add(it)
-		}
-	}
-	return list
-}
-
-fun IItemHandler.filterNotNull(): List<ItemStack> {
-	val list = mutableListOf<ItemStack>()
+inline fun IItemHandler.firstOrEmpty(predicate: (ItemStack) -> Boolean): ItemStack {
 	forEach {
-		if (it != null) {
-			list.add(it)
+		if (predicate(it)) {
+			return it
 		}
 	}
-	return list
+	return ItemStack.EMPTY
 }
 
-fun <R> IItemHandler.map(transform: (ItemStack?) -> R): List<R> {
-	val list = mutableListOf<R>()
+inline fun IItemHandler.find(predicate: (ItemStack) -> Boolean): ItemStack {
+	return firstOrEmpty(predicate)
+}
+
+inline fun IItemHandlerModifiable.sumBy(selector: (ItemStack) -> Int): Int {
+	var sum = 0
 	forEach {
-		list.add(transform(it))
+		sum += selector(it)
 	}
-	return list
+	return sum
 }
 
-fun <R> IItemHandler.mapIndexed(transform: (Int, ItemStack?) -> R): List<R> {
-	val list = mutableListOf<R>()
-	forEachIndexed { i, it ->
-		list.add(transform(i, it))
-	}
-	return list
-}
-
-fun <R> IItemHandler.mapNotNull(transform: (ItemStack) -> R): List<R> {
-	val list = mutableListOf<R>()
-	filterNotNull().forEach {
-		list.add(transform(it))
-	}
-	return list
-}
-
-fun <R> IItemHandler.mapIndexedNotNull(transform: (Int, ItemStack) -> R): List<R> {
-	val list = mutableListOf<R>()
-	forEachIndexed { i, it ->
-		if (it != null) {
-			list.add(transform(i, it))
+inline fun <R: Comparable<R>> IItemHandler.minBy(selector: (ItemStack) -> R): ItemStack {
+	if (isEmpty) return ItemStack.EMPTY
+	var minElem = this[0]
+	var minValue = selector(minElem)
+	for (i in 1..slots) {
+		val e = this[i]
+		val v = selector(e)
+		if (minValue > v) {
+			minElem = e
+			minValue = v
 		}
 	}
-	return list
+	return minElem
+}
+
+inline fun <R: Comparable<R>> IItemHandler.maxBy(selector: (ItemStack) -> R): ItemStack {
+	if (isEmpty) return ItemStack.EMPTY
+	var maxElem = this[0]
+	var maxValue = selector(maxElem)
+	for (i in 1..slots) {
+		val e = this[i]
+		val v = selector(e)
+		if (maxValue < v) {
+			maxElem = e
+			maxValue = v
+		}
+	}
+	return maxElem
 }
