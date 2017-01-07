@@ -37,10 +37,10 @@ public class ContainerBase extends Container {
 
 			if (index < containerSlots) {
 				if (!this.mergeItemStack(itemstack1, containerSlots, inventorySlots.size(), true)) {
-					return null;
+					return ItemStack.EMPTY;
 				}
 			} else if (!this.mergeItemStack(itemstack1, 0, containerSlots, false)) {
-				return null;
+				return ItemStack.EMPTY;
 			}
 
 			if (itemstack1.getCount() == 0) {
@@ -50,7 +50,7 @@ public class ContainerBase extends Container {
 			}
 
 			if (itemstack1.getCount() == itemstack.getCount()) {
-				return null;
+				return ItemStack.EMPTY;
 			}
 
 			slot.onTake(player, itemstack1);
