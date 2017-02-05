@@ -89,7 +89,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 
 		int j = cursorPos - lineScrollOffset;
 		int k = selectionEnd - lineScrollOffset;
-		String s = mc.fontRendererObj.trimStringToWidth(text.substring(lineScrollOffset), dimensions.width);
+		String s = mc.fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), dimensions.width);
 		boolean flag = j >= 0 && j <= s.length();
 		boolean flag1 = focused && cursorCounter / 6 % 2 == 0 && flag;
 		int l = drawBackground ? x + 4 : x;
@@ -102,7 +102,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 
 		if (s.length() > 0) {
 			String s1 = flag ? s.substring(0, j) : s;
-			j1 = mc.fontRendererObj.drawString(s1, l, i1, UIHelper.toARGB(color), shadow);
+			j1 = mc.fontRenderer.drawString(s1, l, i1, UIHelper.toARGB(color), shadow);
 		}
 
 		boolean flag2 = cursorCounter < text.length() || text.length() >= maxStringLength;
@@ -115,20 +115,20 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 		}
 
 		if (s.length() > 0 && flag && j < s.length()) {
-			j1 = mc.fontRendererObj.drawString(s.substring(j), j1, i1, UIHelper.toARGB(color), shadow);
+			j1 = mc.fontRenderer.drawString(s.substring(j), j1, i1, UIHelper.toARGB(color), shadow);
 		}
 
 		if (flag1) {
 			if (flag2) {
-				Gui.drawRect(k1, i1 - 1, k1 + 1, i1 + 1 + mc.fontRendererObj.FONT_HEIGHT, UIHelper.toARGB(getStyle(UIAttribute.TEXTFIELD_CURSOR_COLOR)));
+				Gui.drawRect(k1, i1 - 1, k1 + 1, i1 + 1 + mc.fontRenderer.FONT_HEIGHT, UIHelper.toARGB(getStyle(UIAttribute.TEXTFIELD_CURSOR_COLOR)));
 			} else {
-				mc.fontRendererObj.drawString("_", k1, i1, UIHelper.toARGB(color), shadow);
+				mc.fontRenderer.drawString("_", k1, i1, UIHelper.toARGB(color), shadow);
 			}
 		}
 
 		if (k != j) {
-			int l1 = l + mc.fontRendererObj.getStringWidth(s.substring(0, k));
-			drawCursorVertical(k1, i1 - 1, l1 - 1, i1 + 1 + mc.fontRendererObj.FONT_HEIGHT);
+			int l1 = l + mc.fontRenderer.getStringWidth(s.substring(0, k));
+			drawCursorVertical(k1, i1 - 1, l1 - 1, i1 + 1 + mc.fontRenderer.FONT_HEIGHT);
 		}
 		GlStateManager.enableDepth();
 		GlStateManager.color(1, 1, 1, 1);
@@ -227,11 +227,11 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 
 		lineScrollOffset = Math.min(lineScrollOffset, i);
 
-		String s = mc.fontRendererObj.trimStringToWidth(text.substring(lineScrollOffset), dimensions.width);
+		String s = mc.fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), dimensions.width);
 		int k = s.length() + lineScrollOffset;
 
 		if (pos == lineScrollOffset) {
-			lineScrollOffset -= mc.fontRendererObj.trimStringToWidth(text, dimensions.width, true).length();
+			lineScrollOffset -= mc.fontRenderer.trimStringToWidth(text, dimensions.width, true).length();
 		}
 
 		if (pos > k) {

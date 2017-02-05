@@ -41,7 +41,7 @@ public class UIButtonText extends UIButtonBase {
 
 	@Override
 	public UIDimensions getPreferredDimensions() {
-		return new UIDimensions(mc.fontRendererObj.getStringWidth(UIHelper.styleText(text, this)) + 10, mc.fontRendererObj.FONT_HEIGHT + 10);
+		return new UIDimensions(mc.fontRenderer.getStringWidth(UIHelper.styleText(text, this)) + 10, mc.fontRenderer.FONT_HEIGHT + 10);
 	}
 
 }

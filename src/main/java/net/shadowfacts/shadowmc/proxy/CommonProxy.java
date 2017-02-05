@@ -27,7 +27,7 @@ public class CommonProxy {
 	}
 
 	public void init(FMLInitializationEvent event) {
-		FlairManager.initClient();
+		FlairManager.initCommon();
 	}
 
 	private void registerPackets() {

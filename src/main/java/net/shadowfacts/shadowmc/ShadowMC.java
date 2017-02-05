@@ -50,7 +50,6 @@ public class ShadowMC {
 	public static SimpleNetworkWrapper network;
 
 //	Content
-	public static ShadowItems items = new ShadowItems();
 	public static ShadowBlocks blocks = new ShadowBlocks();
 
 	@Mod.EventHandler
@@ -59,10 +58,7 @@ public class ShadowMC {
 		ShadowMCConfig.init(event.getModConfigurationDirectory());
 		ShadowMCConfig.load();
 
-		items.init();
 		blocks.init();
-
-		ShadowRecipes.init();
 
 		if (event.getSide() == Side.CLIENT) {
 			preInitClient();
@@ -79,7 +75,6 @@ public class ShadowMC {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		FlairManager.initCommon();
 		proxy.init(event);
 	}
 

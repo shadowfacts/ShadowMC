@@ -17,9 +17,9 @@ public class GUIUtils {
 		Minecraft mc = Minecraft.getMinecraft();
 		GlStateManager.pushMatrix();
 		if (shadow) {
-			mc.fontRendererObj.drawStringWithShadow(text, x, y, color.toARGB());
+			mc.fontRenderer.drawStringWithShadow(text, x, y, color.toARGB());
 		} else {
-			mc.fontRendererObj.drawString(text, x, y, color.toARGB());
+			mc.fontRenderer.drawString(text, x, y, color.toARGB());
 		}
 		Color.WHITE.apply();
 		GL11.glPopMatrix();
@@ -39,8 +39,8 @@ public class GUIUtils {
 
 	public static void drawCenteredText(String text, int x, int maxX, int y, int maxY, Color color) {
 		Minecraft mc = Minecraft.getMinecraft();
-		int centerX = x + ((maxX - x) / 2) - (mc.fontRendererObj.getStringWidth(text) / 2);
-		int centerY = y + ((maxY - y) / 2) - (mc.fontRendererObj.FONT_HEIGHT / 2);
+		int centerX = x + ((maxX - x) / 2) - (mc.fontRenderer.getStringWidth(text) / 2);
+		int centerY = y + ((maxY - y) / 2) - (mc.fontRenderer.FONT_HEIGHT / 2);
 		drawText(text, centerX, centerY, color);
 	}
 

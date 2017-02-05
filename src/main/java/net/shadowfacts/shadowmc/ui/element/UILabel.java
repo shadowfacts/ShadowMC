@@ -28,17 +28,17 @@ public class UILabel extends UIElementBase {
 	}
 
 	public UILabel(String text, String id, String... classes) {
-		this(text, Minecraft.getMinecraft().fontRendererObj.getStringWidth(text), id, classes);
+		this(text, Minecraft.getMinecraft().fontRenderer.getStringWidth(text), id, classes);
 	}
 
 	@Override
 	public UIDimensions getMinDimensions() {
-		return new UIDimensions(mc.fontRendererObj.getStringWidth(UIHelper.styleText(text, this)), mc.fontRendererObj.FONT_HEIGHT);
+		return new UIDimensions(mc.fontRenderer.getStringWidth(UIHelper.styleText(text, this)), mc.fontRenderer.FONT_HEIGHT);
 	}
 
 	@Override
 	public UIDimensions getPreferredDimensions() {
-		return new UIDimensions(width, mc.fontRendererObj.FONT_HEIGHT);
+		return new UIDimensions(width, mc.fontRenderer.FONT_HEIGHT);
 	}
 
 	@Override
@@ -57,10 +57,10 @@ public class UILabel extends UIElementBase {
 				xOffset = 0;
 				break;
 			case CENTER:
-				xOffset = (dimensions.width - mc.fontRendererObj.getStringWidth(text)) / 2;
+				xOffset = (dimensions.width - mc.fontRenderer.getStringWidth(text)) / 2;
 				break;
 			case RIGHT:
-				xOffset = dimensions.width - mc.fontRendererObj.getStringWidth(text);
+				xOffset = dimensions.width - mc.fontRenderer.getStringWidth(text);
 				break;
 		}
 
@@ -73,11 +73,11 @@ public class UILabel extends UIElementBase {
 				yOffset = -dimensions.height / 2;
 				break;
 			case BOTTOM:
-				yOffset = dimensions.height - mc.fontRendererObj.FONT_HEIGHT;
+				yOffset = dimensions.height - mc.fontRenderer.FONT_HEIGHT;
 				break;
 		}
 
-		mc.fontRendererObj.drawString(UIHelper.styleText(text, this), x + xOffset, y + yOffset, UIHelper.toARGB(color), shadow);
+		mc.fontRenderer.drawString(UIHelper.styleText(text, this), x + xOffset, y + yOffset, UIHelper.toARGB(color), shadow);
 		GlStateManager.color(1, 1, 1);
 	}
 

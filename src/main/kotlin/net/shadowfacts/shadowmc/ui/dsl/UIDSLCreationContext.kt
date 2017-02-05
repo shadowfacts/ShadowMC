@@ -117,7 +117,7 @@ class LabelContext : CreationContext<UILabel>() {
 		require(!id.isEmpty()) { "id cannot be empty" }
 		require(!text.isEmpty()) { "text cannot be empty" }
 		if (width == null) {
-			width = Minecraft.getMinecraft().fontRendererObj.getStringWidth(text)
+			width = Minecraft.getMinecraft().fontRenderer.getStringWidth(text)
 		}
 		return UILabel(text, width!!, id, *classes.toTypedArray())
 	}

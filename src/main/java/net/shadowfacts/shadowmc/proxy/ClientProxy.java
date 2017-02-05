@@ -9,11 +9,19 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.shadowfacts.shadowmc.flair.FlairManager;
 
 /**
  * @author shadowfacts
  */
 public class ClientProxy extends CommonProxy {
+
+	@Override
+	public void init(FMLInitializationEvent event) {
+		super.init(event);
+		FlairManager.initClient();
+	}
 
 	@Override
 	public World getClientWorld() {

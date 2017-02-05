@@ -102,7 +102,7 @@ public class UIHelper {
 	}
 
 	public static void drawCenteredText(String text, int minX, int minY, int maxX, int maxY, Color color, boolean shadow) {
-		FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
 		int x = minX + ((maxX - minX) / 2) - (fontRenderer.getStringWidth(text) / 2);
 		int y = minY + ((maxY - minY) / 2) - (fontRenderer.FONT_HEIGHT / 2);
 		GlStateManager.pushMatrix();
@@ -120,7 +120,7 @@ public class UIHelper {
 		int screenWidth = res.getScaledWidth();
 		int screenHeight = res.getScaledHeight();
 		int maxTextWidth = screenWidth - x;
-		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 
 		if (!lines.isEmpty()) {
 			GlStateManager.disableRescaleNormal();
