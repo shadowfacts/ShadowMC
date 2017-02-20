@@ -1,6 +1,7 @@
 package net.shadowfacts.shadowmc.ui.element.view;
 
 import lombok.Getter;
+import net.minecraft.util.ITickable;
 import net.shadowfacts.shadowmc.ui.UIElement;
 import net.shadowfacts.shadowmc.ui.UIKeyInteractable;
 import net.shadowfacts.shadowmc.ui.UIMouseInteractable;
@@ -15,7 +16,7 @@ import java.util.Set;
 /**
  * @author shadowfacts
  */
-public abstract class UIView extends UIElementBase implements UIMouseInteractable, UIKeyInteractable {
+public abstract class UIView extends UIElementBase implements UIMouseInteractable, UIKeyInteractable, ITickable {
 
 	@Getter
 	protected Set<UIElement> children = new LinkedHashSet<>();
@@ -54,6 +55,14 @@ public abstract class UIView extends UIElementBase implements UIMouseInteractabl
 	@Override
 	public void draw(int mouseX, int mouseY) {
 		children.forEach(e -> e.draw(mouseX, mouseY));
+	}
+
+	@Override
+	public void update() {
+		children.stream()
+				.filter(e -> e instanceof ITickable)
+				.map(e -> (ITickable)e)
+				.forEach(ITickable::update);
 	}
 
 	@Override
