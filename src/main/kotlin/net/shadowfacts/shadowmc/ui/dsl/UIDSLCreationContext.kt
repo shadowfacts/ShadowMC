@@ -226,7 +226,7 @@ class ItemStackContext : CreationContext<UIItemStack>() {
 }
 
 class OxygenIndicatorContext : CreationContext<UIOxygenIndicator>() {
-	val handler: OxygenHandler? = null
+	var handler: OxygenHandler? = null
 
 	override fun create(): UIOxygenIndicator {
 		require(!id.isEmpty()) { "id cannot be empty" }
@@ -236,8 +236,8 @@ class OxygenIndicatorContext : CreationContext<UIOxygenIndicator>() {
 }
 
 class RectContext : CreationContext<UIRect>() {
-	val width: Int? = null
-	val height: Int? = null
+	var width: Int? = null
+	var height: Int? = null
 
 	override fun create(): UIRect {
 		require(!id.isEmpty()) { "id cannot be empty" }
