@@ -9,6 +9,8 @@ public interface UIMouseInteractable {
 
 	default void mouseClickDown(int mouseX, int mouseY, MouseButton button) {}
 
+	default void mouseClickUp(int mouseX, int mouseY, MouseButton button) {}
+
 	default void mouseClickAnywhere(int mouseX, int mouseY, MouseButton button) {}
 
 	default void mouseScroll(int mouseX, int mouseY, int delta) {}

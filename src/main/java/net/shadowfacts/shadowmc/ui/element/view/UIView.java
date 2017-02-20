@@ -73,6 +73,15 @@ public abstract class UIView extends UIElementBase implements UIMouseInteractabl
 	}
 
 	@Override
+	public void mouseClickUp(int mouseX, int mouseY, MouseButton button) {
+		children.stream()
+				.filter(e -> e instanceof UIMouseInteractable)
+				.filter(e -> UIHelper.isWithinBounds(mouseX, mouseY, e))
+				.map(e -> (UIMouseInteractable)e)
+				.forEach(e -> e.mouseClickUp(mouseX, mouseY, button));
+	}
+
+	@Override
 	public void mouseClickAnywhere(int mouseX, int mouseY, MouseButton button) {
 		children.stream()
 				.filter(e -> e instanceof UIMouseInteractable)

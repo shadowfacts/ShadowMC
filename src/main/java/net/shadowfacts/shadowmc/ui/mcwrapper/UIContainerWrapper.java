@@ -115,6 +115,18 @@ public class UIContainerWrapper extends GuiContainer {
 	}
 
 	@Override
+	protected void mouseReleased(int mouseX, int mouseY, int state) {
+		super.mouseReleased(mouseX, mouseY, state);
+
+		MouseButton button = MouseButton.get(state);
+		children.stream()
+				.filter(e -> e instanceof UIMouseInteractable)
+				.filter(e -> UIHelper.isWithinBounds(mouseX, mouseY, e))
+				.map(e -> (UIMouseInteractable)e)
+				.forEach(e -> e.mouseClickDown(mouseX, mouseY, button));
+	}
+
+	@Override
 	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
 		super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
 
