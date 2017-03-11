@@ -50,6 +50,7 @@ processResources {
 }
 
 repositories {
+	jcenter()
 	maven {
 		name "shadowfacts"
 		url "http://mvn.rx14.co.uk/shadowfacts/"
@@ -57,11 +58,12 @@ repositories {
 }
 
 dependencies {
+	compile group: "org.projectlombok", name: "lombok", version: lombok_version
 	compile group: "net.shadowfacts", name: "ShadowLib", version: shadowlib_version
 	compile group: "net.shadowfacts", name: "ShadowConfig", version: shadowconfig_version
 	compile group: "net.shadowfacts", name: "Mirror", version: mirror_version
+	compile group: "com.udojava", name: "EvalEx", version: evalex_version
 	compile group: "net.shadowfacts", name: "Forgelin", version: forgelin_version
-	compile group: "org.projectlombok", name: "lombok", version: lombok_version
 }
 
 shadowJar {
@@ -70,6 +72,7 @@ shadowJar {
 		include(dependency("net.shadowfacts:ShadowLib:${shadowlib_version}"))
 		include(dependency("net.shadowfacts:ShadowConfig:${shadowconfig_version}"))
 		include(dependency("net.shadowfacts:Mirror:${mirror_version}"))
+		include(dependency("com.udojava:EvalEx:${evalex_version}"))
 	}
 	exclude "test/*"
 }

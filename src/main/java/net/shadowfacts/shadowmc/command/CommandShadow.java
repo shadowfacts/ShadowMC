@@ -15,6 +15,7 @@ public class CommandShadow extends CommandTreeBase {
 		addSubcommand(CommandKillAll.INSTANCE);
 		addSubcommand(CommandGenStructure.INSTANCE);
 		addSubcommand(CommandReloadStructures.INSTANCE);
+		addSubcommand(CommandCalc.INSTANCE);
 	}
 
 	@Override
