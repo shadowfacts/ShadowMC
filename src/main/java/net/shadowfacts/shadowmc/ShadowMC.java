@@ -32,7 +32,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * @author shadowfacts
  */
-@Mod(modid = ShadowMC.modId, name = ShadowMC.name, version = ShadowMC.version, guiFactory = "net.shadowfacts.shadowmc.GUIFactory")
+@Mod(modid = ShadowMC.modId, name = ShadowMC.name, version = ShadowMC.version, guiFactory = "net.shadowfacts.shadowmc.GUIFactory", updateJSON = "https://update.shadowfacts.net/shadowmc")
 public class ShadowMC {
 
 	public static final String modId = "shadowmc";
