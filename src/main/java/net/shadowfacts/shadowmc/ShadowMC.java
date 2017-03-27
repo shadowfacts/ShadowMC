@@ -37,7 +37,7 @@ public class ShadowMC {
 
 	public static final String modId = "shadowmc";
 	public static final String name = "ShadowMC";
-	public static final String version = "3.7.1";
+	public static final String version = "3.7.6";
 
 	public static final Logger log = LogManager.getLogger(name);
 

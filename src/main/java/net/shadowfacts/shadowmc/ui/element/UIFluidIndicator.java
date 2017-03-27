@@ -2,6 +2,7 @@ package net.shadowfacts.shadowmc.ui.element;
 
 import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fluids.IFluidTank;
@@ -40,7 +41,6 @@ public class UIFluidIndicator extends UIElementBase {
 
 	@Override
 	public void draw(int mouseX, int mouseY) {
-
 		UIHelper.drawRect(x, y, dimensions.width, dimensions.height, getStyle(UIAttribute.BORDER_COLOR));
 
 		if (tank.getFluid() != null && tank.getFluidAmount() > 0) {

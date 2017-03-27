@@ -92,7 +92,6 @@ public class UIHelper {
 		buffer.pos((double)x + width, (double)y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
 		buffer.pos((double)x, (double)y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
 		tessellator.draw();
-		GlStateManager.disableAlpha();
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
 	}
