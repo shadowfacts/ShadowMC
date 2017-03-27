@@ -24,8 +24,8 @@ import java.util.Set;
 public class UIScreenWrapper extends GuiScreen {
 
 	@Setter
-	private Set<UIKeyInteractable> keyHandlers = new LinkedHashSet<>();
-	private Set<UIElement> children = new LinkedHashSet<>();
+	protected Set<UIKeyInteractable> keyHandlers = new LinkedHashSet<>();
+	protected Set<UIElement> children = new LinkedHashSet<>();
 	@Setter
 	private Runnable updateHandler;
 	@Setter
