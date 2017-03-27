@@ -31,7 +31,7 @@ import java.util.regex.Pattern
  * @author shadowfacts
  */
 abstract class CreationContext<out T> {
-	var id: String = ""
+	lateinit var id: String
 	var classes: MutableList<String> = mutableListOf()
 
 	fun addClass(clazz: String) {
@@ -43,88 +43,71 @@ abstract class CreationContext<out T> {
 
 class BtnTextContext : CreationContext<UIButtonText>() {
 	var text: String = ""
-	var handler: ((UIButtonText, MouseButton) -> Boolean)? = null
+	lateinit var handler: ((UIButtonText, MouseButton) -> Boolean)
 
 	override fun create(): UIButtonText {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(handler != null) { "cannot have a null handler" }
-		return UIButtonText(text, BiFunction { btn, mouseBtn -> handler!!(btn, mouseBtn) }, id, *classes.toTypedArray())
+		return UIButtonText(text, BiFunction { btn, mouseBtn -> handler(btn, mouseBtn) }, id, *classes.toTypedArray())
 	}
 }
 
 class BtnEnumContext<E : Enum<E>> : CreationContext<UIButtonEnum<E>>() {
-	var value: E? = null
-	var localizer: ((E) -> String)? = null
-	var clickHandler: ((UIButtonEnum<E>) -> Unit)? = null
+	lateinit var value: E
+	lateinit var localizer: ((E) -> String)
+	lateinit var clickHandler: ((UIButtonEnum<E>) -> Unit)
 
 	override fun create(): UIButtonEnum<E> {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(value != null) { "value cannot be null" }
-		require(localizer != null) { "localizer cannot be null" }
-		return UIButtonEnum<E>(value, Function { localizer!!(it) }, Consumer { if (clickHandler != null) clickHandler!!(it) }, id, *classes.toTypedArray())
+		return UIButtonEnum(value, Function { localizer(it) }, Consumer { clickHandler(it) }, id, *classes.toTypedArray())
 	}
 }
 
 class BtnLinkContext : CreationContext<UIButtonLink>() {
 	var text: String = ""
-	var link: URI? = null
+	lateinit var link: URI
+
 	override fun create(): UIButtonLink {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(link != null) { "cannot have a null link" }
 		return UIButtonLink(text, link, id, *classes.toTypedArray())
 	}
-
 }
 
 class BtnToggleContext : CreationContext<UIButtonToggle>() {
 	var state: Boolean = true
-	var handler: ((UIButtonToggle) -> Unit)? = null
+	lateinit var handler: ((UIButtonToggle) -> Unit)
 
 	override fun create(): UIButtonToggle {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(handler != null) { "cannot have a null handler" }
-		return UIButtonToggle(state, Consumer { handler!!(it) }, id, *classes.toTypedArray())
+		return UIButtonToggle(state, Consumer { handler(it) }, id, *classes.toTypedArray())
 	}
 }
 
 class BtnDyeColorContext : CreationContext<UIButtonDyeColor>() {
 	var color = EnumDyeColor.WHITE
-	var handler: ((EnumDyeColor) -> Unit)? = null
+	lateinit var handler: ((EnumDyeColor) -> Unit)
 
 	override fun create(): UIButtonDyeColor {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(handler != null) { "handler cannot be null" }
-		return UIButtonDyeColor(color, Consumer { handler!!(it) }, id, *classes.toTypedArray())
+		return UIButtonDyeColor(color, Consumer { handler(it) }, id, *classes.toTypedArray())
 	}
 }
 
 class BtnRedstoneModeContext : CreationContext<UIButtonRedstoneMode>() {
 	var mode = RedstoneMode.ALWAYS
-	var callback: ((RedstoneMode) -> Unit)? = null
+	lateinit var callback: ((RedstoneMode) -> Unit)
 
 	override fun create(): UIButtonRedstoneMode {
 		require(!id.isEmpty()) { "id cannot be empty" }
-		require(callback != null) { "callback cannot be null" }
-		return UIButtonRedstoneMode(mode, Consumer { callback!!(it) }, id, *classes.toTypedArray())
+		return UIButtonRedstoneMode(mode, Consumer { callback(it) }, id, *classes.toTypedArray())
 	}
 }
 
 class LabelContext : CreationContext<UILabel>() {
-	var text: String = ""
+	lateinit var text: String
 	var width: Int? = null
 
 	override fun create(): UILabel {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(!text.isEmpty()) { "text cannot be empty" }
-		if (width == null) {
-			width = Minecraft.getMinecraft().fontRenderer.getStringWidth(text)
-		}
-		return UILabel(text, width!!, id, *classes.toTypedArray())
+		return UILabel(text, width ?: Minecraft.getMinecraft().fontRenderer.getStringWidth(text), id, *classes.toTypedArray())
 	}
 }
 
 class ImageContext : CreationContext<UIImage>() {
-	var texture: ResourceLocation? = null
+	lateinit var texture: ResourceLocation
 	var u = 0
 	var v = 0
 	var width = 0
@@ -139,23 +122,19 @@ class ImageContext : CreationContext<UIImage>() {
 	}
 
 	override fun create(): UIImage {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(texture != null) { "textured cannot be null" }
 		return UIImage(texture, u, v, width, height, id, *classes.toTypedArray())
 	}
 }
 
 class TextFieldContext : CreationContext<UITextField>() {
 	var text = ""
-	var validator: Pattern? = null
-	var handler: ((String) -> Unit)? = null
+	var validator: Pattern = Pattern.compile(".+")
+	lateinit var handler: ((String) -> Unit)
 	var enabled = true
 	var preferredWidth = 200
 
 	override fun create(): UITextField {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(handler != null) { "handler cannot be null" }
-		val textfield = UITextField(text, validator, Consumer { handler!!(it) }, id, *classes.toTypedArray())
+		val textfield = UITextField(text, validator, Consumer { handler(it) }, id, *classes.toTypedArray())
 //		TODO: Kotlin + lombok in IDEA is broken
 //		textfield.setEnabled(enabled)
 //		textfield.setPreferredWidth(preferredWidth)
@@ -164,48 +143,41 @@ class TextFieldContext : CreationContext<UITextField>() {
 }
 
 class IntFieldContext : CreationContext<UIIntegerField>() {
-	var handler: ((Int) -> Unit)? = null
-	var value: Int? = null
+	lateinit var handler: ((Int) -> Unit)
+	var value: Int = 0
 	var min = Int.MIN_VALUE
 	var max = Int.MAX_VALUE
 
 	override fun create(): UIIntegerField {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(handler != null) { "handler cannot be null" }
-		require(value != null) { "handler cannot be null" }
-		return UIIntegerField(IntConsumer { handler!!(it) }, value!!, min, max, id, *classes.toTypedArray())
+		return UIIntegerField(IntConsumer { handler(it) }, value, min, max, id, *classes.toTypedArray())
 	}
 }
 
 class BarIndicatorContext : CreationContext<UIBarIndicator>() {
-	var levelSupplier: (() -> Float)? = null
+	lateinit var levelSupplier: (() -> Float)
 	var tooltip: (MutableList<String>) -> Unit = {}
 	var textured = false
 
 	override fun create(): UIBarIndicator {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(levelSupplier != null) { "levelSupplier cannot be null" }
 		if (textured) {
-			return UITexturedBarIndicator(Supplier { levelSupplier!!() }, Consumer { tooltip(it) }, id, *classes.toTypedArray())
+			return UITexturedBarIndicator(Supplier { levelSupplier() }, Consumer { tooltip(it) }, id, *classes.toTypedArray())
 		} else {
-			return UIBarIndicator(Supplier { levelSupplier!!() }, Consumer { tooltip(it) }, id, *classes.toTypedArray())
+			return UIBarIndicator(Supplier { levelSupplier() }, Consumer { tooltip(it) }, id, *classes.toTypedArray())
 		}
 	}
 }
 
 
 class FluidIndicatorContext : CreationContext<UIFluidIndicator>() {
-	var tank: IFluidTank? = null
+	lateinit var tank: IFluidTank
 
 	override fun create(): UIFluidIndicator {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(tank != null) { "tank cannot be null" }
 		return UIFluidIndicator(tank, id, *classes.toTypedArray())
 	}
 }
 
 class ItemStackContext : CreationContext<UIItemStack>() {
-	var stack: ItemStack? = null
+	lateinit var stack: ItemStack
 	var width = 16
 	var height = 16
 	var tooltip = false
@@ -219,31 +191,24 @@ class ItemStackContext : CreationContext<UIItemStack>() {
 	}
 
 	override fun create(): UIItemStack {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(stack != null) { "stack cannot be null" }
 		return UIItemStack(stack, width, height, id, *classes.toTypedArray())
 	}
 }
 
 class OxygenIndicatorContext : CreationContext<UIOxygenIndicator>() {
-	var handler: OxygenHandler? = null
+	lateinit var handler: OxygenHandler
 
 	override fun create(): UIOxygenIndicator {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(handler != null) { "handler cannot be null" }
-		return UIOxygenIndicator(handler!!, id, *classes.toTypedArray())
+		return UIOxygenIndicator(handler, id, *classes.toTypedArray())
 	}
 }
 
 class RectContext : CreationContext<UIRect>() {
-	var width: Int? = null
-	var height: Int? = null
+	var width: Int = 0
+	var height: Int = 0
 
 	override fun create(): UIRect {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(width != null) { "width cannot be null" }
-		require(height != null) { "height cannot be null" }
-		return UIRect(width!!, height!!, id, *classes.toTypedArray())
+		return UIRect(width, height, id, *classes.toTypedArray())
 	}
 }
 
@@ -265,14 +230,11 @@ abstract class ViewCreationContext<out T : UIView> : CreationContext<T>(), UIChi
 }
 
 class FixedViewContext : ViewCreationContext<UIFixedView>() {
-	var width: Int? = null
-	var height: Int? = null
+	var width: Int = 0
+	var height: Int = 0
 
 	override fun createView(): UIFixedView {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(width != null) { "width cannot be empty" }
-		require(height != null) { "height cannot be empty" }
-		return UIFixedView(width!!, height!!, id, *classes.toTypedArray())
+		return UIFixedView(width, height, id, *classes.toTypedArray())
 	}
 }
 
@@ -284,13 +246,10 @@ class StackViewContext : ViewCreationContext<UIStackView>() {
 }
 
 class ListViewContext : ViewCreationContext<UIListView>() {
-	var width: Int? = null
-	var height: Int? = null
+	var width: Int = 0
+	var height: Int = 0
 
 	override fun createView(): UIListView {
-		require(!id.isEmpty()) { "id cannot be empty" }
-		require(width != null) { "width cannot be null" }
-		require(height != null) { "height cannot be null" }
-		return UIListView(width!!, height!!, id, *classes.toTypedArray())
+		return UIListView(width, height, id, *classes.toTypedArray())
 	}
 }
