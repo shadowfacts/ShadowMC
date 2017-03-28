@@ -19,6 +19,7 @@ public class UIButtonEnum<E extends Enum> extends UIButtonText {
 
 	public UIButtonEnum(E value, Function<E, String> localizer, Consumer<UIButtonEnum<E>> clickHandler, String id, String... classes) {
 		super(localizer.apply(value), null, id, classes);
+		this.value = value;
 		this.callback = this::handleClick;
 		this.localizer = localizer;
 		this.clickHandler = clickHandler;
