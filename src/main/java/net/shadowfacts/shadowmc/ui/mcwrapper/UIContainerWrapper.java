@@ -123,7 +123,7 @@ public class UIContainerWrapper extends GuiContainer {
 				.filter(e -> e instanceof UIMouseInteractable)
 				.filter(e -> UIHelper.isWithinBounds(mouseX, mouseY, e))
 				.map(e -> (UIMouseInteractable)e)
-				.forEach(e -> e.mouseClickDown(mouseX, mouseY, button));
+				.forEach(e -> e.mouseClickUp(mouseX, mouseY, button));
 	}
 
 	@Override

@@ -28,11 +28,11 @@ import java.util.function.Consumer;
 @Mod(modid = ModTest.modId, name = ModTest.name, version = ModTest.version)
 public class ModTest {
 
-	public static final String modId = "modTest";
+	public static final String modId = "modtest";
 	public static final String name = "Mod Test";
 	public static final String version = "0.1.0";
 
-	@Mod.Instance("modTest")
+	@Mod.Instance("modtest")
 	public static ModTest instance;
 
 	private BlockTest blockTest;
