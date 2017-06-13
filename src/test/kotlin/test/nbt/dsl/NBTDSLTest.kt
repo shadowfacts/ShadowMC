@@ -25,22 +25,22 @@ fun test(): NBTTagCompound {
 			"cb" to BlockPos(1, 2, 3)
 		}
 		"e" to list {
-			this with compound {
+			this += compound {
 				"da" to "test 1"
 				"db" to false
 				"dc" to list {
-					this with 1
-					this with 2
-					this with 3
+					this += 1
+					this += 2
+					this += 3
 				}
 			}
-			this with compound {
+			this += compound {
 				"da" to "test 2"
 				"db" to true
 				"dc" to list {
-					this with 4
-					this with 5
-					this with 6
+					this += 4
+					this += 5
+					this += 6
 				}
 			}
 		}

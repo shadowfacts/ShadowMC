@@ -150,52 +150,52 @@ class ListContext(val tag: NBTTagList) {
 		this[index] = value.writeToNBT(NBTTagCompound())
 	}
 
-	infix fun with(value: NBTBase) {
+	operator fun plusAssign(value: NBTBase) {
 		tag.appendTag(value)
 	}
 
-	infix fun with(value: String) {
-		this with value.toTag()
+	operator fun plusAssign(value: String) {
+		this += value.toTag()
 	}
 
-	infix fun with(value: Byte) {
-		this with value.toTag()
+	operator fun plusAssign(value: Byte) {
+		this += value.toTag()
 	}
 
-	infix fun with(value: Short) {
-		this with value.toTag()
+	operator fun plusAssign(value: Short) {
+		this += value.toTag()
 	}
 
-	infix fun with(value: Int) {
-		this with value.toTag()
+	operator fun plusAssign(value: Int) {
+		this += value.toTag()
 	}
 
-	infix fun with(value: Long) {
-		this with value.toTag()
+	operator fun plusAssign(value: Long) {
+		this += value.toTag()
 	}
 
-	infix fun with(value: ByteArray) {
-		this with value.toTag()
+	operator fun plusAssign(value: ByteArray) {
+		this += value.toTag()
 	}
 
-	infix fun with(value: IntArray) {
-		this with value.toTag()
+	operator fun plusAssign(value: IntArray) {
+		this += value.toTag()
 	}
 
-	infix fun with(value: Boolean) {
-		this with value.toTag()
+	operator fun plusAssign(value: Boolean) {
+		this += value.toTag()
 	}
 
-	infix fun with(value: INBTSerializable<NBTBase>) {
-		this with value.serializeNBT()
+	operator fun plusAssign(value: INBTSerializable<NBTBase>) {
+		this += value.serializeNBT()
 	}
 
-	infix fun with(value: BlockPos) {
-		this with value.toLong()
+	operator fun plusAssign(value: BlockPos) {
+		this += value.toLong()
 	}
 
-	infix fun with(value: FluidStack) {
-		this with value.writeToNBT(NBTTagCompound())
+	operator fun plusAssign(value: FluidStack) {
+		this += value.writeToNBT(NBTTagCompound())
 	}
 
 }
