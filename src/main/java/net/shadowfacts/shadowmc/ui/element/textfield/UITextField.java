@@ -6,7 +6,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.math.MathHelper;
@@ -154,7 +154,7 @@ public class UITextField extends UIElementBase implements UIMouseInteractable, U
 		p1 = Math.min(p1, x + dimensions.width);
 
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer buffer = tessellator.getBuffer();
+		BufferBuilder buffer = tessellator.getBuffer();
 		Color selectionColor = getStyle(UIAttribute.TEXTFIELD_SELECTION_COLOR);
 		GlStateManager.color(selectionColor.getRed(), selectionColor.getGreen(), selectionColor.getBlue(), 255);
 		GlStateManager.disableTexture2D();

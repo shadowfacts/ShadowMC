@@ -9,6 +9,6 @@ import net.minecraft.util.math.RayTraceResult
 fun Entity.rayTrace(distance: Double): RayTraceResult? {
 	val eyePos = getPositionEyes(0f)
 	val lookVec = getLook(0f)
-	val vec = eyePos.addVector(lookVec.xCoord * distance, lookVec.yCoord * distance, lookVec.zCoord * distance)
+	val vec = eyePos.addVector(lookVec.x * distance, lookVec.y * distance, lookVec.z * distance)
 	return world.rayTraceBlocks(eyePos, vec, false, false, true)
 }

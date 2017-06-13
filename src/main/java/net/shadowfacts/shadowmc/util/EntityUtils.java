@@ -18,7 +18,7 @@ public class EntityUtils {
 	public static RayTraceResult rayTrace(Entity entity, double distance) {
 		Vec3d eyePos = entity.getPositionEyes(0);
 		Vec3d lookVec = entity.getLook(0);
-		Vec3d vec = eyePos.addVector(lookVec.xCoord * distance, lookVec.yCoord * distance, lookVec.zCoord * distance);
+		Vec3d vec = eyePos.addVector(lookVec.x * distance, lookVec.y * distance, lookVec.z * distance);
 		return entity.world.rayTraceBlocks(eyePos, vec, false, false, true);
 	}
 

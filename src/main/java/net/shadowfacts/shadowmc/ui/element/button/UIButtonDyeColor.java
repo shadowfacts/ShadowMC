@@ -51,7 +51,7 @@ public class UIButtonDyeColor extends UIButtonBase {
 
 	@Override
 	protected void drawButton(int mouseX, int mouseY) {
-		UIHelper.drawRect(x + 4, y + 4, dimensions.width - 8, dimensions.height - 8, new Color(color.getMapColor().colorValue));
+		UIHelper.drawRect(x + 4, y + 4, dimensions.width - 8, dimensions.height - 8, new Color(color.func_193350_e()));
 	}
 
 	@Override

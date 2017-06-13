@@ -29,11 +29,7 @@ public abstract class BaseTileEntity extends TileEntity {
 	}
 
 	public void sync() {
-		if (getWorld().isRemote) {
-			ShadowMC.network.sendToServer(new PacketUpdateTE(this));
-		} else {
-			ShadowMC.network.sendToAllAround(new PacketUpdateTE(this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
-		}
+		ShadowMC.network.sendToAllAround(new PacketUpdateTE(this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64));
 	}
 
 	@Override
@@ -43,7 +39,7 @@ public abstract class BaseTileEntity extends TileEntity {
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		return (T)CapHelper.getCapability(capability, facing, getClass(), this, (capability1, enumFacing) -> (T)super.getCapability(capability1, enumFacing));
+		return CapHelper.getCapability(capability, facing, getClass(), this, (capability1, enumFacing) -> (T)super.getCapability(capability1, enumFacing));
 	}
 
 }

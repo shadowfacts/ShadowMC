@@ -37,7 +37,7 @@ public class PacketUpdateTE extends PacketBase<PacketUpdateTE, IMessage> {
 				te.readFromNBT(msg.tag);
 			}
 		} else {
-			World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(msg.dim);
+			World world = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(msg.dim);
 			TileEntity te = world.getTileEntity(msg.pos);
 			if (te instanceof BaseTileEntity) {
 				te.readFromNBT(msg.tag);

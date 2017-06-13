@@ -3,7 +3,7 @@ package net.shadowfacts.shadowmc.util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -56,7 +56,7 @@ public class GUIUtils {
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer buffer = tessellator.getBuffer();
+		BufferBuilder buffer = tessellator.getBuffer();
 		buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		buffer.pos((double)x, (double)(y + height), (double)zLevel).tex((double)((float)u * f), (double)((float)(v + height) * f1)).endVertex();
 		buffer.pos((double)(x + width), (double)(y + height), (double)zLevel).tex((double)((float)(u + width) * f), (double)((float)(v + height) * f1)).endVertex();
@@ -71,7 +71,7 @@ public class GUIUtils {
 
 	public static void drawRect(int x, int y, int width, int height, Color color, float zLevel) {
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer buffer = tessellator.getBuffer();
+		BufferBuilder buffer = tessellator.getBuffer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableAlpha();

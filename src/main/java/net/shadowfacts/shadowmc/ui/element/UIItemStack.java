@@ -3,6 +3,7 @@ package net.shadowfacts.shadowmc.ui.element;
 import lombok.Setter;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.shadowfacts.shadowmc.ui.UIDimensions;
@@ -74,7 +75,7 @@ public class UIItemStack extends UIElementBase {
 	@Override
 	public void drawTooltip(int mouseX, int mouseY) {
 		if (tooltip && UIHelper.isWithinBounds(mouseX, mouseY, this)) {
-			UIHelper.drawHoveringText(stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips), mouseX, mouseY);
+			UIHelper.drawHoveringText(stack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL), mouseX, mouseY);
 		}
 	}
 

@@ -31,7 +31,7 @@ public class PacketRequestTEUpdate extends PacketBase<PacketRequestTEUpdate, IMe
 		int dim = msg.dim;
 		BlockPos pos = msg.pos;
 		server.addScheduledTask(() -> {
-			ShadowMC.network.sendToAllAround(new PacketUpdateTE((BaseTileEntity)server.worldServerForDimension(dim).getTileEntity(pos)), new NetworkRegistry.TargetPoint(dim, pos.getX(), pos.getY(), pos.getZ(), 64));
+			ShadowMC.network.sendToAllAround(new PacketUpdateTE((BaseTileEntity)server.getWorld(dim).getTileEntity(pos)), new NetworkRegistry.TargetPoint(dim, pos.getX(), pos.getY(), pos.getZ(), 64));
 		});
 		return null;
 	}

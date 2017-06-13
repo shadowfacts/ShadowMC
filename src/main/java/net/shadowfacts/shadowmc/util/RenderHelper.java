@@ -1,6 +1,6 @@
 package net.shadowfacts.shadowmc.util;
 
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 
@@ -9,7 +9,7 @@ import net.minecraft.util.EnumFacing;
  */
 public class RenderHelper {
 
-	public static void putTexturedQuad(VertexBuffer buffer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face, int color, int brightness) {
+	public static void putTexturedQuad(BufferBuilder buffer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face, int color, int brightness) {
 		int l1 = brightness >> 0x10 & 0xFFFF;
 		int l2 = brightness & 0xFFFF;
 
@@ -21,7 +21,7 @@ public class RenderHelper {
 		putTexturedQuad(buffer, sprite, x, y, z, w, h, d, face, r, g, b, a, l1, l2);
 	}
 
-	public static void putTexturedQuad(VertexBuffer buffer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face, int r, int g, int b, int a, int light1, int light2) {
+	public static void putTexturedQuad(BufferBuilder buffer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face, int r, int g, int b, int a, int light1, int light2) {
 		double minU;
 		double maxU;
 		double minV;
