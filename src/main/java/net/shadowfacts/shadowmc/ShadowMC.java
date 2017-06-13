@@ -24,8 +24,6 @@ import net.shadowfacts.shadowmc.oxygen.impl.OxygenHandlerImpl;
 import net.shadowfacts.shadowmc.oxygen.impl.OxygenProviderImpl;
 import net.shadowfacts.shadowmc.oxygen.impl.OxygenReceiverImpl;
 import net.shadowfacts.shadowmc.proxy.CommonProxy;
-import net.shadowfacts.shadowmc.structure.creator.TESRStructureCreator;
-import net.shadowfacts.shadowmc.structure.creator.TileEntityStructureCreator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,28 +47,17 @@ public class ShadowMC {
 
 	public static SimpleNetworkWrapper network;
 
-//	Content
-	public static ShadowBlocks blocks = new ShadowBlocks();
-
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		ForgeConfigAdapter.init();
 		ShadowMCConfig.init(event.getModConfigurationDirectory());
 		ShadowMCConfig.load();
 
-		blocks.init();
-
-		if (event.getSide() == Side.CLIENT) {
-			preInitClient();
-		}
-
 		proxy.preInit(event);
 
 		registerCapabilities();
 
 		MinecraftForge.EVENT_BUS.register(new ShadowMCEventHandler());
-
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GUIHandler());
 	}
 
 	@Mod.EventHandler
@@ -81,13 +68,6 @@ public class ShadowMC {
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
 		event.registerServerCommand(CommandShadow.INSTANCE);
-	}
-
-	@SideOnly(Side.CLIENT)
-	private void preInitClient() {
-		if (ShadowMCConfig.enableStructureCreator) {
-			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStructureCreator.class, new TESRStructureCreator());
-		}
 	}
 
 	private void registerCapabilities() {

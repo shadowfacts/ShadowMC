@@ -10,12 +10,6 @@ shadowmc.config.gui.title=ShadowMC Configuration
 shadowmc.config.gui.category.dev=Dev
 shadowmc.config.gui.category.general=General
 
-# Blocks
-tile.structure_creator.name=Structure Creator
-
-# Items
-item.nugget_iron.name=Iron Nugget
-
 # Misc
 shadowmc.gui.empty=Empty
 

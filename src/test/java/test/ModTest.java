@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.shadowmc.inventory.ContainerPlayerInv;
-import net.shadowfacts.shadowmc.structure.StructureManager;
 import net.shadowfacts.shadowmc.ui.element.button.*;
 import net.shadowfacts.shadowmc.ui.element.view.UIFixedView;
 import net.shadowfacts.shadowmc.ui.mcwrapper.UIContainerWrapper;
@@ -47,8 +46,6 @@ public class ModTest {
 		GameRegistry.register(new ItemBlock(blockTest).setRegistryName(blockTest.getRegistryName()));
 
 		GameRegistry.registerTileEntity(TileEntityTest.class, "tileEntity");
-
-		StructureManager.INSTANCE.register(new ResourceLocation(modId, "test"));
 	}
 
 	public static class TestGUIHandler implements IGuiHandler {
@@ -86,13 +83,6 @@ public class ModTest {
 				default:
 					return null;
 			}
-		}
-	}
-
-	public static class CowSpawnHandler implements Consumer<EntityCow> {
-		@Override
-		public void accept(EntityCow cow) {
-			System.out.println(String.format("Cow position: (%f, %f, %f)", cow.posX, cow.posY, cow.posZ));
 		}
 	}
 

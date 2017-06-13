@@ -13,8 +13,6 @@ public class CommandShadow extends CommandTreeBase {
 	private CommandShadow() {
 		addSubcommand(CommandHelp.INSTANCE);
 		addSubcommand(CommandKillAll.INSTANCE);
-		addSubcommand(CommandGenStructure.INSTANCE);
-		addSubcommand(CommandReloadStructures.INSTANCE);
 		addSubcommand(CommandCalc.INSTANCE);
 	}
 
