@@ -18,8 +18,8 @@ public class BlockBase extends Block implements ItemModelProvider {
 
 		this.name = name;
 
-		setUnlocalizedName(name);
 		setRegistryName(name);
+		setUnlocalizedName(getRegistryName().toString());
 	}
 
 

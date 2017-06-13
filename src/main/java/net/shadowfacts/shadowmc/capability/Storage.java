@@ -1,7 +1,6 @@
 package net.shadowfacts.shadowmc.capability;
 
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -9,16 +8,16 @@ import net.minecraftforge.common.util.INBTSerializable;
 /**
  * @author shadowfacts
  */
-public class Storage<T extends INBTSerializable<NBTTagCompound>> implements Capability.IStorage<T> {
+public class Storage<CAP extends INBTSerializable<NBT>, NBT extends NBTBase> implements Capability.IStorage<CAP> {
 
 	@Override
-	public NBTBase writeNBT(Capability<T> capability, T instance, EnumFacing side) {
+	public NBT writeNBT(Capability<CAP> capability, CAP instance, EnumFacing side) {
 		return instance.serializeNBT();
 	}
 
 	@Override
-	public void readNBT(Capability<T> capability, T instance, EnumFacing side, NBTBase tag) {
-		instance.deserializeNBT((NBTTagCompound)tag);
+	public void readNBT(Capability<CAP> capability, CAP instance, EnumFacing side, NBTBase tag) {
+		instance.deserializeNBT((NBT)tag);
 	}
 
 }

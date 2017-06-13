@@ -1,6 +1,5 @@
 package net.shadowfacts.shadowmc.flair;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;

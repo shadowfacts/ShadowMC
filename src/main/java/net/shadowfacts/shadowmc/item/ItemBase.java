@@ -13,8 +13,8 @@ public class ItemBase extends Item implements ItemModelProvider {
 	public ItemBase(String name) {
 		this.name = name;
 
-		setUnlocalizedName(name);
 		setRegistryName(name);
+		setUnlocalizedName(getRegistryName().toString());
 	}
 
 

@@ -33,7 +33,6 @@ public class CommonProxy {
 	private void registerPackets() {
 		ShadowMC.network.registerMessage(PacketRequestTEUpdate.class, PacketRequestTEUpdate.class, 0, Side.SERVER);
 		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 1, Side.CLIENT);
-		ShadowMC.network.registerMessage(PacketUpdateTE.class, PacketUpdateTE.class, 1, Side.SERVER);
 		ShadowMC.network.registerMessage(PacketSpamlessMessage.class, PacketSpamlessMessage.class, 2, Side.CLIENT);
 	}
 

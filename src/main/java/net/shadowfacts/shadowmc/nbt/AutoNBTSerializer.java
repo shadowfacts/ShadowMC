@@ -146,8 +146,7 @@ public class AutoNBTSerializer {
 		ItemStack[] stacks = new ItemStack[tagList.tagCount()];
 
 		for (int i = 0; i < tagList.tagCount(); i++) {
-//			TODO: fixme
-//			stacks[i] = ItemStack.loadItemStackFromNBT(tagList.getCompoundTagAt(i));
+			stacks[i] = new ItemStack(tagList.getCompoundTagAt(i));
 		}
 
 		return stacks;
