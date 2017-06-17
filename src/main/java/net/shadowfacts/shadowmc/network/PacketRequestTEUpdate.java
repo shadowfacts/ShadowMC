@@ -3,6 +3,7 @@ package net.shadowfacts.shadowmc.network;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -31,7 +32,10 @@ public class PacketRequestTEUpdate extends PacketBase<PacketRequestTEUpdate, IMe
 		int dim = msg.dim;
 		BlockPos pos = msg.pos;
 		server.addScheduledTask(() -> {
-			ShadowMC.network.sendToAllAround(new PacketUpdateTE((BaseTileEntity)server.getWorld(dim).getTileEntity(pos)), new NetworkRegistry.TargetPoint(dim, pos.getX(), pos.getY(), pos.getZ(), 64));
+			TileEntity te = server.getWorld(dim).getTileEntity(pos);
+			if (te instanceof BaseTileEntity) {
+				ShadowMC.network.sendToAllAround(new PacketUpdateTE((BaseTileEntity)te), new NetworkRegistry.TargetPoint(dim, pos.getX(), pos.getY(), pos.getZ(), 64));
+			}
 		});
 		return null;
 	}
