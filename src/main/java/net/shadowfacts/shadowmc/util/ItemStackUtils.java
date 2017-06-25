@@ -4,8 +4,7 @@ import com.google.gson.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.lang.reflect.Type;
 
@@ -52,7 +51,7 @@ public class ItemStackUtils implements JsonSerializer<ItemStack>, JsonDeserializ
 		int metadata = obj.get("metadata") != null ? obj.get("metadata").getAsInt() : 0;
 		int stackSize = obj.get("stackSize") != null ? obj.get("stackSize").getAsInt() : 0;
 
-		return new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(modId, name)), stackSize, metadata);
+		return new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(modId, name)), stackSize, metadata);
 	}
 
 	@Override

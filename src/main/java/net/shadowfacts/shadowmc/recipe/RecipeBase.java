@@ -1,7 +1,7 @@
 package net.shadowfacts.shadowmc.recipe;
 
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**
  * @author shadowfacts

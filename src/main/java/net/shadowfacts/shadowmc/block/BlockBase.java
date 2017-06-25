@@ -3,13 +3,14 @@ package net.shadowfacts.shadowmc.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.shadowfacts.shadowmc.ShadowMC;
 import net.shadowfacts.shadowmc.item.ItemModelProvider;
 
 /**
  * @author shadowfacts
  */
-public class BlockBase extends Block implements ItemModelProvider {
+public class BlockBase extends Block implements ItemModelProvider, ItemBlockProvider {
 
 	public final String name;
 
@@ -29,6 +30,11 @@ public class BlockBase extends Block implements ItemModelProvider {
 		if (item != null) {
 			ShadowMC.proxy.registerItemModel(item, 0, getRegistryName());
 		}
+	}
+
+	@Override
+	public Item createItemBlock() {
+		return new ItemBlock(this).setRegistryName(getRegistryName());
 	}
 
 }

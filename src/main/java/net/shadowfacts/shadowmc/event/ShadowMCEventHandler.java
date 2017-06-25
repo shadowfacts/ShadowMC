@@ -41,30 +41,4 @@ public class ShadowMCEventHandler {
 		}
 	}
 
-	@SubscribeEvent
-	public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
-		ItemStack result = event.crafting;
-		if (result.getItem() instanceof AchievementProvider) {
-			((AchievementProvider)result.getItem()).grantAchievement(event.player, result);
-		} else if (result.getItem() instanceof ItemBlock) {
-			ItemBlock itemBlock = (ItemBlock)result.getItem();
-			if (itemBlock.block instanceof AchievementProvider) {
-				((AchievementProvider)itemBlock.block).grantAchievement(event.player, result);
-			}
-		}
-	}
-
-	@SubscribeEvent
-	public void onItemSmelted(PlayerEvent.ItemSmeltedEvent event) {
-		ItemStack result = event.smelting;
-		if (result.getItem() instanceof AchievementProvider) {
-			((AchievementProvider)result.getItem()).grantAchievement(event.player, result);
-		} else if (result.getItem() instanceof ItemBlock) {
-			ItemBlock itemBlock = (ItemBlock)result.getItem();
-			if (itemBlock.block instanceof AchievementProvider) {
-				((AchievementProvider)itemBlock.block).grantAchievement(event.player, result);
-			}
-		}
-	}
-
 }

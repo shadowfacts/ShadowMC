@@ -27,6 +27,7 @@ public class GUIFactory implements IModGuiFactory {
 	}
 
 	@Override
+	@Deprecated
 	public Class<? extends GuiScreen> mainConfigGuiClass() {
 		return ShadowMCConfigGUI.class;
 	}
@@ -37,6 +38,7 @@ public class GUIFactory implements IModGuiFactory {
 	}
 
 	@Override
+	@Deprecated
 	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) {
 		return null;
 	}

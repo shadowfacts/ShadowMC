@@ -1,14 +1,18 @@
 package test;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -34,18 +38,27 @@ public class ModTest {
 	@Mod.Instance("modtest")
 	public static ModTest instance;
 
-	private BlockTest blockTest;
+	private BlockTest blockTest = new BlockTest();
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new TestGUIHandler());
+	}
 
-		blockTest = new BlockTest();
-		GameRegistry.register(blockTest);
-		GameRegistry.register(new ItemBlock(blockTest).setRegistryName(blockTest.getRegistryName()));
+	@Mod.EventBusSubscriber
+	public static class EventHandler {
 
-		GameRegistry.registerTileEntity(TileEntityTest.class, "tileEntity");
+		@SubscribeEvent
+		public void registerBlocks(RegistryEvent.Register<Block> event) {
+			event.getRegistry().register(instance.blockTest);
+			GameRegistry.registerTileEntity(TileEntityTest.class, "tileEntity");
+		}
+
+		@SubscribeEvent
+		public void registerItems(RegistryEvent.Register<Item> event) {
+			event.getRegistry().register(new ItemBlock(instance.blockTest).setRegistryName(instance.blockTest.getRegistryName()));
+		}
+
 	}
 
 	public static class TestGUIHandler implements IGuiHandler {
