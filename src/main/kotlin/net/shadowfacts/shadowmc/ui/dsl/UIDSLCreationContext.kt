@@ -38,7 +38,7 @@ abstract class CreationContext<out T> {
 		classes.add(clazz)
 	}
 
-	abstract internal fun create(): T
+	abstract fun create(): T
 }
 
 class BtnTextContext : CreationContext<UIButtonText>() {
@@ -226,7 +226,7 @@ abstract class ViewCreationContext<out T : UIView> : CreationContext<T>(), UIChi
 		return view
 	}
 
-	protected abstract fun createView(): T
+	abstract fun createView(): T
 }
 
 class FixedViewContext : ViewCreationContext<UIFixedView>() {
