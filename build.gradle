@@ -53,7 +53,7 @@ repositories {
 	jcenter()
 	maven {
 		name "shadowfacts"
-		url "http://mvn.rx14.co.uk/shadowfacts/"
+		url "http://maven.shadowfacts.net/"
 	}
 }
 
@@ -103,4 +103,12 @@ reobf { shadowJar { mappingType = 'SEARGE' } }
 tasks.reobfShadowJar.mustRunAfter shadowJar
 afterEvaluate {
 	tasks.curseforge226780.dependsOn reobfShadowJar
+}
+
+uploadArchives {
+	repositories.mavenDeployer {
+		repository(url: "http://archiva.shadowfacts.net/repository/local/") {
+			authentication(userName: project.hasProperty("mavenUser") ? project.mavenUser : System.getenv("mavenUser"), password: project.hasProperty("mavenPassword") ? project.mavenPassword : System.getenv("mavenPassword"))
+		}
+	}
 }
