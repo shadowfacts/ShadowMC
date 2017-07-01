@@ -79,7 +79,7 @@ public class UIScreenWrapper extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		drawWorldBackground(0);
+		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 
 		children.forEach(e -> e.draw(mouseX, mouseY));
