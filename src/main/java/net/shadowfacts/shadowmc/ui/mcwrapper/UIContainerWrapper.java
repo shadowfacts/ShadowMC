@@ -75,6 +75,13 @@ public class UIContainerWrapper extends GuiContainer {
 	}
 
 	@Override
+	public void onResize(Minecraft mc, int w, int h) {
+		super.onResize(mc, w, h);
+
+		layout();
+	}
+
+	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
