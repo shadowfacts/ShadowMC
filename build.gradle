@@ -20,6 +20,7 @@ plugins {
 
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "kotlin"
+apply from: "https://github.com/shadowfacts/maven/raw/master/maven.gradle"
 
 version = minecraft_version + "-" + mod_version
 
@@ -103,12 +104,4 @@ reobf { shadowJar { mappingType = 'SEARGE' } }
 tasks.reobfShadowJar.mustRunAfter shadowJar
 afterEvaluate {
 	tasks.curseforge226780.dependsOn reobfShadowJar
-}
-
-uploadArchives {
-	repositories.mavenDeployer {
-		repository(url: "http://archiva.shadowfacts.net/repository/local/") {
-			authentication(userName: project.hasProperty("mavenUser") ? project.mavenUser : System.getenv("mavenUser"), password: project.hasProperty("mavenPassword") ? project.mavenPassword : System.getenv("mavenPassword"))
-		}
-	}
 }
