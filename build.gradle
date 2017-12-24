@@ -79,6 +79,7 @@ shadowJar {
 }
 
 tasks.build.dependsOn sourceJar, shadowJar
+tasks.publish.dependsOn shadowJar
 
 artifacts {
 	archives shadowJar
